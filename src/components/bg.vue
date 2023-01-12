@@ -77,7 +77,7 @@ export default defineComponent({
 
 
 .bg-version1 {
-    background-image: linear-gradient( #ddd, #ddd calc(100% - 128px), #fff calc(100%));
+    background-image: linear-gradient( #ddd, #ddd calc(100% - 180px), #fff calc(100% - 64px), #fff calc(100%));
 }
 
 .spotlight {
