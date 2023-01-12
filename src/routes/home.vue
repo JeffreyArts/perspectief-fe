@@ -1,39 +1,6 @@
 <template>
     <div class="home">
-        <div class="container">
-            
-            <h1 class="home-title">
-                <span class="left">
-                    Jeff-frontend boilerplate
-                </span>
-                <span class="right">
-                    <Icon type="calendar" />{{ currentDate }}
-                </span>
-            </h1>
-
-            <ascii-line character="-"/>
-
-            <div class="home-description">
-                <p>
-                    This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass, normalize.css & SocketIO.
-                </p>
-                <p>
-                    It can best be used with its backend counterpart <a href="https://github.com/JeffreyArts/create-jeff-backend">Jeff-backend</a>, with you can create with <pre @click="copyToClipboard" title="Click to copy">yarn create jeff-backend</pre>.
-                </p>
-            </div>
-
-                
-            <ascii-line character="="/>
-            <br>
-            <ascii-button @click="emitEvent('test')">Emit event</ascii-button>
-            &nbsp;
-            <ascii-button class="home-button-right" @click="postRequest('test')">Post request</ascii-button>
-            <br>
-            <strong>Console output</strong>
-            <ascii-box class="home-console">
-                <span class="home-console-entry" v-for="event in consoleEvents" :key="event">{{ event }}</span>
-            </ascii-box>
-        </div>
+       <big-quote />
     </div>
 </template>
 
@@ -43,7 +10,7 @@ import {defineComponent} from "vue"
 import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
 import Icon from "./../components/icon.vue"
-import asciiLine from "./../components/ascii-line.vue"
+import bigQuote from "./../components/big-quote.vue"
 import asciiButton from "./../components/ascii-button.vue"
 import asciiBox from "./../components/ascii-box.vue"
 import dayjs from "dayjs"
@@ -51,7 +18,7 @@ import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon, asciiLine, asciiButton, asciiBox},
+    components: {Icon, bigQuote, asciiButton, asciiBox},
     props: [],
     setup() {
         const localDB = LocalDB()

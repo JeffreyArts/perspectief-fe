@@ -2,3 +2,14 @@ body {
     font-family: $defaultFont, sans-serif;
     font-size: 16px;
 }
+
+
+
+@font-face {
+    font-family: 'Questa';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Questa'),
+         url('2-Questa_Regular.otf') format('otf'),
+         url('2-Questa_Regular.woff') format('woff');
+}
