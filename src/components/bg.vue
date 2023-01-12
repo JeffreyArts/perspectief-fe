@@ -82,14 +82,16 @@ export default defineComponent({
 
 .spotlight {
     --size: 0;
+    --x: 0px;
+    --y: 0px;
   content: '';
   position: absolute;
   left: var(--x);
   top: var(--y);
   width: var(--size);
   height: var(--size);
-  background: radial-gradient(circle closest-side, $red, transparent);
-//   background: radial-gradient(circle closest-side, #eee, transparent);
+//   background: radial-gradient(circle closest-side, $red, transparent);
+  background: radial-gradient(circle closest-side, #eee, transparent);
   transform: translate(-50%, -50%);
   z-index: 1990;
 //   transition: width 0.2s ease, height 0.2s ease;
