@@ -1,6 +1,7 @@
 <template>
     <div class="home">
-       <big-quote />
+        <bg />
+        <big-quote />
     </div>
 </template>
 
@@ -11,13 +12,13 @@ import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
 import Icon from "./../components/icon.vue"
 import bigQuote from "./../components/big-quote.vue"
-import asciiBox from "./../components/ascii-box.vue"
+import bg from "./../components/bg.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon, bigQuote, asciiBox},
+    components: {Icon, bigQuote, bg},
     props: [],
     setup() {
         const localDB = LocalDB()

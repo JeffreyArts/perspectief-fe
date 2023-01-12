@@ -2,8 +2,16 @@
     <div class="big-quote-container" ref="container">
         <div class="big-quote" v-if="quote"
             :class="[quote.content.length > 180 ? '__isLong' : '']">
-            <div class="big-quote-content">{{ quote.content }}</div>
-            <div class="big-quote-author" v-if="quote.author">{{ quote.author }}</div>
+            <div class="big-quote-content" ref="content">
+                <span class="word" v-for="word, i in content" :key="i">{{ word }}&nbsp;</span>    
+            </div>
+            <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
+
+            <div class="big-quote-next" :class="[showCloseButton ? '__isVisible' : '']">
+                <button @click="closeComponent">
+                    Dive in
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -11,14 +19,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import perspectiveButton from "./perspective-button.vue"
 import { Quote } from "./../../types"
 import _ from "lodash"
 
 
 export default defineComponent({
     name: "big-quote",
+    components: {
+        perspectiveButton
+    },
     data: () => {
         return {
+            showCloseButton: false,
+            state: 0,
             quotes: [
                 {
                     content: "There are many realities. There are many versions of what may appear obvious. Whatever appears as the unshakable truth, its exact opposite may also be true in another context. After all, one's reality is but perception, viewed through various prisms of context",
@@ -120,9 +134,47 @@ export default defineComponent({
             quote: null as Quote | null,
         }
     },
+    computed: {
+        content() {
+            return this.quote?.content.split(" ")
+        }
+    },
     mounted() {
         this.quote = _.sample(this.quotes)
+        setTimeout(() => {
+            const author = this.$refs.author
+            if (author) {
+                author.classList.add("__fadeIn")
+            }
+            setTimeout(() => {
+                this.showCloseButton = true
+            }, 1024)
+        }, this.content.length * 32 + this.content.length * 96)
     },
+    methods: {
+        // fadeOutComponent() {
+        //     const content = this.$refs.content as HTMLElement
+        //     content.style.opacity = "0"
+        //     setTimeout(() => {
+        //         this.$emit("close")
+        //     }, 500)
+        // },
+        closeComponent() {
+            this.$refs.author.classList.add("__fadeOut")
+            let index = 0
+            _.each(this.$refs.content.querySelectorAll(".word"), (word: HTMLElement) => {
+                setTimeout(() => {
+                    word.classList.add("__fadeOut")
+                }, index * 24)
+                index++
+            })
+            setTimeout(() => {
+                this.quote = null
+                this.showCloseButton = false
+                this.$emit("close")
+            }, index * 24)
+        }
+    }
 
 })
 </script>
@@ -180,12 +232,84 @@ export default defineComponent({
     margin-top: 24px;
     text-transform: uppercase;
     font-size: 16px;
+    opacity: 0;
+
+    &.__fadeIn {
+        animation: authorFadeIn .72s ease forwards;
+    }
+    &.__fadeOut {
+        animation: authorFadeOut .72s ease forwards;
+    }
+    
     @media (min-width: 768px) {
         font-size: 32px;
     }
     &:before {
         content: "—";
         margin-right: 16px;
+    }
+}
+
+.big-quote-content .word {
+    display: inline-block;
+    animation: wordFadeIn .72s ease forwards;
+    opacity: 0;
+    transition: $transitionDefault;
+    // for loop to add animation-delay
+    @for $i from 1 through 200 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i*.032}s;
+        }
+    }
+    
+    &.__fadeOut {
+        animation: wordFadeOut .72s ease forwards;
+    }
+}
+.big-quote-next {
+    opacity: 0;
+    width: 100%;
+    text-align: center;
+
+    &.__isVisible {
+        opacity: 1;
+    }
+}
+
+@keyframes wordFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes wordFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+@keyframes authorFadeIn {
+    0% {
+        opacity: 0;
+        translate: 16px 0;
+    }
+    100% {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+@keyframes authorFadeOut {
+    0% {
+        opacity: 1;
+        translate: 0 0;
+    }
+    100% {
+        opacity: 0;
+        translate: 16px 0;
     }
 }
 

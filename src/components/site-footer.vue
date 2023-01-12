@@ -56,7 +56,7 @@ export default defineComponent({
     transition: $transitionDefault;
     
     &.__isMounted {
-        translate: 0 calc(100% - 8px);
+        translate: 0 calc(100% - 12px);
     }
     
     
@@ -72,7 +72,7 @@ export default defineComponent({
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 8px 48px;
+    padding: 12px 48px;
     font-size: 14px;
 
     svg {

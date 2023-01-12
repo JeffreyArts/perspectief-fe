@@ -1,6 +1,7 @@
 <template >
   <router-view />
   <site-footer />
+
 </template>
 
 
