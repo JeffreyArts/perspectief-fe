@@ -1,7 +1,8 @@
 <template>
     <div class="home">
         <bg />
-        <big-quote />
+        <stripes @next="nextStep" v-if="step == 1"/>
+        <big-quote @next="nextStep" v-if="step == 2"/>
     </div>
 </template>
 
@@ -12,13 +13,14 @@ import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
 import Icon from "./../components/icon.vue"
 import bigQuote from "./../components/big-quote.vue"
+import stripes from "./../components/stripes.vue"
 import bg from "./../components/bg.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon, bigQuote, bg},
+    components: {stripes, bigQuote, bg},
     props: [],
     setup() {
         const localDB = LocalDB()
@@ -28,7 +30,8 @@ export default defineComponent ({
     },
     data() {
         return {
-            consoleEvents: [] as Array<string>
+            consoleEvents: [] as Array<string>,
+            step: 1
         }
     },
     computed: {
@@ -36,54 +39,19 @@ export default defineComponent ({
             return dayjs().format("DD-MM-YYYY")
         }
     },
-    mounted() {
-        if (this.socketIO.socket) { 
-
-            this.socketIO.socket.on("connect", () => {
-                this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Socket connected`)
-            })
-
-            this.socketIO.socket.on("connect_error", () => {
-                this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Can not establish socket connection @ ${this.socketIO.URL}`) 
-            })
-
-            this.socketIO.socket.on("test", (data) => {
-                this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | ${data}`)
-            })
-        } 
+    created() {
+        // this.$on("next", (data) => {
+        //     // handle the event here
+        // })
     },
     methods: {
-        emitEvent(event: string) {
-            this.socketIO.emit(event, "test")
-            this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Test event emitted`)
+        nextStep(msg: string) {
+            console.log("Next step:", msg)
+            this.step++
+            // this.$router.push("/about")
         },
-        postRequest(data: any) {
-            this.consoleEvents.push(`${dayjs().format("HH:mm:ss")} | Post request send`)
-            fetch(`${import.meta.env.VITE_REST_API}/test`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-        },
-        copyToClipboard(mouseEvent: MouseEvent) {
-            const element = mouseEvent.target as HTMLElement
-            const textarea = document.createElement("textarea")
-            textarea.textContent = element.innerText
-            document.body.appendChild(textarea)
-            textarea.select()
-
-            try {
-                document.execCommand("copy")
-                console.log("Copied to clipboard")
-            } catch (err) {
-                console.error("Failed to copy to clipboard: ", err)
-            } finally {
-                document.body.removeChild(textarea)
-            }
-        }
     }
+    
 })
 
 </script>
@@ -97,16 +65,6 @@ export default defineComponent ({
     justify-content: center;
     align-items: center;
     width: 100%;
-
-    pre {
-        display: inline-block;
-        background-color: $textColor;
-        color: $white;
-        padding: 8px;
-        border-radius: 4px;
-        margin: 0;
-        cursor: pointer;
-    }
 }
 
 .home-title {
@@ -133,19 +91,6 @@ export default defineComponent ({
     padding: 32px 0;
 }
 
-.home-console {
-    width: 100%;
-    display: block;
-}
-
-.home-console-entry {
-    display: inline-block;
-    width: 100%;
-    &:before {
-        content: "> ";
-        font-weight: bold;
-    }
-}
 
 
 </style>

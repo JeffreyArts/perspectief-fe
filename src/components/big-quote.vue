@@ -57,7 +57,7 @@ export default defineComponent({
                     author: "Martha Graham"
                 },
                 {
-                    content: "No man has the right to dictate what other men should percieve, create of produce. But all should be encouraged to reveal themselves, their perceptions and emotions, and to build confidence in the creative spirit",
+                    content: "No man has the right to dictate what other men should perceive, create of produce. But all should be encouraged to reveal themselves, their perceptions and emotions, and to build confidence in the creative spirit",
                     author: "Ansel Adams"
                 },
                 {
@@ -164,6 +164,10 @@ export default defineComponent({
                     x: 0,
                     ease: "power2.inOut",
                 })
+            setTimeout(() => {
+                this.state = 1
+                this.moveState()
+            }, this.content.length * 256)
         })
     },
     methods: {
@@ -173,26 +177,26 @@ export default defineComponent({
                 this.gTimeline.pause()
                 this.gTimeline.progress(1)
                 this.state = 1
-            } else if (this.gTimeline && this.state === 1) {
+            } else if (this.state === 1) {
                 this.gTimeline = gsap.timeline({
                     onComplete: () => {
                         this.state = 2
-                        this.$emit("next")
+                        this.$emit("next", "big-quote")
                     }
+                }).add(gsap.to(".word", {
+                    duration: .4,
+                    opacity: 0,
+                    y: -16,
+                    stagger: 0.024,
+                    ease: "power2.out",
+                }))
+                
+                gsap.to(this.$refs.author, {
+                    duration: 1.28,
+                    opacity: -1,
+                    x: 144,
+                    ease: "power3.inOut",
                 })
-                    .add(gsap.to(".word", {
-                        duration: .4,
-                        opacity: 0,
-                        y: -16,
-                        stagger: 0.024,
-                        ease: "power2.out",
-                    }))
-                    .add(gsap.to(this.$refs.author, {
-                        duration: 1.28,
-                        opacity: -1,
-                        x: 144,
-                        ease: "power3.inOut",
-                    }))
             }
         }
     }
