@@ -11,14 +11,13 @@ import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
 import Icon from "./../components/icon.vue"
 import bigQuote from "./../components/big-quote.vue"
-import asciiButton from "./../components/ascii-button.vue"
 import asciiBox from "./../components/ascii-box.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {Icon, bigQuote, asciiButton, asciiBox},
+    components: {Icon, bigQuote, asciiBox},
     props: [],
     setup() {
         const localDB = LocalDB()
