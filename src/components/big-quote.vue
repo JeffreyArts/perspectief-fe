@@ -7,11 +7,6 @@
             </div>
             <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
 
-            <div class="big-quote-next" :class="[showCloseButton ? '__isVisible' : '']">
-                <button @click="closeComponent">
-                    Dive in
-                </button>
-            </div>
         </div>
     </div>
 </template>
@@ -20,19 +15,14 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import perspectiveButton from "./perspective-button.vue"
 import { Quote } from "./../../types"
 import _ from "lodash"
 
 
 export default defineComponent({
     name: "big-quote",
-    components: {
-        perspectiveButton
-    },
     data: () => {
         return {
-            showCloseButton: false,
             state: 0,
             gTimeline: null as null | gsap.core.Timeline,
             quotes: [

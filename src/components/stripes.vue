@@ -181,7 +181,6 @@ export default defineComponent({
             y2: this.stripes[0].start.y2,
             y1: this.stripes[0].start.y1,
             delay: .64,
-
         }).to(this.stripes[1].v, {
             x1: this.stripes[1].start.x1,
             x2: this.stripes[1].start.x2,
