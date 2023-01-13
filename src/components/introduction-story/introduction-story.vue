@@ -18,8 +18,6 @@ import navKeys from "./navigation-keys.vue"
 export default defineComponent({
     name: "introduction-story",
     components: { navKeys },
-    props: {
-    },
     data() {
         return {
             transitionDuration: 1600,
