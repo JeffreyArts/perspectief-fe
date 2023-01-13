@@ -2,7 +2,7 @@
     <footer class="site-footer-container" :class="[isMounted ? '__isMounted' : '']" ref="button">
         <div class="site-footer">
             <div class="site-footer-left">
-                <a href="https://www.jeffreyarts.nl/" target="_blank" v-html="svgJeffrey"></a>
+                <a class="logo-jao" href="https://www.jeffreyarts.nl/" target="_blank" v-html="svgJeffrey"></a>
             </div>    
 
             <div class="site-footer-right">
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import svgJeffrey from "./../assets/svg/ja-curvy.svg?raw"
+import svgJeffrey from "./../assets/svg/ja-sharp.svg?raw"
 import svgZOZ from "./../assets/svg/ZOZ_logo.svg?raw"
 
 
@@ -51,12 +51,12 @@ export default defineComponent({
     left: 0;
     right: 0;
     z-index: 2023;
-    background-color: $black;
     color: $white;
     transition: $transitionDefault;
+    padding-top: 16px;
     
     &.__isMounted {
-        translate: 0 calc(100% - 12px);
+        translate: 0 calc(100% - 12px - 16px);
     }
     
     
@@ -69,6 +69,7 @@ export default defineComponent({
 }
 
 .site-footer {
+    background-color: $black;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -78,7 +79,20 @@ export default defineComponent({
     svg {
         display: inline-block;
         fill: currentColor;
-        height: 100%;
+    }
+}
+
+.site-footer-left {
+    display: flex;
+    align-items: center;
+    
+    .logo-jao {
+        display: block;
+        line-height:0;
+    }
+
+    svg {
+        height: 48px;
     }
 }
 

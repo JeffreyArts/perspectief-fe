@@ -132,9 +132,14 @@ export default defineComponent({
         }
     },
     mounted() {
-        this.quote = _.sample(this.quotes)
+        this.quote = _.sample(this.quotes) as Quote
         
         setTimeout(() => {
+            if (!this.$refs.author) {
+                return
+            }
+            const authorElement = this.$refs.author as HTMLElement
+
             this.gTimeline = gsap.timeline({
                 onComplete: () => {
                     this.state = 1
@@ -147,17 +152,13 @@ export default defineComponent({
                     stagger: 0.04,
                     ease: "power2.out",
                 })
-                .to(this.$refs.author, {
+                .to(authorElement, {
                     duration: 1.28,
                     opacity: 1,
                     delay: .48,
                     x: 0,
                     ease: "power2.inOut",
                 })
-            setTimeout(() => {
-                this.state = 1
-                this.moveState()
-            }, this.content.length * 256)
         })
     },
     methods: {
@@ -181,12 +182,14 @@ export default defineComponent({
                     ease: "power2.out",
                 }))
                 
-                gsap.to(this.$refs.author, {
-                    duration: 1.28,
-                    opacity: -1,
-                    x: 144,
-                    ease: "power3.inOut",
-                })
+                if (this.$refs.author instanceof HTMLElement) {
+                    gsap.to(this.$refs.author, {
+                        duration: 1.28,
+                        opacity: -1,
+                        x: 144,
+                        ease: "power3.inOut",
+                    })
+                }
             }
         }
     }
@@ -199,8 +202,8 @@ export default defineComponent({
 .big-quote-container {
     font-family: $accentFont;
     position: absolute;
-    left: 64px;
-    right: 64px;
+    left: 48px;
+    right: 48px;
     top: 0;
     bottom: 0;
     display: flex;

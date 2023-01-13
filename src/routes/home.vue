@@ -47,8 +47,10 @@ export default defineComponent ({
     methods: {
         nextStep(msg: string) {
             console.log("Next step:", msg)
-            this.step++
-            // this.$router.push("/about")
+            
+            setTimeout(()=> {
+                this.step++
+            }, 960)
         },
     }
     

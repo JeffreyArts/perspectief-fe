@@ -43,15 +43,15 @@ export default defineComponent({
             let topDegrees = 90
             let bottomDegrees = 90
             
-            if (this.$refs?.top) {
+            if (this.$refs?.top && this.$refs.top instanceof HTMLElement && this.$refs.bottom instanceof HTMLElement && this.$refs.button instanceof HTMLElement ) {
                 const breakpoint = this.$refs.button.offsetTop + this.$refs.button.offsetHeight/2
                 if (y <= breakpoint) {
                     topDegrees = y/breakpoint
-                    this.$refs.top.style.opacity = 1
-                    this.$refs.bottom.style.opacity = 0
+                    this.$refs.top.style.opacity = "1"
+                    this.$refs.bottom.style.opacity = "0"
                 } else {
-                    this.$refs.top.style.opacity = 0
-                    this.$refs.bottom.style.opacity = 1
+                    this.$refs.top.style.opacity = "0"
+                    this.$refs.bottom.style.opacity = "1"
                     bottomDegrees = 1-(y-breakpoint) / (window.innerHeight-breakpoint)
                 }
 

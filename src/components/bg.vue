@@ -47,7 +47,7 @@ export default defineComponent({
             let x = e.clientX 
             let y = e.clientY
             
-            if (this.$refs?.spotlight) {
+            if (this.$refs?.spotlight && this.$refs.spotlight instanceof HTMLElement) {
                 this.$refs.spotlight.style.setProperty("--size", "200vh")
                 this.$refs.spotlight.style.setProperty("--x", x + "px")
             }
