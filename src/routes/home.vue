@@ -32,7 +32,7 @@ export default defineComponent ({
     data() {
         return {
             consoleEvents: [] as Array<string>,
-            step: 3
+            step: 1
         }
     },
     computed: {
