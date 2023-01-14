@@ -13,3 +13,13 @@ body {
          url('/fonts/2-Questa_Regular.otf') format('otf'),
          url('/fonts/2-Questa_Regular.woff') format('woff');
 }
+
+@font-face {
+    font-family: 'Sinkin Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: // local('Sinkin Sans'),
+        url('/fonts/sinkinsans-400regular-webfont.woff2') format('woff2'),
+        url('/fonts/sinkinsans-400regular-webfont.woff') format('woff'),
+        url('/fonts/SinkinSans-400Regular.otf') format('otf');
+}
