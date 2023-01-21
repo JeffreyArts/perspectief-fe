@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <bg />
-        <stripes @next="nextStep" v-if="step == 1"/>
+        <stripes @next="nextStep" v-if="step <= 2 "/>
         <big-quote @next="nextStep" v-if="step == 2"/>
         <introduction-story @next="nextStep" v-if="step == 3"/>
     </div>
@@ -63,11 +63,13 @@ export default defineComponent ({
 @import "./../assets/scss/variables.scss";
 
 .home {
-    min-height:100%;
+    height:100%;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    overflow: hidden;
+    position: absolute;
 }
 
 .home-title {

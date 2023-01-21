@@ -1,15 +1,5 @@
 <template>
     <div class="stripes-container" ref="container" @click="moveState">
-        <!-- <div class="stripes">
-            <div class="stripe" ref="stripe1"></div>
-            <div class="stripe" ref="stripe2"></div>
-            <div class="stripe" ref="stripe3">
-                <span>
-                    De waarde van perceptie
-                </span>
-            </div>
-        </div> -->
-
         <svg version="1.0" 
             xmlns="http://www.w3.org/2000/svg" 
             xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -19,6 +9,7 @@
             <g>
                 <polyline 
                     class="stripe" 
+                    :class="[stripe.visible ? '' : '__isHidden']"
                     :refs="stripe.id" 
                     :id="stripe.id" 
                     :points="`${stripe.v.x1} ${stripe.v.y1}, ${stripe.v.x2} ${stripe.v.y2}`" 
@@ -29,19 +20,6 @@
                 </text>
             </g>
         </svg>
-
-    <!-- SVG: 
-        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1671 561" xml:space="preserve" >
-            <g >
-                <polyline class="stripe" id="stripe1" points="0 280.5, 1671 280.5" ></polyline>
-                <text >
-                    <textPath href="#stripe1" xlink:href="#stripe1" text-anchor="middle" dominant-baseline="middle" startOffset="50%"  style="fill: #f09;">
-                        De waarde van perceptie
-                    </textPath>
-                </text>
-            </g>
-        </svg> -->
-
     </div>
 </template>
 
@@ -61,9 +39,11 @@ export default defineComponent({
             gTimeline: null as null | gsap.core.Timeline,
             vpWidth: 0,
             vpHeight: 0,
+            done: false,
             stripes: [
                 {
                     id: "stripe1",
+                    visible: true,
                     v: {
                         x1: 0,
                         x2: 0,
@@ -85,6 +65,7 @@ export default defineComponent({
                 },
                 {
                     id: "stripe2",
+                    visible: true,
                     v: {
                         x1: 0,
                         x2: 0,
@@ -106,6 +87,7 @@ export default defineComponent({
                 },
                 {
                     id: "stripe3",
+                    visible: true,
                     v: {
                         x1: 0,
                         x2: 0,
@@ -128,6 +110,19 @@ export default defineComponent({
             ] as Array<StripeObject>
         }
     },
+    watch: {
+        done: {
+            handler: function (val) {
+                console.log(val)
+                if (val) {
+                    this.stripes[0].visible = false
+                    this.stripes[1].visible = false
+                    // this.stripes[2].visible = false
+                }
+            },
+            immediate: true
+        }
+    },
     unMounted() {
         window.removeEventListener("resize", this.resize)
     },
@@ -142,6 +137,7 @@ export default defineComponent({
         // this.stripes[1].end = this.getStripeDefinition(1)
         _.each(this.stripes, (stripe, index) => {
             const tmp = this.getStripeDefinition(index)
+            
             stripe.start = {
                 x1: tmp.x2,
                 y1: tmp.y2,
@@ -213,14 +209,26 @@ export default defineComponent({
         resize() {
             this.vpWidth = window.innerWidth
             this.vpHeight = window.innerHeight
+            
+            if (this.done) {
+                return false
+            }
+            console.log(this.state)
 
-            this.stripes[0].end = this.getStripeDefinition(0)
-            this.stripes[1].end = this.getStripeDefinition(1)
-            this.stripes[2].end = this.getStripeDefinition(2)
-
-            this.setStripe(this.stripes[0], "end")
-            this.setStripe(this.stripes[1], "end")
-            this.setStripe(this.stripes[2], "end")
+            if (this.state == 0) {
+                this.stripes[0].end = this.getStripeDefinition(0)
+                this.stripes[1].end = this.getStripeDefinition(1)
+                this.stripes[2].end = this.getStripeDefinition(2)
+                
+                this.setStripe(this.stripes[0], "end")
+                this.setStripe(this.stripes[1], "end")
+                this.setStripe(this.stripes[2], "end")
+            } else if (this.state == 1) {
+                this.stripes[0].visible = false
+                this.stripes[1].visible = false
+                this.stripes[2].end = this.getStripeDefinition(2)
+                this.setStripe(this.stripes[2], "end")
+            }
         },
         getStripeDefinition(stripeIndex: number) : {x1: number, x2: number, y1: number, y2: number}  {
             if (stripeIndex == 0) {
@@ -272,10 +280,12 @@ export default defineComponent({
         
                 this.gTimeline = gsap.timeline({
                     onComplete: () => {
-                        
-                        this.$emit("next", "stripes")
+                        // This is being done manually as well, because the next slide should move in slightly before the animation is done
+                        // this.$emit("next", "stripes")
+                        this.done = true
                     },
-                    onUpdate: () => {
+                    onUpdate: (e) => {
+                    
                         // Safari bugfix for not updating the textPath
                         const tp = this.$el.querySelector("svg").querySelector("textPath")
                         tp.setAttribute("xlink:href", "#stripe3")
@@ -294,6 +304,11 @@ export default defineComponent({
                     delay: .48,
                     ease: "bounce.out"
                 })
+                // Manually trigger the next slide
+                setTimeout(() => {
+                    this.done = true
+                    this.$emit("next", "stripes")
+                }, 1024)
             }
         }
     }
@@ -317,16 +332,24 @@ export default defineComponent({
         font-size: 24px;
         text-transform: uppercase;
         line-height: 1em;
-        font-weight: bold;
+        font-weight: 800;
         transform-origin: center;
+
         @media (min-width: 480px ) {
             font-size: 32px;
+            translate: 0 2px;
         }
         @media (min-width: 768px ) {
             font-size: 48px;
+            translate: 0 4px;
         }
         @media (min-width: 1024px ) {
             font-size: 64px;
+            translate: 0 6px;
+        }
+        @media (min-width: 1200px ) {
+            font-size: 80px;
+            translate: 0 8px;
         }
     }
     
@@ -337,6 +360,10 @@ export default defineComponent({
     stroke-width: 80px;
     stroke-linecap: round;
     transition: $transitionDefault;
+    
+    &.__isHidden {
+        stroke: transparent;
+    }
 
     @media (min-width: 480px ) {
         font-size: 96px;
