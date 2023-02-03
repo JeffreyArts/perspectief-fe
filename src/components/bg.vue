@@ -178,17 +178,12 @@ export default defineComponent({
             const amountOfLines = 6
             for (let i = 0; i < amountOfLines; i++) {
                 var offset = this.floorHeight / amountOfLines
-                // console.log((amountOfLines - i)/amountOfLines, (amountOfLines - i)/amountOfLines - 1)
-                console.log(offset * i + (1 - i/amountOfLines) * (offset * .25))
                 let y = i === 0 ? 0 : offset * i - (1 - i/amountOfLines) * (offset * .25)
-                // console.log((amountOfLines - i)/amountOfLines, Math.abs((amountOfLines - i)/amountOfLines - 1) * (offset * .25))
                 this.horizontalLines.push({
                     x1: 0,
                     x2: this.animationComplete ? this.vpWidth : 0,
                     y1: this.vpHeight - this.floorHeight +  y ,
                     y2: this.vpHeight - this.floorHeight +  y
-                    // y1: this.vpHeight - this.floorHeight + offset * i ,
-                    // y2: this.vpHeight - this.floorHeight + offset * i
                 })
             }
             _.reverse(this.horizontalLines)
@@ -267,16 +262,10 @@ export default defineComponent({
   top: var(--y);
   width: var(--size);
   height: var(--size);
-//   background: radial-gradient(circle closest-side, $red, transparent);
-  background: radial-gradient(circle closest-side, #eee, transparent);
+  background: radial-gradient(circle closest-side, rgba(240,240,240,.64), transparent);
   transform: translate(-50%, -50%);
   z-index: 1990;
-//   transition: width 0.2s ease, height 0.2s ease;
 }
-
-// .vertical-line {
-//     stroke-dasharray: 100;
-// }
 
 .vertical-line,
 .horizontal-line {
