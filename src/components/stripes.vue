@@ -213,7 +213,6 @@ export default defineComponent({
             if (this.done) {
                 return false
             }
-            console.log(this.state)
 
             if (this.state == 0) {
                 this.stripes[0].end = this.getStripeDefinition(0)
