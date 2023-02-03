@@ -32,7 +32,8 @@ export default defineComponent ({
     data() {
         return {
             consoleEvents: [] as Array<string>,
-            step: 1
+            step: 1,
+            bgFadeOut: false,
         }
     },
     computed: {

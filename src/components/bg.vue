@@ -1,10 +1,12 @@
 <template>
     <div class="bg-container">
-        <div class="bg bg-version1" ref="version1" >
-            <!-- <div class="spotlight" ref="spotlight"></div> -->
+        <div class="bg bg-floor" ref="bg" v-if="!fadeOutComplete">
+            <div class="spotlight" ref="spotlight"></div>
         </div>
+        <div class="fade-out-bg" v-if="!fadeOutComplete"></div>
 
         <svg version="1.0" 
+            v-if="!fadeOutComplete"
             class="bg-grid"
             xmlns="http://www.w3.org/2000/svg" 
             xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -22,7 +24,7 @@
                         class="vertical-line" 
                         :points="`${line.x1} ${line.y1}, ${line.x2} ${line.y2}`" 
                         :key="index"
-                        :stroke-dashoffset="animationComplete ? 0 : line.dashOffset"
+                        :stroke-dashoffset="line.dashOffset"
                         :stroke-dasharray="line.dashArray"
                         v-for="line, index in verticalLines" />
             </g>
@@ -31,7 +33,7 @@
                     class="vertical-line" 
                     :points="`${line.x1} 0, ${line.x1} ${line.y1}`" 
                     :key="index"
-                    :stroke-dashoffset="animationComplete ? 0 : -line.y1"
+                    :stroke-dashoffset="fadeInComplete ? 0 : -line.y1"
                     :stroke-dasharray="line.y1"
                     v-for="line, index in verticalLines" />
             </g>
@@ -49,10 +51,10 @@ import _ from "lodash"
 export default defineComponent({
     name: "background-component",
     props: {
-        version: {
-            type: Number,
+        fadeOut: {
+            type: Boolean,
             required: false,
-            default: 1,
+            default: false,
         },
     },
     data: () => {
@@ -60,7 +62,8 @@ export default defineComponent({
             currentVersion: 1,
             vpWidth: 0,
             vpHeight: 0,
-            animationComplete: false,
+            fadeInComplete: false,
+            fadeOutComplete: false,
             floorHeight: 180,
             horizontalLines: [] as Array<{
                 x1: number,
@@ -81,15 +84,15 @@ export default defineComponent({
     computed: {
     },
     watch: {
-        version(newVersion) {
-            this.currentVersion = newVersion
+        fadeOut(fadeOut) {
+            this.fadeOutAnimation()
         }
     },
     unMounted() {
         window.removeEventListener("resize", this.resize)
+        document.removeEventListener("mousemove", this.mouseMove)
     },
     mounted() {
-        
         window.addEventListener("resize", this.resize)
         this.resize()
 
@@ -110,10 +113,6 @@ export default defineComponent({
                 this.tilt([orientation.x * 50, orientation.y * 50])
             }, true)
         }
-
-    },
-    unMounted() {
-        document.removeEventListener("mousemove", this.mouseMove)
     },
     methods: {
         resize() {
@@ -121,9 +120,62 @@ export default defineComponent({
             this.vpHeight = window.innerHeight
             this.setVerticalLines()
             this.setHorizontalLines()
-            this.animate()
+            this.fadeInAnimation()
+            _.each(this.verticalLines, vLine => {
+                vLine.dashOffset = 0
+            })
         },
-        animate() {
+        fadeOutAnimation() {
+            gsap.to(this.$el.querySelector(".fade-out-bg"), {
+                opacity:1,
+                backgroundImage:"linear-gradient(rgba(255,255,255,1),rgba(255,255,255,1), rgba(255,255,255,0))",
+                bottom: 0,
+                duration: 2.56,
+                ease: "ease.out",
+            })
+
+            _.reverse(this.horizontalLines)
+            
+            gsap.timeline({
+                defaults: {
+                    ease: "ease.out",
+                    duration: .96,
+                }
+            }).to(this.$el.querySelectorAll(".wall .vertical-line"), {
+                strokeDashoffset: ((this.vpHeight - this.floorHeight) * -1),
+                ease: "ease.out",
+                duration: .8
+            }).to(this.$refs["bg"], {
+                opacity:0,
+                duration: 2.56,
+            }).to(this.horizontalLines, {
+                x1: this.vpWidth,
+                duration: 0.96,
+                delay: -2.24,
+                stagger: 0.04
+            })
+            setTimeout(() => {
+                _.each(this.verticalLines, (line) => {
+                    console.log(line, line.dashArray)
+                    gsap.to(line, {
+                        duration: 1.28,
+                        ease: "ease.in",
+                        dashOffset: -line.dashArray,
+                        onComplete: () => {
+                            setTimeout(() => {
+                                this.fadeOutComplete = true
+                            }, 1.28*1000)
+                        }
+                    })
+                        
+                })
+            },.8 * 1000)
+
+        },
+        fadeInAnimation() {
+            if (this.fadeInComplete) {
+                return
+            }
 
             setTimeout(() => {
                 gsap.timeline({
@@ -140,7 +192,7 @@ export default defineComponent({
                         gsap.timeline({
                             onComplete: () => {
                                 if (lineIndex === this.verticalLines.length-1) {
-                                    this.animationComplete = true
+                                    this.fadeInComplete = true
                                 }
                             }})
                             .to(line, {
@@ -181,7 +233,7 @@ export default defineComponent({
                 let y = i === 0 ? 0 : offset * i - (1 - i/amountOfLines) * (offset * .25)
                 this.horizontalLines.push({
                     x1: 0,
-                    x2: this.animationComplete ? this.vpWidth : 0,
+                    x2: this.fadeInComplete ? this.vpWidth : 0,
                     y1: this.vpHeight - this.floorHeight +  y ,
                     y2: this.vpHeight - this.floorHeight +  y
                 })
@@ -236,7 +288,7 @@ export default defineComponent({
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: $accentColor;
+    background-color: #fff;
 }
 .bg {
     position: absolute;
@@ -248,7 +300,7 @@ export default defineComponent({
 
 
 
-.bg-version1 {
+.bg-floor {
     background-image: linear-gradient( #ddd, #ddd calc(100% - 180px), #fff calc(100% - 64px), #fff calc(100%));
 }
 
@@ -279,6 +331,16 @@ export default defineComponent({
     right: 0;
     bottom: 0;
     pointer-events: none;
+}
+.fade-out-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 50%;
+    z-index: 1;
+    opacity: 0;
+    background-image: linear-gradient(rgba(255,255,255,1),rgba(255,255,255,.5), rgba(255,255,255,0));
 }
 
 </style>
