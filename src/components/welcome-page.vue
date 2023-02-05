@@ -209,8 +209,9 @@ export default defineComponent({
         display: none;
     }
     > h1 {
-        transition: $transitionDefault;
+        // transition: $transitionDefault;
         margin-bottom: 0;
+        text-shadow: var(--x) -1px 1px rgba(255, 255, 255, .32);
 
         &:hover {
             transform: rotate3d(1, -.32,0, 24deg);

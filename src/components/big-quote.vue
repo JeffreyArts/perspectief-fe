@@ -279,7 +279,7 @@ export default defineComponent({
 }
 
 .big-quote-content .character {
-    display: inline-block;
+    display: inline;
     opacity: 0;
     translate: 0 8px;
     transform: scale(.8);
