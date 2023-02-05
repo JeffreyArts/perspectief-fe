@@ -289,6 +289,7 @@ export default defineComponent({
     left: 0;
     right: 0;
     background-color: #fff;
+    z-index: -1;
 }
 .bg {
     position: absolute;

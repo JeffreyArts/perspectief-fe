@@ -10,6 +10,7 @@
 import { defineComponent } from "vue"
 import iconCross from "./../assets/icons/cross.svg?raw"
 import iconCalendar from "./../assets/icons/calendar.svg?raw"
+import iconChevron from "./../assets/icons/chevron.svg?raw"
 
 export default defineComponent({
     name: "icon",
@@ -28,6 +29,8 @@ export default defineComponent({
             iconList: {
                 cross: iconCross,
                 calendar: iconCalendar,
+                "chevron-left": iconChevron,
+                "chevron-right": iconChevron,
             } as { [key: string]: string}
         }
     },
@@ -48,11 +51,11 @@ export default defineComponent({
         height: 100%;
         width: auto;
         
-        svg {
-            fill: currentColor;
-            width: auto;    
-            height: inherit;
-        }
+    }
+    svg {
+        fill: currentColor;
+        width: auto;    
+        height: inherit;
     }
     .icon-label {
         color: currentColor;

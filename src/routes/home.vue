@@ -3,7 +3,7 @@
         <bg />
         <stripes @next="nextStep" v-if="step <= 2 "/>
         <big-quote @next="nextStep" v-if="step == 2"/>
-        <introduction-story @next="nextStep" v-if="step == 3"/>
+        <welcome-page @next="nextStep" v-if="step == 3"/>
     </div>
 </template>
 
@@ -13,7 +13,7 @@ import {defineComponent} from "vue"
 import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
 import bigQuote from "./../components/big-quote.vue"
-import introductionStory from "./../components/introduction-story/introduction-story.vue"
+import welcomePage from "./../components/welcome-page.vue"
 import stripes from "./../components/stripes.vue"
 import bg from "./../components/bg.vue"
 import dayjs from "dayjs"
@@ -21,7 +21,7 @@ import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {stripes, bigQuote, bg, introductionStory},
+    components: {stripes, bigQuote, bg, welcomePage},
     props: [],
     setup() {
         const localDB = LocalDB()
