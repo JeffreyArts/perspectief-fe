@@ -16,4 +16,5 @@ export interface StripeObject {
     v: StripeCoordinates,
     start: StripeCoordinates,
     end: StripeCoordinates,
+    visible?: boolean,
 }

@@ -3,13 +3,14 @@ import gsap from "gsap"
 const blurPlugin = {
     blurProperty: gsap.utils.checkPrefix("filter"),
     blurExp: /blur\((.+)?px\)/,
-    getBlurMatch: (target) => {
-        return (gsap.getProperty(target, blurPlugin.blurProperty) || "").match(blurPlugin.blurExp) || []
+    getBlurMatch: (target:any) => {
+        return ((gsap.getProperty(target, blurPlugin.blurProperty) || "") as string).match(blurPlugin.blurExp) || []
     },
-    registerGet(target) {
+    registerGet(target:any) {
         return +blurPlugin.getBlurMatch(target)[1] || 0
     },
-    registerInit(target, endValue) {
+    registerInit(target:any, endValue:string|number) {
+        const a = this as any
         const match = blurPlugin.getBlurMatch(target)[0],
             endBlur = "blur(" + endValue + "px)"
 
@@ -25,10 +26,10 @@ const blurPlugin = {
             endValue = filter + endBlur
             filter += filter ? " blur(0px)" : "blur(0px)"
         }
-        this.target = target
-        this.interp = gsap.utils.interpolate(filter, endValue)
+        a.target = target
+        a.interp = gsap.utils.interpolate(filter, endValue)
     },
-    registerRender(progress, data) {
+    registerRender(progress:number|string, data:any) {
         data.target.style[blurPlugin.blurProperty] = data.interp(progress)
     }
 }

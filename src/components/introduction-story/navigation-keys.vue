@@ -50,19 +50,19 @@ export default defineComponent({
             const fontSize = window.getComputedStyle(this.$refs["line"]).fontSize.replace("px", "")
             this.$refs["line"].style.height = `${fontSize}px`
         }
-        gsap.from(this.$refs["left-key"].querySelector(".no-shadow-container"), {
+        gsap.from((this.$refs["left-key"] as HTMLElement).querySelector(".no-shadow-container"), {
             duration: 1.28, 
             translateY: 64, 
             opacity: 0, 
             ease: "power4.out"
         })
-        gsap.from(this.$refs["left-key"].querySelector(".shadow-container"), {
+        gsap.from((this.$refs["left-key"] as HTMLElement).querySelector(".shadow-container"), {
             duration: 1.28, 
             translateY: 32, 
             opacity: 0, 
             ease: "power4.out"
         })
-        gsap.from(this.$refs["right-key"], {
+        gsap.from((this.$refs["right-key"] as HTMLElement), {
             duration: 1.28, 
             delay: 0.16,
             translateY: 64, 

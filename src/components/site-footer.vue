@@ -36,7 +36,7 @@ export default defineComponent({
     mounted() {
         setTimeout(() => {
             this.isMounted = true
-        },960)    
+        },2048)    
     },
 })
 </script>
@@ -52,7 +52,7 @@ export default defineComponent({
     right: 0;
     z-index: 2023;
     color: $white;
-    transition: $transitionDefault;
+    transition: .96s all ease;
     padding-top: 16px;
     
     &.__isMounted {

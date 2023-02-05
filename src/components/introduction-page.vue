@@ -68,8 +68,10 @@ export default defineComponent({
     computed: {
     },
     mounted() {
-        this.$refs["intro-blocks"].addEventListener("scroll", this.handleScroll)
-        this.addBGblock()
+        if (this.$refs["intro-blocks"] instanceof Element) {
+            this.$refs["intro-blocks"].addEventListener("scroll", this.handleScroll)
+        }
+        // this.addBGblock()
         gsap.to(".intro-block:first-child", {
             x: 0,
             opacity: 1,
@@ -78,34 +80,45 @@ export default defineComponent({
         })
     },
     unmounted() {
-        if (this.$refs["intro-blocks"]) {
+        if (this.$refs["intro-blocks"] instanceof Element) {
             this.$refs["intro-blocks"].removeEventListener("scroll", this.handleScroll)
         }
     },
     methods: {
         handleScroll() {
+            const introBlocks = this.$refs["intro-blocks"] as HTMLElement
+            let currentBlock, nextBlock = undefined as HTMLElement | undefined
+            if (this.$refs["intro-block"] instanceof Array) {
+                currentBlock = this.$refs["intro-block"][this.scrollIndex] as HTMLElement
+                nextBlock = this.$refs["intro-block"][this.scrollIndex +1] as HTMLElement
+            }
+
+            if (!currentBlock ) {
+                return
+            }
+            
             if (this.scrollIndex >= this.story.length) {
                 this.nextPage()
                 this.completed = true
-                this.$refs["intro-blocks"].removeEventListener("scroll", this.handleScroll)
+                introBlocks.removeEventListener("scroll", this.handleScroll)
                 return
             }
 
-            const scrollOffset = this.$refs["intro-block"][this.scrollIndex].offsetTop + this.$refs["intro-block"][this.scrollIndex].scrollHeight
-            const marginTop = parseInt(window.getComputedStyle( this.$refs["intro-block"][this.scrollIndex])["margin-top"].replace("px"),10)
+            const scrollOffset = currentBlock.offsetTop + currentBlock.scrollHeight
+            const marginTop = parseInt((window.getComputedStyle( currentBlock) as CSSStyleDeclaration)["margin-top"].replace("px"),10)
 
-            if (this.$refs["intro-block"][this.scrollIndex+1]) {
-                if (this.$refs["intro-block"][this.scrollIndex+1].offsetTop < this.$refs["intro-blocks"].scrollTop + scrollOffset + 144) {
-                    this.$refs["intro-block"][this.scrollIndex+1].classList.add("__isActive")
+            if (nextBlock) {
+                if (nextBlock.offsetTop < introBlocks.scrollTop + scrollOffset + 144) {
+                    nextBlock.classList.add("__isActive")
                 } else {
-                    this.$refs["intro-block"][this.scrollIndex+1].classList.remove("__isActive")
+                    nextBlock.classList.remove("__isActive")
                 }
             }
 
-            if (this.$refs["intro-blocks"].scrollTop >  scrollOffset) {
+            if (introBlocks.scrollTop >  scrollOffset) {
                 this.scrollIndex++
                 this.addBGblock()
-            } else if (this.$refs["intro-blocks"].scrollTop < this.$refs["intro-block"][this.scrollIndex].offsetTop - marginTop) {
+            } else if (introBlocks.scrollTop < currentBlock.offsetTop - marginTop) {
                 this.scrollIndex--
             }
         },
@@ -114,84 +127,33 @@ export default defineComponent({
             switch(this.scrollIndex) {
             case 1: bottom = 72; break
             case 2: bottom = 64; break
-            case 2: bottom = 56; break
-            case 3: bottom = 48; break
+            case 3: bottom = 56; break
+            case 4: bottom = 48; break
             }
-            gsap.set(this.$refs["intro-block-bg"][this.scrollIndex - 1],  {transformStyle:"preserve-3d"})
+
+            let currentBlock = undefined as HTMLElement | undefined
+            if (this.$refs["intro-block-bg"] instanceof Array) {
+                currentBlock = this.$refs["intro-block-bg"][this.scrollIndex - 1]
+            }
+
+            if (!currentBlock) {
+                return
+            }
+
+            gsap.set(currentBlock,  {transformStyle:"preserve-3d"})
             gsap.timeline()
-                .to(this.$refs["intro-block-bg"][this.scrollIndex - 1], {
+                .to(currentBlock, {
                     bottom: bottom,
                     scale: 0.5,
                     duration: 1.28,
                     ease: "bounce.out"
                 })
-                .to(this.$refs["intro-block-bg"][this.scrollIndex - 1], {
+                .to(currentBlock, {
                     duration: 1.28,
                     rotationX: 8,
                     delay: -0.08,
                     ease: "bounce.out"
-                })        
-            // if (this.scrollIndex == 1) {
-            //     gsap.set(this.$refs["intro-block-bg"][0],  {transformStyle:"preserve-3d"})
-            //     gsap.timeline()
-            //         .to(this.$refs["intro-block-bg"][0], {
-            //             bottom: 72,
-            //             scale: 0.5,
-            //             duration: 1.28,
-            //             ease: "bounce.out"
-            //         })
-            //         .to(this.$refs["intro-block-bg"][0], {
-            //             duration: 1.28,
-            //             rotationX: 8,
-            //             delay: -0.08,
-            //             ease: "bounce.out"
-            //         })
-            // } else if (this.scrollIndex == 2) {
-            //     gsap.set(this.$refs["intro-block-bg"][1],  {transformStyle:"preserve-3d"})
-            //     gsap.timeline()
-            //         .to(this.$refs["intro-block-bg"][1], {
-            //             bottom: 64,
-            //             scale: 0.5,
-            //             duration: 1.28,
-            //             ease: "bounce.out"
-            //         })
-            //         .to(this.$refs["intro-block-bg"][1], {
-            //             duration: 1.28,
-            //             rotationX: 8,
-            //             delay: -0.08,
-            //             ease: "bounce.out"
-            //         })
-            // } else if (this.scrollIndex == 3) {
-            //     gsap.set(this.$refs["intro-block-bg"][2],  {transformStyle:"preserve-3d"})
-            //     gsap.timeline()
-            //         .to(this.$refs["intro-block-bg"][2], {
-            //             bottom: 48,
-            //             scale: 0.5,
-            //             duration: 1.28,
-            //             ease: "bounce.out"
-            //         })
-            //         .to(this.$refs["intro-block-bg"][2], {
-            //             duration: 1.28,
-            //             rotationX: 8,
-            //             delay: -0.08,
-            //             ease: "bounce.out"
-            //         })
-            // } else if (this.scrollIndex == 4) {
-            //     gsap.set(this.$refs["intro-block-bg"][3],  {transformStyle:"preserve-3d"})
-            //     gsap.timeline()
-            //         .to(this.$refs["intro-block-bg"][3], {
-            //             bottom: 40,
-            //             scale: 0.5,
-            //             duration: 1.28,
-            //             ease: "bounce.out"
-            //         })
-            //         .to(this.$refs["intro-block-bg"][3], {
-            //             duration: 1.28,
-            //             rotationX: 8,
-            //             delay: -0.08,
-            //             ease: "bounce.out"
-            //         })
-            // }  
+                })
         },
         nextPage() {
             this.$emit("next", "introduction-page")

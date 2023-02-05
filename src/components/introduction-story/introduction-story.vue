@@ -93,7 +93,7 @@ export default defineComponent({
         },
         checkMaxParagraph() {
             if(this.paragraphIndex > this.story[this.chapterIndex].length-1){
-                gsap.to(this.$refs.paragraph, {
+                gsap.to((this.$refs.paragraph as Array<Element>), {
                     duration: .48,
                     opacity: 0,
                     scale: 1.6,
@@ -101,7 +101,7 @@ export default defineComponent({
                     onComplete: () => {
                         this.chapterIndex++
                         this.paragraphIndex = 0
-                        gsap.set(this.$refs.paragraph, {
+                        gsap.set((this.$refs.paragraph as Array<Element>), {
                             opacity: 1,
                             scale: 1,
                         })
@@ -116,7 +116,7 @@ export default defineComponent({
         animateNewChapter() {
             setTimeout(() => {
                 console.log("animateNewChapter")
-                _.each(this.$refs.paragraph, (paragraph: HTMLElement, index: number) => {
+                _.each((this.$refs.paragraph as Array<Element>), (paragraph: Element, index: number) => {
                     // if has class __isActive
                     gsap.set(paragraph.children, {
                         opacity: 0,
@@ -139,7 +139,6 @@ export default defineComponent({
         },
         animateNewParagraph() {
             setTimeout(() => {
-                console.log("animateNewPara")
                 const paragraphs = this.$el.querySelectorAll(".paragraph.__isActive")
                 const lastParagraph = paragraphs[paragraphs.length-1]
 

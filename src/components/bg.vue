@@ -101,16 +101,20 @@ export default defineComponent({
 
         document.addEventListener("mousemove", this.mouseMove)
         if (window.DeviceOrientationEvent) {
-            window.addEventListener("deviceorientation", function (event) {
-                this.tilt([event.beta, event.gamma])
+            window.addEventListener("deviceorientation", (event: DeviceOrientationEvent) => {
+                const beta = event.beta ? event.beta : 0
+                const gamma = event.gamma ? event.gamma : 0
+                this.tilt([beta, gamma])
             }, true)
         } else if (window.DeviceMotionEvent) {
-            window.addEventListener("devicemotion", function (event) {
-                this.tilt([event.acceleration.x * 2, event.acceleration.y * 2])
-            }, true)
-        } else {
-            window.addEventListener("MozOrientation", function () {
-                this.tilt([orientation.x * 50, orientation.y * 50])
+            window.addEventListener("devicemotion", (event: DeviceMotionEvent) => {
+                if (!event.acceleration) {
+                    return
+                }
+
+                const x = event.acceleration.x ? event.acceleration.x : 0
+                const y = event.acceleration.y ? event.acceleration.y : 0
+                this.tilt([x * 2, y * 2])
             }, true)
         }
     },
@@ -145,7 +149,7 @@ export default defineComponent({
                 strokeDashoffset: ((this.vpHeight - this.floorHeight) * -1),
                 ease: "ease.out",
                 duration: .8
-            }).to(this.$refs["bg"], {
+            }).to((this.$refs["bg"] as Element), {
                 opacity:0,
                 duration: 2.56,
             }).to(this.horizontalLines, {
