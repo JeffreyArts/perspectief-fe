@@ -4,6 +4,7 @@
         <stripes @next="nextStep" v-if="step <= 2 "/>
         <big-quote @next="nextStep" v-if="step == 2"/>
         <welcome-page @next="nextStep" v-if="step == 3"/>
+        <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
     </div>
 </template>
 
@@ -14,6 +15,7 @@ import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
 import bigQuote from "./../components/big-quote.vue"
 import welcomePage from "./../components/welcome-page.vue"
+import introductionPage from "./../components/introduction-page.vue"
 import stripes from "./../components/stripes.vue"
 import bg from "./../components/bg.vue"
 import dayjs from "dayjs"
@@ -21,7 +23,7 @@ import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {stripes, bigQuote, bg, welcomePage},
+    components: {stripes, bigQuote, bg, welcomePage, introductionPage},
     props: [],
     setup() {
         const localDB = LocalDB()
@@ -49,10 +51,7 @@ export default defineComponent ({
     methods: {
         nextStep(msg: string) {
             console.log("Next step:", msg)
-            
-            setTimeout(()=> {
-                this.step++
-            }, 960)
+            this.step++
         },
     }
     

@@ -306,7 +306,10 @@ export default defineComponent({
                 // Manually trigger the next slide
                 setTimeout(() => {
                     this.done = true
-                    this.$emit("next", "stripes")
+                    
+                    setTimeout(()=> {
+                        this.$emit("next", "stripes")
+                    }, 800)
                 }, 1024)
             }
         }
