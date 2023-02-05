@@ -5,6 +5,7 @@
         <big-quote @next="nextStep" v-if="step == 2"/>
         <welcome-page @next="nextStep" v-if="step == 3"/>
         <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
+        <pov-page @next="nextStep" v-if="step == 5"/>
     </div>
 </template>
 
@@ -16,6 +17,7 @@ import SocketIO from "../stores/socketio"
 import bigQuote from "./../components/big-quote.vue"
 import welcomePage from "./../components/welcome-page.vue"
 import introductionPage from "./../components/introduction-page.vue"
+import povPage from "./../components/pov-page.vue"
 import stripes from "./../components/stripes.vue"
 import bg from "./../components/bg.vue"
 import dayjs from "dayjs"
@@ -23,7 +25,7 @@ import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {stripes, bigQuote, bg, welcomePage, introductionPage},
+    components: {stripes, bigQuote, bg, welcomePage, introductionPage, povPage},
     props: [],
     setup() {
         const localDB = LocalDB()

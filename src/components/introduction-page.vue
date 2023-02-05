@@ -93,10 +93,6 @@ export default defineComponent({
                 nextBlock = this.$refs["intro-block"][this.scrollIndex +1] as HTMLElement
             }
 
-            if (!currentBlock ) {
-                return
-            }
-            
             if (this.scrollIndex >= this.story.length) {
                 this.nextPage()
                 this.completed = true
@@ -104,6 +100,10 @@ export default defineComponent({
                 return
             }
 
+            if (!currentBlock ) {
+                return
+            }
+            
             const scrollOffset = currentBlock.offsetTop + currentBlock.scrollHeight
             const marginTop = parseInt((window.getComputedStyle( currentBlock) as CSSStyleDeclaration)["margin-top"].replace("px"),10)
 
