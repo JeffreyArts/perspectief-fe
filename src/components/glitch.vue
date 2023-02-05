@@ -11,8 +11,7 @@
     </span>
 </template>
 
-<script>
-import _ from "lodash"
+<script lang="ts">
 export default {
     name: "glitch-component",
     props: {
@@ -53,7 +52,8 @@ export default {
         },
         repeat: {
             required: false,
-            default: false
+            type: Number,
+            default: 0
         },
         opacityDuration: {
             type: Number,
@@ -63,20 +63,24 @@ export default {
     },
     data() {
         return {
-            glitchedInput: "",
+            glitchedInput: "" as string | undefined,
             clipPaths: [["polygon(0% 100%,100% 100%)"],["polygon(0% 100%,100% 100%)"],["polygon(0% 100%,100% 100%)"]],
             clipIndex: 0,
             textIndex: 0,
             startTime: 0,
             repeatIndex:0,
-            timeouts: []
+            timeouts: [] as Array<number>,
         }
     },
     watch: {
         repeat: {
             handler: function (val) {
-                if (val) {
-                    this.cancelGlitch()
+                this.cancelGlitch()
+                if (val === 0) {
+                    this.glitchLayer(0)
+                    this.glitchLayer(1)
+                    this.glitchLayer(2) 
+                } else {
                     this.glitchLayers()
                 }
             },
@@ -87,7 +91,7 @@ export default {
                 if (!val.default) {
                     return
                 }
-                this.glitchedInput = val.default()[0].children
+                this.glitchedInput = val.default()[0].innerHTML
                 this.cancelGlitch()
                 this.glitchLayers()
             },
@@ -95,10 +99,11 @@ export default {
         },
     },
     mounted() {
-        if (!this.inputs) {
-            this.glitchedInput = this.$slots.default()[0].children
-        } else {
-            this.glitchedInput = this.inputs[0]
+        if (this.inputs && this.inputs.length > 0) {
+            this.glitchedInput = this.inputs[0] as string
+        } else if (this.$slots && this.$slots.default) {
+            const tmp = this.$slots.default() as Array<any>
+            this.glitchedInput = tmp[0].innerHTML as string
         }
         this.cancelGlitch()
         this.glitchLayers()
@@ -125,7 +130,7 @@ export default {
             }
             return `polygon(${points.join(",")})`
         },
-        animateClipPath(domElement, index = 0) {
+        animateClipPath(domElement: HTMLElement, index = 0) {
             const clipPath = this.generateGlitchMasksPath()
             const delay = Math.ceil(this.duration / this.glitchJumps + Math.random() * (this.duration / this.glitchJumps / 4))
             domElement.style.setProperty("--path", clipPath)
@@ -142,7 +147,7 @@ export default {
             }, delay)
             this.timeouts.push(timeout)
         },
-        animatePosition(domElement, index = 0) {
+        animatePosition(domElement: HTMLElement, index = 0) {
             const position = {
                 left: Math.floor(Math.random() * this.glitchOffset) - this.glitchOffset/2,
                 top: Math.floor(Math.random() * this.glitchOffset) - this.glitchOffset/2,
@@ -165,14 +170,14 @@ export default {
             }, delay) 
             this.timeouts.push(timeout)
         },
-        animateOpacity(domElement, inverted = false, layerIndex, index = 0) {
+        animateOpacity(domElement: HTMLElement, inverted = false, layerIndex:number, index = 0) {
             
             let opacity =  index % 2 === 0 ? 1 : 0
             if (inverted === true) {
                 opacity = index % 2 === 0 ? 0 : 1
             }
 
-            domElement.style.setProperty("opacity", opacity)
+            domElement.style.setProperty("opacity", opacity.toString())
             let delay = Math.ceil(this.opacityDuration/2 + Math.random() * this.opacityDuration)
             if (inverted) {
                 delay = Math.ceil(this.opacityDuration/4 + Math.random() * this.opacityDuration/2)
@@ -184,31 +189,29 @@ export default {
                     this.animateOpacity(domElement, inverted,layerIndex, index + 1)
                 } else {
                     if (layerIndex == 0) {
-                        domElement.style.setProperty("opacity", 1)
+                        domElement.style.setProperty("opacity", "1")
                     } else {
-                        domElement.style.setProperty("opacity", 0)
+                        domElement.style.setProperty("opacity", "0")
                     }
                     return
                 }
             }, delay)            
             this.timeouts.push(timeout)
         },
-        glitchLayer(layerIndex) {
+        glitchLayer(layerIndex: number) {
             // Set timestamp for this.startTime
             this.startTime = Date.now()
             
 
             // var minDelay = layerIndex === 0 ? this.duration / this.opacityJumps / 4 : this.duration / this.opacityJumps
-            const targetLayer = this.$refs[`glitchLayer${layerIndex}`]
+            const targetLayer = this.$refs[`glitchLayer${layerIndex}`] as HTMLElement
             if (!targetLayer) {
                 return
             }
-            
+             
             this.animatePosition(targetLayer)
             this.animateClipPath(targetLayer)
-            this.animateOpacity(targetLayer, {
-                inverted: layerIndex === 0 ? false : true
-            }, layerIndex)
+            this.animateOpacity(targetLayer, layerIndex === 0 ? false : true , layerIndex)
         },
         glitchLayers() {
             this.glitchLayer(0)
@@ -217,9 +220,9 @@ export default {
             
             var timeout1 = setTimeout(() => {
                 this.repeatIndex++
-                if (this.inputs) {
+                if (this.inputs && this.inputs.length > 0) {
                     this.textIndex = (this.textIndex + 1) % this.inputs.length
-                    this.glitchedInput = this.inputs[this.textIndex]
+                    this.glitchedInput = this.inputs[this.textIndex] as string
                     this.$emit("glitchChange", this.glitchedInput)
 
                     if ((!this.repeat && this.textIndex === this.inputs.length - 1 ) ||
@@ -227,7 +230,7 @@ export default {
                         return
                     }
                 } else {
-                    if (!this.repeat || this.repeatIndex > this.repeat) {
+                    if (this.repeat === 0 || this.repeatIndex > this.repeat) {
                         return
                     }
                 }
