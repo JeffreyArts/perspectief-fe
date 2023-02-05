@@ -3,7 +3,9 @@
         <div class="big-quote" v-if="quote"
             :class="[quote.content.length > 180 ? '__isLong' : '']">
             <div class="big-quote-content" ref="content">
-                <span class="word" v-for="word, i in content" :key="i">{{ word }}&nbsp;</span>    
+                <span class="word" v-for="word, i in content" :key="i">
+                    <span class="character" v-for="c, ii in word" :key="ii">{{ c }}</span>
+                &nbsp;</span>    
             </div>
             <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
 
@@ -51,7 +53,7 @@ export default defineComponent({
                     author: "Ansel Adams"
                 },
                 {
-                    content: "An European says: \"I can't understand this, what's wrong with me?\" An American says: \"I can't understand this, what's wrong with it?\" I make no suggestion that on side or other is right, but observation over many years leads me to believe it is true",
+                    content: "An European says: \"I can't understand this, what's wrong with me?\" An American says: \"I can't understand this, what's wrong with it?\" I make no suggestion that one side or other is right, but observation over many years leads me to believe it is true",
                     author: "Terry Pratchett"
                 },
                 {
@@ -140,16 +142,21 @@ export default defineComponent({
             }
             const authorElement = this.$refs.author as HTMLElement
 
+            
+
             this.gTimeline = gsap.timeline({
                 onComplete: () => {
                     this.state = 1
                 }
             })
-                .to(".word", {
+                .to(".character", {
                     duration: .64,
                     opacity: 1,
                     y: 0,
-                    stagger: 0.04,
+                    blur: 0,
+                    color: "#000",
+                    scale: 1,
+                    stagger: 0.008,
                     ease: "power2.out",
                 })
                 .to(authorElement, {
@@ -178,6 +185,8 @@ export default defineComponent({
                     duration: .4,
                     opacity: 0,
                     y: -16,
+                    blur: 16,
+                    scale: 1.6,
                     stagger: 0.024,
                     ease: "power2.out",
                 }))
@@ -238,6 +247,7 @@ export default defineComponent({
     display: inline-block;
     width: 100%;
     text-align: center;
+    text-shadow: var(--x) -1px 1px rgba(255, 255, 255, .64);
     
     @media (min-width: 768px) {
         font-size: 64px;
@@ -252,6 +262,7 @@ export default defineComponent({
     font-size: 16px;
     opacity: 0;
     transform: translateX(80px);
+    text-shadow: var(--x) -1px 1px rgba(255, 255, 255, .32);
 
     @media (min-width: 768px) {
         font-size: 32px;
@@ -265,8 +276,15 @@ export default defineComponent({
 
 .big-quote-content .word {
     display: inline-block;
+}
+
+.big-quote-content .character {
+    display: inline-block;
     opacity: 0;
     translate: 0 8px;
+    transform: scale(.8);
+    color: #eee;
+    filter: blur(16px);
 }
 
 .big-quote-next {

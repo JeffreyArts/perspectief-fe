@@ -84,25 +84,12 @@ export default defineComponent({
         }
     },
     mounted() {
-        document.addEventListener("mousemove", this.mouseMove)
         this.animateNewChapter()
         this.animateNewParagraph()
-    },
-    unMounted() {
-        document.removeEventListener("mousemove", this.mouseMove)
     },
     methods: {
         displayParagraph(paragraph: string){
             return _.map(paragraph.split(" "), word => { return word + "&nbsp;"})
-        },
-        mouseMove(e: MouseEvent) {
-            let x = e.clientX 
-            let y = e.clientY
-            const chapter = document.querySelector(".chapter")
-            
-            if (chapter instanceof HTMLElement) {
-                chapter.style.setProperty("--x", x/window.innerWidth * 2 - 1 + "px")
-            }
         },
         checkMaxParagraph() {
             if(this.paragraphIndex > this.story[this.chapterIndex].length-1){
