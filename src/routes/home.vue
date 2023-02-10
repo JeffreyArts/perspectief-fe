@@ -4,7 +4,7 @@
         <stripes @next="nextStep" v-if="step <= 2 "/>
         <big-quote @next="nextStep" v-if="step == 2"/>
         <welcome-page @next="nextStep" v-if="step == 3"/>
-        <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
+        <!-- <introduction-page @next="nextStep" v-if="step == 4 || step==5"/> -->
         <pov-page @next="nextStep" v-if="step == 5"/>
     </div>
 </template>
@@ -14,11 +14,11 @@
 import {defineComponent} from "vue"
 import LocalDB from "../stores/localdb"
 import SocketIO from "../stores/socketio"
-import bigQuote from "./../components/big-quote.vue"
-import welcomePage from "./../components/welcome-page.vue"
-import introductionPage from "./../components/introduction-page.vue"
-import povPage from "./../components/pov-page.vue"
-import stripes from "./../components/stripes.vue"
+import bigQuote from "./../components/slides/big-quote.vue"
+import welcomePage from "./../components/slides/welcome-page.vue"
+import introductionPage from "./../components/slides/introduction-page.vue"
+import povPage from "./../components/slides/pov-page.vue"
+import stripes from "./../components/slides/stripes.vue"
 import bg from "./../components/bg.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
@@ -36,7 +36,7 @@ export default defineComponent ({
     data() {
         return {
             consoleEvents: [] as Array<string>,
-            step: 1,
+            step: 5,
             bgFadeOut: false,
         }
     },

@@ -47,6 +47,7 @@ export default defineComponent({
 
 .site-footer-container {
     position: fixed;
+    display: none;
     bottom: 0;
     left: 0;
     right: 0;

@@ -28,7 +28,7 @@ body {
     font-style: normal;
     font-weight: 800;
     src: // local('Sinkin Sans'),
-        url('sinkinsans-800black-webfont.woff2') format('woff2'),
-        url('sinkinsans-800black-webfont.woff') format('woff'),
+        url('/fonts/sinkinsans-800black-webfont.woff2') format('woff2'),
+        url('/fonts/sinkinsans-800black-webfont.woff') format('woff'),
         url('/fonts/SinkinSans-800Black.otf') format('otf');
 }

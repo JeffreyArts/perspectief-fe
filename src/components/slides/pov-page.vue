@@ -14,7 +14,7 @@
                         :position-jumps="4" 
                         :inputs="displayTypes"
                         :glitch-jumps="6" 
-                        :glitch-offset="8">{{types[0]}}</glitch> als onderwerp nemen, 
+                        :glitch-offset="8" /> als onderwerp nemen, 
                     en aan de hand van een praktisch voorbeeld kijken hoe jouw standpunt/perceptie van invloed is op 
                     jouw waarneming van informatie, oftewel jouw vorming van kennis.</p>
             </div>
@@ -28,16 +28,14 @@
                         :position-jumps="4" 
                         :inputs="displayTypes"
                         :glitch-jumps="6" 
-                        :glitch-offset="8">{{types[0]}}</glitch>
+                        :glitch-offset="8" />
             </h1>
 
             <div class="pov-content" ref="content">
                 <div class="container">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex asperiores dolore commodi in deleniti, voluptatibus ratione molestias cupiditate tempore voluptates debitis nisi reiciendis optio atque quos placeat sapiente dolorum aspernatur.</p>
-                    <p>Mollitia saepe quidem voluptas repellendus. Nemo repudiandae, explicabo nulla cupiditate perspiciatis at omnis alias maiores minus suscipit voluptatem rem quod hic reiciendis dignissimos magni? Nihil amet adipisci earum ducimus veniam.</p>
-                    <p>Corporis maxime ut, veritatis omnis distinctio quibusdam at repellat aliquam eius sunt ipsam assumenda vel voluptatum illum eum ducimus necessitatibus totam. Quam repudiandae magnam aspernatur. Itaque sint ipsam adipisci distinctio?</p>
-                    <p>Itaque molestiae deleniti eveniet, quas dicta odit perferendis doloremque facilis incidunt nobis repudiandae? Pariatur eaque vel, aut, obcaecati consequatur voluptatum eum voluptate nostrum veritatis a, repellendus sit facilis quaerat dignissimos.</p>
-                    <p>Architecto, vitae sit, repellat dolorum hic ut delectus nobis illo quas, voluptas deleniti harum assumenda vel! Rerum itaque voluptates qui, corrupti minima esse dicta veritatis atque illo, libero cum doloremque.</p>
+                    <!-- <tomaat v-if="typeIndex == 1" /> -->
+                    <tomaat />
+                    <!-- <pen v-if="typeIndex == 0" /> -->
                 </div>
             </div>
         </div>
@@ -48,14 +46,16 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import Glitch from "./glitch.vue"
+import Pen from "./pov/pen.vue"
+import Tomaat from "./pov/tomaat.vue"
+import Glitch from "./../glitch.vue"
 import _ from "lodash"
 
 
 export default defineComponent({
     name: "pov-page",
     components: {
-        Glitch
+        Glitch, Pen, Tomaat
     },
     data: () => {
         return {
@@ -64,7 +64,9 @@ export default defineComponent({
             selectedType: null as null | string,
             repeat: 777,
             typeIndex: 0,
-            types: ["pen", "tomaat"],
+            interval: 0 as number,
+            // types: ["pen", "tomaat"],
+            types: ["tomaat"],
             gTimeline: null as null | gsap.core.Timeline,
         }
     },
@@ -82,7 +84,13 @@ export default defineComponent({
         },
     },
     mounted() {
-        setInterval(() => {
+        this.interval = setInterval(() => {
+            if (this.selectedType) {
+                clearInterval(this.interval)
+                this.typeIndex = 0
+                return
+            }
+
             if (this.typeIndex) {
                 this.typeIndex = 0
             } else {
@@ -101,7 +109,10 @@ export default defineComponent({
     },
     methods: {
         glitchUpdate(string:string) {
-            // console.log("glitch update",a)
+            var match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
+            if (match && match[1]) {
+                this.typeIndex = this.types.indexOf(match[1])
+            }
         },
         handleScroll(event: Event) {
             if (!event.target) {
@@ -111,6 +122,9 @@ export default defineComponent({
             if (this.$refs["content"] instanceof HTMLElement) {
                 if ((event.target as HTMLElement).scrollTop > (this.$refs.content as HTMLElement).offsetTop - window.innerHeight) {
                     this.repeat = 0
+                    clearInterval(this.interval)
+                    this.selectedType = this.types[this.typeIndex]
+                    this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
                 }
             }
         },
@@ -123,7 +137,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/variables.scss";
+@import "./../../assets/scss/variables.scss";
 .pov-page {
     position: absolute;
     z-index: 1;
@@ -134,13 +148,13 @@ export default defineComponent({
     overflow-y: auto;
     text-align: center;
     .text-red {
-        color: $red;
+        color: #FF2B22;
     }
     .text-blue {
         color: $blue;
     }
     .glitch {
-        font-size: 1.08em;
+        // font-size: 1.08em;
     }
 }
 
@@ -158,9 +172,10 @@ export default defineComponent({
 }
 
 .pov-title {
-    font-size: 40px;
+    font-size: 48px;
     margin-bottom: 48px;
     text-transform: capitalize;
+    
 }
 
 .pov-content {

@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "chroma-js": "^2.4.2",
     "dayjs": "^1.11.7",
     "events": "^3.3.0",
     "gsap": "^3.11.4",

@@ -223,7 +223,6 @@ export default {
                 if (this.inputs && this.inputs.length > 0) {
                     this.textIndex = (this.textIndex + 1) % this.inputs.length
                     this.glitchedInput = this.inputs[this.textIndex] as string
-                    this.$emit("glitchChange", this.glitchedInput)
 
                     if ((!this.repeat && this.textIndex === this.inputs.length - 1 ) ||
                         (this.repeatIndex > this.repeat *(this.inputs.length - 1)  && this.textIndex === this.inputs.length - 1 )) {
@@ -238,7 +237,10 @@ export default {
                 var timeout2 = setTimeout(() => {
                     this.glitchLayers()
                     this.timeouts = this.timeouts.filter(timeout => timeout !== timeout2)
-                    console.log()
+                    
+                    if (this.inputs && this.inputs.length > 0) {
+                        this.$emit("glitchChange", this.glitchedInput)
+                    }
                 }, this.delay)
                 this.timeouts.push(timeout2)
                 this.timeouts = this.timeouts.filter(timeout => timeout !== timeout1)
@@ -247,6 +249,7 @@ export default {
             this.timeouts.push(timeout1)
         },
         cancelGlitch() {
+            this.$emit("glitchChange", this.glitchedInput)
             this.timeouts.forEach(timeout => {
                 clearTimeout(timeout)
             })

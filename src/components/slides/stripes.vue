@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import { StripeCoordinates, StripeObject } from "./../../types"
+import { StripeCoordinates, StripeObject } from "./../../../types"
 import gsap from "gsap"
 import _ from "lodash"
 
@@ -319,7 +319,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/variables.scss";
+@import "./../../assets/scss/variables.scss";
 .stripes-container {
     position: absolute;
     left: 0;
