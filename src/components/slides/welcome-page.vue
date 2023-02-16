@@ -151,7 +151,8 @@ export default defineComponent({
 
 .introduction-block {
     position: relative;
-    font-size: 41px;
+    font-size: 31px;
+    // font-size: 41px;
     font-weight: 900;
     display: none;
     transition: $transitionDefault;
@@ -319,7 +320,8 @@ export default defineComponent({
     }
 
     .introduction-block {
-        font-size: 55px;
+        font-size: 42px;
+        // font-size: 55px;
     }
 
     .about-block {

@@ -31,12 +31,12 @@
                         :glitch-offset="8" />
             </h1>
 
-            <div class="pov-content" ref="content">
-                <div class="container">
+            <div ref="content">
+                <!-- <div class="container"> -->
                     <!-- <tomaat v-if="typeIndex == 1" /> -->
                     <tomaat />
                     <!-- <pen v-if="typeIndex == 0" /> -->
-                </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -179,11 +179,14 @@ export default defineComponent({
 }
 
 .pov-content {
-    background-color: #fff;
     font-size: 16px;
     line-height: 32px;
     text-align: left;
     padding-top: 64px;
+
+    > .container {
+        background-color: #fff;
+    }
 }
 
 </style>
