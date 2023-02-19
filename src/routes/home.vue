@@ -4,8 +4,8 @@
         <stripes @next="nextStep" v-if="step <= 2 "/>
         <big-quote @next="nextStep" v-if="step == 2"/>
         <welcome-page @next="nextStep" v-if="step == 3"/>
-        <!-- <introduction-page @next="nextStep" v-if="step == 4 || step==5"/> -->
-        <pov-page @next="nextStep" v-if="step == 5"/>
+        <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
+        <pov-page @next="nextStep" v-if="step == 5 || step == 6 || step == 7"/>
     </div>
 </template>
 

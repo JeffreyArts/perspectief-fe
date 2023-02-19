@@ -34,7 +34,7 @@
             <div ref="content">
                 <!-- <div class="container"> -->
                     <!-- <tomaat v-if="typeIndex == 1" /> -->
-                    <tomaat />
+                    <tomaat @completed="nextPage"/>
                     <!-- <pen v-if="typeIndex == 0" /> -->
                 <!-- </div> -->
             </div>
@@ -97,6 +97,7 @@ export default defineComponent({
                 this.typeIndex = 1
             }
         }, 3200)
+        
 
         if (this.$refs["scrollContainer"] instanceof Element) {
             this.$refs["scrollContainer"].addEventListener("scroll", this.handleScroll)
@@ -118,15 +119,25 @@ export default defineComponent({
             if (!event.target) {
                 return
             }
+            const targetElement = event.target as HTMLElement
             
             if (this.$refs["content"] instanceof HTMLElement) {
-                if ((event.target as HTMLElement).scrollTop > (this.$refs.content as HTMLElement).offsetTop - window.innerHeight) {
+                if (targetElement.scrollTop > (this.$refs.content as HTMLElement).offsetTop - window.innerHeight) {
                     this.repeat = 0
                     clearInterval(this.interval)
                     this.selectedType = this.types[this.typeIndex]
-                    this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
+                    // this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
                 }
             }
+            
+            if (!(this.$refs["scrollContainer"] instanceof HTMLElement)) {                
+                return
+            } 
+            
+            if (targetElement.scrollTop > targetElement.scrollHeight/4) {
+                this.$emit("next", "pov-page-half")
+                this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
+            } 
         },
         nextPage() {
             this.$emit("next", "pov-page")

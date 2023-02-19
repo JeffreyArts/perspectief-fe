@@ -86,7 +86,8 @@
 
 
                     <div class="tomato-slide" id="tomato6">
-                        <div class="square-content" ratio="1x1">
+
+                        <div class="square-content" :ratio="isMobile ? '' : '1x1'">
                             <p class="square-content-row">
                                 In een minstens zo gevarieerd aanbod van smaken en vormen. 
                                 Hoe breder jouw kennis over deze verschillende variaties, contexten en andere informatie over tomaten. 
@@ -103,11 +104,7 @@
                     
                 
         <div class="tomato-slide" id="tomato7">
-            <p>
-                Simpel gezegd, wanneer je in je leven alleen maar rode tomaten hebt gezien, 
-                dan zul je een niet-rode tomaat al snel als iets bijzonders. 
-                Maar dat betekend dus niet dat niet-rode tomaten op zichzelf bijzonder zijn….
-            </p>
+            <FadeText @animationComplete="isCompleted" data="Simpel gezegd, wanneer je in je leven alleen maar rode tomaten hebt gezien, dan zul je een niet-rode tomaat al snel als iets bijzonders. Maar dat betekend dus niet dat niet-rode tomaten op zichzelf bijzonder zijn…" />
         </div>
     </section>
 </template>
@@ -117,6 +114,7 @@
 import { defineComponent } from "vue"
 import gsap from "gsap"
 import Glitch from "./../../glitch.vue"
+import FadeText from "./../../fade-text.vue"
 import TomatoSlider from "./../../tomato-slider.vue"
 import { MorphSVGPlugin } from "./../../../assets/gsap/MorphSVGPlugin.js"
 import { ScrollTrigger } from "./../../../assets/gsap/ScrollTrigger.js"
@@ -127,13 +125,14 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default defineComponent({
     name: "pov-tomaat",
-    components: { Glitch, TomatoSlider },
+    components: { Glitch, TomatoSlider,FadeText },
     data: () => {
         return {
             wordList1:["keuken","groenteboer","tuinkas"],
             wordList2:["bouwplaats","appelflap","duikplank"],
             tomatoColor: "#fc2c0d",
             crownColor: "#309528",
+            isMobile: true,
         }
     },
     computed: {
@@ -353,7 +352,6 @@ export default defineComponent({
                     gsap.to(this.$data, { duration: 2, tomatoColor: "#f00" })
                 },
                 onUpdate: ({progress, direction, isActive}) => {
-                    console.log(progress)
                     if(progress > 0 && elRed.classList.contains("__isActive") == false){
                         elRed.classList.add("__isActive")
                     }
@@ -425,6 +423,7 @@ export default defineComponent({
                 pin:true,
             }
         })
+    
         
 
 
@@ -439,9 +438,17 @@ export default defineComponent({
         },
         setSquareContent() {
             let targetElement = this.$el.querySelector(".square-content")
+            if (window.innerWidth >= 768) {
+                this.isMobile = false
+            } else {
+                this.isMobile = true
+            }
             let sourceElement = this.$el.querySelector(".svg-tomato")
             // set targetElement width and height to sourceElement width and height
             targetElement.style.width = (sourceElement.parentElement.offsetWidth * .8) + "px"
+        },
+        isCompleted() {
+            this.$emit("completed")
         }
     }
 
@@ -452,8 +459,15 @@ export default defineComponent({
 @import "./../../../assets/scss/variables.scss";
 .tomato {
     text-align: center;
+    font-size: 14px;
+
     &.container {
         max-width: 800px;
+    }
+
+
+    @media all and (min-width: 768px) {
+        font-size: 16px;
     }
 }
     
@@ -490,6 +504,10 @@ export default defineComponent({
 
 .tomato-intro-container {
     display: flex;
+    margin-bottom: 50vh;
+    @media (min-width: 768px) {
+        margin-bottom: 0;
+    }
 }
 
 .tomato-illustration {
@@ -504,11 +522,16 @@ export default defineComponent({
 
 .tomato-cta {
     font-family: $accentFont;
-    font-size: 36px;
-    line-height: 48px;
+    font-size: 24px;
+    line-height: 32px;
     z-index: 1;
     position: relative;
     display: inline-block;
+    
+    @media (min-width: 768px) {
+        font-size: 36px;
+        line-height: 48px;
+    }
 }
 
 #tomato1 {
@@ -518,6 +541,7 @@ export default defineComponent({
     text-align: left;
     opacity: 0;
     z-index: 16;
+
     .tomato-cta {
         margin-top: 128px;
     }
@@ -542,12 +566,24 @@ export default defineComponent({
     z-index: 16;
     
     .tomato-cta {
-        // opacity: 0;
+        rotate: -90deg;
+        translate: 0% -200px;
+        width: 200%;
+        font-size: 24px;
         left: 0;
         right: 0;
         text-align: center;
         bottom: 32px;
         position: absolute;
+    }
+    
+    @media all and (min-width: 768px) {
+        .tomato-cta {
+            font-size: 44px;
+            rotate: 0deg;
+            translate: 0% 0px;
+            width: auto;
+        }
     }
 }
 #tomato4 {
@@ -556,35 +592,58 @@ export default defineComponent({
     height: 100vh;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
-    line-height: 32px;
+    font-size: 14px;
+    line-height: 24px;
     z-index: 16;
+    
+    @media all and (min-width: 640px) {
+        font-size: 18px;
+        line-height: 32px;
+    }
+
+    @media all and (min-width: 768px) {
+        font-size: 22px;
+        line-height: 40px;
+    }
 }
 
 .tomato-sliders-container {
     position: absolute;
     opacity: 0;
     left: 0;
-    top: 25vh;
-    height: 50vh;
+    top: 50vh;
     justify-content: center;
     align-items: center;
-    width: 128px;
     display: flex;
     justify-content: space-between;
     background-color: #eee;
-    padding: 16px 8px 24px 16px;
+    padding: 16px;
     border-radius: 16px;
+    width: 100%;
+    flex-flow: column;
+    
+    @media all and (min-width: 768px) {
+        top: 25vh;
+        height: 50vh;
+        width: 128px;
+        padding: 16px 8px 24px 16px;
+        flex-flow: row;
+    }
 }
 .tomato-slider,
 .crown-slider {
     height: 100%;
+    width: 100%;
 }
 
 .circle-content {
     clip-path: circle(100%);
-    width: 50%;
+    width: 64%;
     margin: auto;
+    
+    @media all and (min-width: 768px) {
+        width: 50%;
+    }
 }
 
 #tomato5 {
@@ -644,21 +703,34 @@ export default defineComponent({
     justify-content: center;
     
     .square-content {
-        width: 59%;
         margin: auto;
-        transform: translateY(36px);
+        color: #2B0E38;
+        width: calc(100% + 32px);
+        // margin-left:-16px
     }
     
     p {
         margin: 0;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 28px;
-        padding: 32px;
+        padding: 0;
     }
-
+    
     .square-content-row {
         float: left;
         height: 100%;
+    }
+    
+    @media all and (min-width: 768px) {
+        .square-content {
+            width: 59%;
+            transform: translateY(36px);
+            color: #fff;
+        }
+
+        p {
+            padding: 32px;
+        }
     }
 }
 

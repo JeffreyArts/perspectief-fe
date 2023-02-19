@@ -4,8 +4,8 @@
     https://codepen.io/mattgrosswork/pen/bGgWGxy
  -->
 <template>
-    <span class="slider" @mousedown="activateSlider" ref="slider">
-        <div class="slider-button" :style="`top: ${perc}%`"></div>
+    <span class="slider" @mousedown="activateSlider" @touchstart="activateSlider" ref="slider">
+        <div class="slider-button" :style="offset"></div>
         <div class="slider-background" :style="sliderColor"></div>
     </span>
 </template>
@@ -29,7 +29,8 @@ export default {
     data() {
         return {
             mousedown: false,
-            perc: 0
+            perc: 0,
+            mobile: false
         }
     },
     computed: {
@@ -39,8 +40,18 @@ export default {
                 top: this.modelValue[1] + "px"
             }
         },
+        offset() {
+            if (this.mobile) {
+                return `left: ${this.perc}%`
+            }
+            return `top: ${this.perc}%`
+        },
         sliderColor() {
-            let string ="background-image: linear-gradient(to bottom, "
+            let direction = "to bottom"
+            if (this.mobile) {
+                direction = "to right"
+            }
+            let string = `background-image: linear-gradient(${direction}, `
             this.colorRange.forEach((color, index) => {
                 string += color
                 if (index < this.colorRange.length - 1) {
@@ -52,21 +63,27 @@ export default {
         }
     },
     mounted() {
-        // this.emit = defineEmits(["update:modelValue"])
-            
+        window.addEventListener("resize", this.setMobile)
     },
     beforeUnmount() {
-        // this.cancelGlitch()
+        window.removeEventListener("resize", this.setMobile)
     },
     methods: {
-        updateValue(value) {
+        setMobile() {
+            if (window.innerWidth < 768) {
+                this.mobile = true
+            } else {
+                this.mobile = false
+            }
+        },
+        updateValue() {
             const scale = chroma.scale(this.colorRange)
             console.log(scale(this.perc/100).hex())
             this.$emit("update:modelValue", scale(this.perc/100).hex())
         },
         setY(e: MouseEvent) {
             const height = this.$refs.slider.clientHeight
-            const offsetTop = this.$refs.slider.offsetParent.offsetTop
+            const offsetTop = this.$refs.slider.getBoundingClientRect().y
             let y = 0
             if (e.clientY > offsetTop) {
                 y = e.clientY - offsetTop
@@ -81,26 +98,65 @@ export default {
 
             return y
         },
-        activateSlider(e) {
+        setX(e: TouchEvent | MouseEvent) {
+            const width = this.$refs.slider.clientWidth
+            const offsetLeft = this.$refs.slider.getBoundingClientRect().x
+            let x = 0
+            let clientX = e.clientX
+            if (e instanceof TouchEvent) {
+                clientX = e.touches[0].clientX
+            }
+            console.log(clientX, e instanceof TouchEvent)
+            if (clientX > offsetLeft) {
+                x = clientX - offsetLeft
+
+                if (clientX > (offsetLeft + width)) {
+                    x = width
+                }
+            }
+            
+            if (x < 0) {
+                x = 0
+            }
+
+            return x
+        },
+        activateSlider(e: TouchEvent | MouseEvent) {
             this.mousedown = true
-            this.updateValue([e.clientX, e.clientY])
-            window.addEventListener("mousemove", this.updateSlider)
-            window.addEventListener("mouseup", this.deactivateSlider)
+            this.updateSlider(e)
+            
+            if (e instanceof TouchEvent) {
+                window.addEventListener("touchmove", this.updateSlider)
+                window.addEventListener("touchend", this.deactivateSlider)
+            } else {
+                window.addEventListener("mousemove", this.updateSlider)
+                window.addEventListener("mouseup", this.deactivateSlider)
+            }
         },
-        deactivateSlider(e) {
+        deactivateSlider(e: TouchEvent | MouseEvent) {
             this.mousedown = false
-            window.removeEventListener("mousemove", this.updateSlider)
-            window.removeEventListener("mouseup", this.deactivateSlider)
+
+            if (e instanceof TouchEvent) {
+                window.removeEventListener("touchmove", this.updateSlider)
+                window.removeEventListener("touchend", this.deactivateSlider)
+            } else {
+                window.removeEventListener("mousemove", this.updateSlider)
+                window.removeEventListener("mouseup", this.deactivateSlider)
+            }
         },
-        updateSlider(e: MouseEvent) {
+        updateSlider(e: MouseEvent | TouchEvent) {
+            // console.log(e)
             // set height to e.target height
-            const height = this.$refs.slider.clientHeight
-            const y = this.setY(e)
+            let size = this.$refs.slider.clientHeight
+            let v = this.setY(e)
+            if (this.mobile) {
+                size = this.$refs.slider.clientWidth
+                v = this.setX(e)
+            }
+            // console.log(v, size, this.mobile)
             // set perc to e.clientY / height
-            this.perc = y / height * 100
-            // console.log("Offset top",offsetTop,"height", height)
-            // console.log("P", this.perc,"%", y)
-            this.updateValue([e.clientX, e.clientY])
+            this.perc = v / size * 100
+            this.updateValue()
         }
     }
 }
@@ -110,16 +166,16 @@ export default {
 <style lang="scss">
 @import "./../assets/scss/variables.scss";
 .slider {
-    height: 100%;
-    width: 32px;
+    width: 100%;
+    height: 32px;
     position: relative;
     display: block; 
 }
 
 .slider-button {
-    height: 8px;
-    width: 100%;
-    margin-left: -4px;
+    width: 8px;
+    height: 100%;
+    margin-top: -4px;
     display: block; 
     border-radius: 4px;
     position: absolute;
@@ -127,8 +183,28 @@ export default {
 }
 
 .slider-background {
-    height: calc(100% + 8px);
-    width: calc( 100% - 8px);
+    width: 100%;
+    height: calc( 100% - 8px);
     border-radius: 8px;
+}
+
+@media all and (min-width: 768px) {
+    .slider {
+        height: 100%;
+        width: 32px;
+    }
+
+    .slider-button {
+        height: 8px;
+        width: 100%;
+        margin-left: -4px;
+        margin-top: 0;
+    }
+    .slider-background {
+        height: calc(100% + 8px);
+        width: calc( 100% - 8px);
+        border-radius: 8px;
+    }
+
 }
 </style>
