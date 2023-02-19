@@ -25,6 +25,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@types/chroma-js": "^2.4.0",
     "@types/lodash": "^4.14.191",
     "@types/pouchdb": "^6.4.0",
     "@types/pouchdb-browser": "^6.1.3",

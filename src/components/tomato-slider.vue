@@ -22,7 +22,7 @@ export default {
             required: true
         },
         colorRange: {
-            type: Array,
+            type: Array as () => Array<string>,
             required: true
         },
     },
@@ -81,32 +81,44 @@ export default {
             console.log(scale(this.perc/100).hex())
             this.$emit("update:modelValue", scale(this.perc/100).hex())
         },
-        setY(e: MouseEvent) {
-            const height = this.$refs.slider.clientHeight
-            const offsetTop = this.$refs.slider.getBoundingClientRect().y
+        setY(e: MouseEvent | TouchEvent) {
+            const slider = this.$refs.slider as HTMLElement
+            const height = slider.clientHeight
+            const offsetTop = slider.getBoundingClientRect().y
             let y = 0
-            if (e.clientY > offsetTop) {
-                y = e.clientY - offsetTop
-                if (e.clientY > offsetTop + height) {
+            let clientY = 0
+            
+            if (e instanceof TouchEvent) {
+                clientY = e.touches[0].clientY
+            } else {
+                clientY = e.clientY 
+            }
+            if (clientY > offsetTop) {
+                y = clientY - offsetTop
+                if (clientY > offsetTop + height) {
                     y = height
                 }
             }
-
+            
             if (y < 0) {
                 y = 0
             }
-
+            
             return y
         },
         setX(e: TouchEvent | MouseEvent) {
-            const width = this.$refs.slider.clientWidth
-            const offsetLeft = this.$refs.slider.getBoundingClientRect().x
+            const slider = this.$refs.slider as HTMLElement
+            const width = slider.clientWidth
+            const offsetLeft = slider.getBoundingClientRect().x
             let x = 0
-            let clientX = e.clientX
+            let clientX = 0
+            
             if (e instanceof TouchEvent) {
                 clientX = e.touches[0].clientX
+            } else {
+                clientX = e.clientX 
             }
-            console.log(clientX, e instanceof TouchEvent)
+
             if (clientX > offsetLeft) {
                 x = clientX - offsetLeft
 
@@ -145,12 +157,12 @@ export default {
             }
         },
         updateSlider(e: MouseEvent | TouchEvent) {
-            // console.log(e)
+            const slider = this.$refs.slider as HTMLElement
             // set height to e.target height
-            let size = this.$refs.slider.clientHeight
+            let size = slider.clientHeight
             let v = this.setY(e)
             if (this.mobile) {
-                size = this.$refs.slider.clientWidth
+                size = slider.clientWidth
                 v = this.setX(e)
             }
             // console.log(v, size, this.mobile)

@@ -48,7 +48,7 @@ export default defineComponent({
             const words = this.$el.querySelectorAll(".word")
             const rows = {} as Array<Array<HTMLElement>>
             
-            words.forEach((w, i) => {
+            words.forEach((w:HTMLElement, i:number) => {
                 if (!_.isArray(rows[w.offsetTop])) {
                     rows[w.offsetTop] = []
                 }
@@ -77,16 +77,16 @@ export default defineComponent({
                 }
             })
         },
-        animateWord(index: number, array = [], duration = 16) {
+        animateWord(index: number, array = [] as Array<HTMLElement>, duration = 16) {
             // check instance of htmlElement
-            if (array && !array[index] instanceof HTMLElement) {
+            if (array && !(array[index] instanceof HTMLElement)) {
                 return
             }
             const characters = array[index].querySelectorAll(".character")
             
             characters.forEach((c, i) => {
                 setTimeout(() => {
-                    this.animateCharacter(c as HTMLElement)
+                    this.animateCharacter(c)
                     gsap.to(characters, {
                         duration: .64,
                         ease: "power1.out",
@@ -103,15 +103,15 @@ export default defineComponent({
             }, (characters.length - 1)*duration)
             // let index = 0
         },
-        animateCharacter(el:HTMLElement) {
+        animateCharacter(el:HTMLElement | Element) {
             const containerHeight = this.$el.parentElement.clientHeight
-            const startPosition = el.parentElement.parentElement.offsetTop + el.offsetTop
-            let offset = 160
+            const startPosition = el.getBoundingClientRect().y
+            let offset = 144
             const margin = 24
             gsap.to(el, {
                 duration: .64 + Math.random()*1,
                 ease: "power1.out",
-                y: containerHeight - offset - startPosition + Math.random()*margin*2 - margin + el.offsetTop,
+                y: containerHeight - offset - startPosition + Math.random()*margin*2 - margin,
                 // x: Math.random()*margin - margin,
                 // rotate: Math.random()*225 - 135,
                 rotateX: 120,
