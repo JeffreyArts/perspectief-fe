@@ -7,7 +7,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import {MorphSVGPlugin} from "../../../assets/gsap/MorphSVGPlugin.js.js"
+import MorphSVGPlugin from "gsap/MorphSVGPlugin"
+import FadeText from "./../../fade-text.vue"
 import gsap from "gsap"
 import _ from "lodash"
 
@@ -15,6 +16,7 @@ import _ from "lodash"
 export default defineComponent({
     name: "pov-pen",
     components: {
+        FadeText
     },
     data: () => {
         return {
@@ -31,7 +33,9 @@ export default defineComponent({
        
     },
     methods: {
-        
+        isCompleted() {
+            this.$emit("completed")
+        }
     }
 
 })

@@ -1,21 +1,5 @@
-# Jeff frontend
+# Perspective front-end repo
 
-This is a boilerplate for a frontend application using Vue 3, Typescript, Vue Router, Pinia, Vite, Lodash, PouchDB, Sass, normalize.css & SocketIO. It can best be used with its backend counterpart Jeff-backend, which you can create with `yarn create jeff-backend`.
-
-## Features
-
-- Vue 3
-- Typescript
-- Vue Router
-- Pinia
-- Vite
-- Lodash
-- PouchDB
-- Sass
-- normalize.css
-- SocketIO
-
-## Getting started
 
 To get the project up and running, execute the following commands;
 
@@ -28,6 +12,8 @@ or
 $ yarn install
 $ yarn dev
 ```
+
+Note: This project uses Greensock plugins that are not publicly available. In order to install this project completely, you will need to add `gsap-bonus.tgz` into the root of your project. This file can be obtained via https://greensock.com with a valid Club membership. In order to respect their license, this file is not included in this repo. More info can be found on how to get and install this file can be found [here](https://youtu.be/5nxNuVJxBaM?t=195).
 
 To build the project for production, run the following command:
 ```

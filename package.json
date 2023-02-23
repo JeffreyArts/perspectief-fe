@@ -13,7 +13,7 @@
     "chroma-js": "^2.4.2",
     "dayjs": "^1.11.7",
     "events": "^3.3.0",
-    "gsap": "^3.11.4",
+    "gsap": "./gsap-bonus.tgz",
     "html-ratio-component": "^1.0.2",
     "lodash": "^4.17.21",
     "normalize.css": "^8.0.1",

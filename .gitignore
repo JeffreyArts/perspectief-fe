@@ -25,3 +25,4 @@ deploy.sh
 *.njsproj
 *.sln
 *.sw?
+gsap-bonus.tgz

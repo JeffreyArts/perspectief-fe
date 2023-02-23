@@ -116,7 +116,7 @@ import gsap from "gsap"
 import Glitch from "./../../glitch.vue"
 import FadeText from "./../../fade-text.vue"
 import TomatoSlider from "./../../tomato-slider.vue"
-import { MorphSVGPlugin } from "./../../../assets/gsap/MorphSVGPlugin.js"
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import _ from "lodash"
 gsap.registerPlugin(MorphSVGPlugin)
