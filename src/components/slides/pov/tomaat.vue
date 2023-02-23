@@ -104,7 +104,11 @@
                     
                 
         <div class="tomato-slide" id="tomato7">
-            <FadeText @animationComplete="isCompleted" data="Simpel gezegd, wanneer je in je leven alleen maar rode tomaten hebt gezien, dan zul je een niet-rode tomaat al snel als iets bijzonders. Maar dat betekend dus niet dat niet-rode tomaten op zichzelf bijzonder zijn…" />
+            <FadeText @animationComplete="isCompleted">
+                Simpel gezegd, wanneer je in je leven alleen maar rode tomaten hebt gezien, 
+                dan zul je een niet-rode tomaat al snel als iets bijzonders. 
+                Maar dat betekend dus niet dat niet-rode tomaten op zichzelf bijzonder zijn…
+            </FadeText>
         </div>
     </section>
 </template>

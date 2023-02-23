@@ -4,11 +4,11 @@
             <div class="container pen" ref="container">
                 <div class="pen-intro-container">
                     <p class="pen-intro">
-                        <span class="pen-intro-section">De informatie omtrent een pen bestaat uit vele verschillende data, van visueel zichtbare datapunten, </span>
-                        <span class="pen-intro-section">zoals de kleur van de pen</span>
-                        <span class="pen-intro-section">het type pen</span>
-                        <span class="pen-intro-section">of dat de pen voor links- of rechtshandigen gemaakt is.</span>
-                        <span class="pen-intro-section">Maar ook minder expliciet zichtbare dingen behoren tot de (meta-)informatie omtrent een pen. Zo is er bijvoorbeeld een verband met papier, heeft de pen wellicht emotionele waarde, of gebruik je het voor een speciaal ritueel.</span>
+                        <split-characters class="pen-intro-section">De informatie omtrent een pen bestaat uit vele verschillende data, van visueel zichtbare datapunten, </split-characters>
+                        <split-characters class="pen-intro-section">zoals de kleur van de pen</split-characters>
+                        <split-characters class="pen-intro-section">het type pen</split-characters>
+                        <split-characters class="pen-intro-section">of dat de pen voor links- of rechtshandigen gemaakt is.</split-characters>
+                        <split-characters class="pen-intro-section">Maar ook minder expliciet zichtbare dingen behoren tot de (meta-)informatie omtrent een pen. Zo is er bijvoorbeeld een verband met papier, heeft de pen wellicht emotionele waarde, of gebruik je het voor een speciaal ritueel.</split-characters>
                     </p>
 
                     <svg class="svg-pen" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 340" xml:space="preserve">
@@ -52,7 +52,11 @@
                     
                 
         <div class="pen-slide-end">
-            <FadeText @animationComplete="isCompleted" data="Simpel gezegd, wanneer je in je leven alleen maar blauwe pennen hebt gezien, dan zul je een niet blauwe pen al snel als iets bijzonders zien. Maar dat betekend dus niet dat niet-blauwe pennen op zichzelf bijzonder zijn…" />
+            <FadeText @animationComplete="isCompleted">
+                Simpel gezegd, wanneer je in je leven alleen maar blauwe pennen hebt gezien, 
+                dan zul je een niet blauwe pen al snel als iets bijzonders zien. 
+                Maar dat betekend dus niet dat niet-blauwe pennen op zichzelf bijzonder zijn…
+            </FadeText>
         </div>
     </section>
 </template>
@@ -60,8 +64,10 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import MorphSVGPlugin from "gsap/MorphSVGPlugin"
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import FadeText from "./../../fade-text.vue"
+import SplitCharacters from "./../../split-characters.vue"
 import gsap from "gsap"
 import _ from "lodash"
 
@@ -69,7 +75,7 @@ import _ from "lodash"
 export default defineComponent({
     name: "pov-pen",
     components: {
-        FadeText
+        FadeText, SplitCharacters
     },
     data: () => {
         return {
@@ -80,10 +86,19 @@ export default defineComponent({
        
     },
     mounted() {
-       
-    },
-    unmounted() {
-       
+        if (_.isArray(this.$refs["intro-section"])) {
+            _.each(this.$refs["intro-section"], section => {
+                const text = section.innerText
+                let res = ""
+                text.split("").forEach((letter:string) => {
+                    if (letter === " ") {
+                        letter = "&nbsp;"
+                    }
+                    res += `<span class="character">${letter}</span>`
+                })
+                section.innerHTML = res
+            })
+        }
     },
     methods: {
         isCompleted() {
@@ -137,7 +152,6 @@ export default defineComponent({
 
 .pen-intro-section {
     display: inline;
-    padding-right: .32em;
 }
 
 .pen-text-container {

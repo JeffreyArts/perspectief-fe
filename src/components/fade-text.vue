@@ -1,12 +1,7 @@
 <template>
     <div class="fade-text-container" ref="container">
-        <div class="fade-text" v-if="data">
-            <span class="word" v-for="word, ii in words" :key="ii">
-                <span class="character" v-for="c, i in word" :key="i">
-                    <span v-if="c !== ' '">{{ c }}</span>
-                </span>
-                <span>&nbsp;</span>
-            </span>
+        <div class="fade-text">
+            <split-characters><slot /></split-characters>
         </div>
         <perspective-button  @click="moveOn">Ga verder</perspective-button>
     </div>
@@ -17,31 +12,19 @@
 import { defineComponent } from "vue"
 import gsap from "gsap"
 import perspectiveButton from "./perspective-button.vue"
+import SplitCharacters from "./split-characters.vue"
+
 import _ from "lodash"
 
 
 export default defineComponent({
     name: "fade-text",
-    components: { perspectiveButton },
-    props: {
-        data: {
-            type: String,
-            required: true,
-        }
-    },
+    components: { perspectiveButton, SplitCharacters },
     data: () => {
         return {
             state: 0,
             gTimeline: null as null | gsap.core.Timeline,
         }
-    },
-    computed: {
-        words() {
-            return this.data.split(" ")
-        }
-    },
-    mounted() {
-        
     },
     methods: {
         startAnimation() {
