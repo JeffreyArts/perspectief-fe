@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="tomato-illustration">
-                    <svg @click="startAnimation" class="svg-tomato" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 645 742" style="enable-background:new 0 0 645 742;" xml:space="preserve" overflow="visible">
+                    <svg class="svg-tomato" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 645 742" style="enable-background:new 0 0 645 742;" xml:space="preserve" overflow="visible">
                         <rect id="rectangle" x="64" y="117.2" width="517" height="516.3"/>
                         <circle id="circle" cx="322.5" cy="375.3" r="258.1"/>
                         <path id="body" :fill="tomatoColor" d="M285.4,632.9c62.2,2.2,115.9-11.2,147.7-26.8s72-30.9,106.1-69.8c34-38.9,46.1-128.4,26.4-193.7 c-19.7-65.3-58.6-125.3-138.3-156.6c-79.7-31.3-187-22.4-244.8,11.6c-57.7,34-105.2,83.7-114.6,170.5 c-9.4,86.8,2.7,149.4,51.5,202.7C168.1,624,223.2,630.7,285.4,632.9z"/>

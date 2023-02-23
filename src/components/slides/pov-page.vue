@@ -34,7 +34,7 @@
             <div ref="content">
                 <!-- <div class="container"> -->
                     <!-- <tomaat v-if="typeIndex == 1" /> -->
-                    <tomaat @completed="nextPage"/>
+                    <pen @completed="nextPage" />
                     <!-- <pen v-if="typeIndex == 0" /> -->
                 <!-- </div> -->
             </div>
@@ -65,8 +65,7 @@ export default defineComponent({
             repeat: 777,
             typeIndex: 0,
             interval: 0 as number,
-            // types: ["pen", "tomaat"],
-            types: ["tomaat"],
+            types: ["pen", "tomaat"],
             gTimeline: null as null | gsap.core.Timeline,
         }
     },
@@ -158,6 +157,9 @@ export default defineComponent({
     bottom: 0;
     overflow-y: auto;
     text-align: center;
+    font-size: 14px;
+    line-height: 24px;
+
     .text-red {
         color: #FF2B22;
     }
@@ -167,6 +169,11 @@ export default defineComponent({
     .glitch {
         // font-size: 1.08em;
     }
+
+    @media (min-width: 768px) {
+        font-size: 16px;
+        line-height: 32px;
+    }
 }
 
 .pov-intro-block {
@@ -174,9 +181,8 @@ export default defineComponent({
     background-color: #fff;
     border:1px solid $black;
     padding: 36px 48px;
-    font-size: 16px;
     max-width: 1000px;
-    line-height: 32px;
+    
     p {
         margin: 0;
     }
@@ -190,10 +196,9 @@ export default defineComponent({
 }
 
 .pov-content {
-    font-size: 16px;
-    line-height: 32px;
     text-align: left;
     padding-top: 64px;
+    overflow-x: hidden;
 
     > .container {
         background-color: #fff;

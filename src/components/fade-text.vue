@@ -133,6 +133,8 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     flex-flow: column;
+    font-size: 22px;
+    line-height: 42px;
 
     .perspective-button {
         margin-top: 128px;
