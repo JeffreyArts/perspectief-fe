@@ -8,9 +8,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import iconCross from "./../assets/icons/cross.svg?raw"
-import iconCalendar from "./../assets/icons/calendar.svg?raw"
-import iconChevron from "./../assets/icons/chevron.svg?raw"
+import iconCross from "@/assets/icons/cross.svg?raw"
+import iconCalendar from "@/assets/icons/calendar.svg?raw"
+import iconChevron from "@/assets/icons/chevron.svg?raw"
 
 export default defineComponent({
     name: "icon",
@@ -38,7 +38,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
+
 .icon {
     display: flex;
     align-items: center;

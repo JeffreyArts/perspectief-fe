@@ -164,7 +164,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 .introduction-page {
     height: 100vh;
 }

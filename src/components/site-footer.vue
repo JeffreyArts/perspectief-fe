@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import svgJeffrey from "./../assets/svg/ja-sharp.svg?raw"
-import svgZOZ from "./../assets/svg/ZOZ_logo.svg?raw"
+import svgJeffrey from "@/assets/svg/ja-sharp.svg?raw"
+import svgZOZ from "@/assets/svg/ZOZ_logo.svg?raw"
 
 
 export default defineComponent({
@@ -42,8 +42,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/variables.scss";
-
+@import "@/assets/scss/variables.scss";
 
 .site-footer-container {
     position: fixed;

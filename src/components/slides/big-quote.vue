@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import { Quote } from "./../../../types"
+import { Quote } from "@/../types"
 import _ from "lodash"
 
 
@@ -207,7 +207,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 .big-quote-container {
     font-family: $accentFont;
     position: absolute;

@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import navKeys from "./navigation-keys.vue"
+import navKeys from "@/navigation-keys.vue"
 import gsap from "gsap"
 import _ from "lodash"
 
@@ -183,7 +183,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 .introduction-story-container {
     position: absolute;
     left: 0;

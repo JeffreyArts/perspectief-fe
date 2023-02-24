@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
-import navKey from "./../../assets/svg/navigation-key.svg?raw"
+import navKey from "@/assets/svg/navigation-key.svg?raw"
 import gsap from "gsap"
 
 
@@ -79,7 +79,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 .navigation-keys {
     position: fixed;
     bottom: 0;

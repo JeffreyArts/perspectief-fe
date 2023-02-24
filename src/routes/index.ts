@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router"
-import Home from "./home.vue"
-import "./../services/css-mousemove.ts"
-import "./../services/gsap-blur.ts"
+import Home from "@/routes/home.vue"
+import "@/services/css-mousemove.ts"
+import "@/services/gsap-blur.ts"
 
 const routes = [
     {

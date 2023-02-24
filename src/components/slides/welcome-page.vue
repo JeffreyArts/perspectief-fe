@@ -37,7 +37,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import Icon from "./../icon.vue"
+import Icon from "@/components/icon.vue"
 import _ from "lodash"
 
 
@@ -128,7 +128,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
+
 .welcome-page-container {
     width: 100%;
     height: 100%;

@@ -117,9 +117,9 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import Glitch from "./../../glitch.vue"
-import FadeText from "./../../fade-text.vue"
-import TomatoSlider from "./../../tomato-slider.vue"
+import Glitch from "@/components/glitch.vue"
+import FadeText from "@/components/fade-text.vue"
+import TomatoSlider from "@/components/tomato-slider.vue"
 import { MorphSVGPlugin } from "gsap/MorphSVGPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import _ from "lodash"
@@ -460,7 +460,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
+
 .tomato {
     text-align: center;
     font-size: 14px;

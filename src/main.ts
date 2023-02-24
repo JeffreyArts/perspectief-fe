@@ -1,12 +1,12 @@
 import { createApp } from "vue"
 import { createPinia } from "pinia"
-import router from "./routes"
+import router from "@/routes"
 import "html-ratio-component"
 document.title = import.meta.env.VITE_PAGE_TITLE
 
 
 import "./assets/scss/index.scss"
-import App from "./App.vue"
+import App from "@/App.vue"
 const pinia = createPinia()
 
 createApp(App)

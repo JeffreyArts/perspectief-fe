@@ -176,7 +176,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
+
 .slider {
     width: 100%;
     height: 32px;

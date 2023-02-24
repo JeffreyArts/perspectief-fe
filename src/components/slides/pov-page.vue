@@ -46,9 +46,9 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import Pen from "./pov/pen.vue"
-import Tomaat from "./pov/tomaat.vue"
-import Glitch from "./../glitch.vue"
+import Pen from "@/components/slides/pov/pen.vue"
+import Tomaat from "@/components/slides/pov/tomaat.vue"
+import Glitch from "@/components/glitch.vue"
 import _ from "lodash"
 
 
@@ -147,7 +147,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
+
 .pov-page {
     position: absolute;
     z-index: 1;

@@ -149,7 +149,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "./../../../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 
 .svg-pen {
     height: 50vh;

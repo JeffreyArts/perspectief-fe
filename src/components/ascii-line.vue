@@ -38,7 +38,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 .ascii-line {
     width: 100%;
     display: inline-block;

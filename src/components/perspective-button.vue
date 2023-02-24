@@ -72,7 +72,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
+
 .perspective-button {
     color: $white;
     background-color: #222;

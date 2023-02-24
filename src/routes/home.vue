@@ -12,14 +12,14 @@
 
 <script lang="ts">
 import {defineComponent} from "vue"
-import LocalDB from "../stores/localdb"
-import SocketIO from "../stores/socketio"
-import bigQuote from "./../components/slides/big-quote.vue"
-import welcomePage from "./../components/slides/welcome-page.vue"
-import introductionPage from "./../components/slides/introduction-page.vue"
-import povPage from "./../components/slides/pov-page.vue"
-import stripes from "./../components/slides/stripes.vue"
-import bg from "./../components/bg.vue"
+import LocalDB from "@/stores/localdb"
+import SocketIO from "@/stores/socketio"
+import bigQuote from "@/components/slides/big-quote.vue"
+import welcomePage from "@/components/slides/welcome-page.vue"
+import introductionPage from "@/components/slides/introduction-page.vue"
+import povPage from "@/components/slides/pov-page.vue"
+import stripes from "@/components/slides/stripes.vue"
+import bg from "@/components/bg.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
@@ -62,7 +62,7 @@ export default defineComponent ({
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 
 .home {
     height:100%;

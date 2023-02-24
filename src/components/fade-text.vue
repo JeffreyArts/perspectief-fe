@@ -11,8 +11,8 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
-import perspectiveButton from "./perspective-button.vue"
-import SplitCharacters from "./split-characters.vue"
+import perspectiveButton from "@/components/perspective-button.vue"
+import SplitCharacters from "@/components/split-characters.vue"
 
 import _ from "lodash"
 
@@ -109,7 +109,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "./../assets/scss/variables.scss";
+@import "@/assets/scss/variables.scss";
 
 .fade-text-container {
     display: flex;
