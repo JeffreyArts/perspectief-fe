@@ -116,11 +116,17 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     flex-flow: column;
-    font-size: 22px;
-    line-height: 42px;
-
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 32px;
+    
     .perspective-button {
         margin-top: 128px;
+    }
+    
+    @media (min-width: 768px) {
+        font-size: 22px;
+        line-height: 42px;
     }
 }
 
