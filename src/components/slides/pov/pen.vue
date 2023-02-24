@@ -3,12 +3,14 @@
         <div class="container">
             <div class="container pen" ref="container">
                 <div class="pen-intro-container">
+
+            {{ isMobile.v }}
                     <p class="pen-intro">
-                        <split-characters class="pen-intro-section">De informatie omtrent een pen bestaat uit vele verschillende data, van visueel zichtbare datapunten, </split-characters>
-                        <split-characters class="pen-intro-section">zoals de kleur van de pen</split-characters>
-                        <split-characters class="pen-intro-section">het type pen</split-characters>
-                        <split-characters class="pen-intro-section">of dat de pen voor links- of rechtshandigen gemaakt is.</split-characters>
-                        <split-characters class="pen-intro-section">Maar ook minder expliciet zichtbare dingen behoren tot de (meta-)informatie omtrent een pen. Zo is er bijvoorbeeld een verband met papier, heeft de pen wellicht emotionele waarde, of gebruik je het voor een speciaal ritueel.</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-1">De informatie omtrent een pen bestaat uit vele verschillende data, van visueel zichtbare datapunten, </split-characters>
+                        <split-characters class="pen-intro-section" id="intro-2">zoals de kleur van de pen</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-3">het type pen</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-4">of dat de pen voor links- of rechtshandigen gemaakt is.</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-5">Maar ook minder expliciet zichtbare dingen behoren tot de (meta-)informatie omtrent een pen. Zo is er bijvoorbeeld een verband met papier, heeft de pen wellicht emotionele waarde, of gebruik je het voor een speciaal ritueel.</split-characters>
                     </p>
 
                     <svg class="svg-pen" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 40 340" xml:space="preserve">
@@ -64,10 +66,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import isMobiel from "@/stores/is-mobile"
 import { MorphSVGPlugin } from "gsap/MorphSVGPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import FadeText from "./../../fade-text.vue"
-import SplitCharacters from "./../../split-characters.vue"
+import FadeText from "@/components/fade-text.vue"
+import SplitCharacters from "@/components/split-characters.vue"
 import gsap from "gsap"
 import _ from "lodash"
 
@@ -77,13 +80,14 @@ export default defineComponent({
     components: {
         FadeText, SplitCharacters
     },
+    setup() {
+        const isMobile = isMobiel()
+        return { isMobile }
+    },
     data: () => {
         return {
-          
+            timeline: null as null | gsap.core.Timeline,
         }
-    },
-    computed: {
-       
     },
     mounted() {
         if (_.isArray(this.$refs["intro-section"])) {
@@ -99,6 +103,41 @@ export default defineComponent({
                 section.innerHTML = res
             })
         }
+
+        // SET DEFAULTS
+        gsap.set(".pen-intro-section ", {opacity: 0})
+        ScrollTrigger.defaults({
+            scroller: ".pov-page",
+        })
+
+        this.timeline = gsap.timeline({
+            defaults: {
+                duration: .96,
+                ease: "power4.out"
+            },
+            scrollTrigger:{
+                trigger: ".pen-intro-container", // start the animation when ".box" enters the viewport (once)
+                // markers: true,
+                id:"intro",
+                start: "top 50%",
+            },
+        })
+
+        console.log(this.timeline)
+        // Set timeline for intro section
+        this.timeline.to("#intro-1 ", {
+            opacity: 1,
+            onStart: self => console.log("toggled, isActive:", self.isActive),
+        })
+
+
+
+
+
+        // this.timeline.to(".pen-intro-section", {
+        //     duration: 2.24,
+        //     ease: "elastic.out(1, 0.3)"
+        // })
     },
     methods: {
         isCompleted() {
@@ -164,8 +203,16 @@ export default defineComponent({
 
     @media (min-width: 768px) {
         flex-direction: row;
-        gap: 80px;
+        gap: 40px;
         text-align: justify;
+        
+        font-size: 14px;
+        line-height: 24px;
+    }
+    @media (min-width: 1024px) {
+        gap: 80px;
+        font-size: 16px;
+        line-height: 32px;
     }
 }
 .pen-text-footer {

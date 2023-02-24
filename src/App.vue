@@ -8,7 +8,10 @@
 import SiteFooter from "./components/site-footer.vue"
 // import SocketIO from "./stores/socketio"
 import LocalDB from "./stores/localdb"
+import mobileCheck from "./stores/is-mobile"
+
 // const socketIO = SocketIO()
+const isMobile = mobileCheck()
 const localDB = LocalDB()
 localDB.load()
 // socketIO.init()
