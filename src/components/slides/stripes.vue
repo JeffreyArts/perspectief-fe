@@ -113,7 +113,6 @@ export default defineComponent({
     watch: {
         done: {
             handler: function (val) {
-                console.log(val)
                 if (val) {
                     this.stripes[0].visible = false
                     this.stripes[1].visible = false

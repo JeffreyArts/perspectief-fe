@@ -78,7 +78,7 @@ export default {
         },
         updateValue() {
             const scale = chroma.scale(this.colorRange)
-            console.log(scale(this.perc/100).hex())
+            // console.log(scale(this.perc/100).hex())
             this.$emit("update:modelValue", scale(this.perc/100).hex())
         },
         setY(e: MouseEvent | TouchEvent) {
@@ -165,7 +165,7 @@ export default {
                 size = slider.clientWidth
                 v = this.setX(e)
             }
-            // console.log(v, size, this.mobile)
+
             // set perc to e.clientY / height
             this.perc = v / size * 100
             this.updateValue()

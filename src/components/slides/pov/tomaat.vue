@@ -137,308 +137,300 @@ export default defineComponent({
             tomatoColor: "#fc2c0d",
             crownColor: "#309528",
             isMobile: true,
+            animations: []
         }
     },
     computed: {
        
     },
     mounted() {
-
         window.addEventListener("resize", this.setSquareContent)
-        setTimeout(() => {
-            window.dispatchEvent(new Event("resize"))
-        })
-
-
-
 
         // SET DEFAULTS
+        gsap.set("#body", {fill: this.tomatoColor})
         gsap.set("#crown", {svgOrigin: "301px 379px", rotate: 180})
         gsap.set("#tomato2 .tomato-sliders-container", {x: "-100%"})
         ScrollTrigger.defaults({
             scroller: ".pov-page",
         })
 
-
-
-
-        // PIN TOMATO Illustration FOR 10 PAGE SLIDES
-        gsap.to(".svg-tomato",{
-            scrollTrigger:{
-                trigger: ".svg-tomato", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                id:"Tomato",
-                pin: true,
-                end: "+=600%",
-                onLeave: () => {
-                    gsap.to("#tomato6 .square-content", {
-                        opacity: 0,
-                        duration: 0.32,
-                    })
-                },
-                onEnterBack: () => {
-                    gsap.to("#tomato6 .square-content", {
-                        opacity: 1,
-                        duration: 0.32,
-                    })
-                },
-            },
-            rotate: 0,
-            duration: 2.24,
-            ease: "elastic.out(1, 0.3)"
+        setTimeout(() => {
+            window.dispatchEvent(new Event("resize"))
+            this.initialiseAnimation()
         })
-
-
-        //
-        // Crown animation
-        //
-        gsap.to("#crown",{
-            scrollTrigger:{
-                trigger: "#tomato1  ", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                start: "20% top",
-                end: "bottom 20%",
-                // scrub: true,
-            },
-            rotate: 0,
-            duration: 2.24,
-            ease: "elastic.out(1, 0.3)"
-        })
-
-        gsap.to("#tomato1",{
-            scrollTrigger:{
-                trigger: "#tomato1", // start the animation when ".box" enters the viewport (once)
-                start: "top top",
-                end: "bottom 20%",
-                // markers: true,
-                // scrub: true,
-                pin: true,
-            },
-            opacity: 1,
-            duration: 2.44,
-            ease: "power4.out"
-        })
-        //
-        // Crown animation END
-        //
-
-
-        //
-        // Color slides START
-        //
-        gsap.to("#tomato2 .tomato-cta",{
-            scrollTrigger:{
-                trigger: "#tomato2", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                start: "top top",
-                end: "bottom 20%",
-                id:"Slide2",
-                pin: true,
-            },
-            opacity: 1,
-            duration: 1.28,
-            ease: "power4.out"
-        })
-        
-        gsap.to("#tomato2 .tomato-sliders-container",{
-            scrollTrigger:{
-                trigger: "#tomato2", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                start: "top top",
-                end: "bottom 20%",
-                id:"sliders",
-                // pin: true,
-            },
-            opacity: 1,
-            x: 0,
-            delay: 0.64,
-            duration: 1.28,
-            ease: "power4.out"
-        })
-
-        //
-        // Color slides END
-        //
-
-        //
-        // Shape shift START
-        //
-        const tlShapeShift = gsap.timeline( {
-            scrollTrigger:{
-                trigger: "#tomato3", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                start: "top top",
-                end: "center top",
-                id:"shape-shifter",
-                pin:true,
-                onLeave: ({progress, direction, isActive}) => {
-                    tlShapeShift.pause()
-                    tlShapeShift.kill()
-                    gsap.to("#body",{
-                        morphSVG: {shape: "#circle"}, 
-                        duration: 1.28,
-                        ease: "power4.out"
-                    })
-                }
-            },
-            repeat:-1
-        }).to("#body",{
-            morphSVG: {shape: "#circle"}, 
-            duration: 1.28,
-            ease: "power4.out"
-        }).to("#body",{
-            morphSVG: {shape: "#rectangle"}, 
-            duration: 1.28,
-            ease: "power4.out",
-        }).to("#body",{
-            morphSVG: {shape: "#body"}, 
-            duration: 1.28,
-            ease: "power4.out",
-        })
-
-        //
-        // Shape shift END
-        //
-
-
-        //
-        // TOMATO 4 START
-        //
-
-        // gsap.to("#body", {, ease: "bounce.out"})
-        gsap.to("#body",{
-            scrollTrigger:{
-                trigger: "#tomato4", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                // pin: true,
-                start: "top top",
-                end: "center top",
-                id:"circle-text",
-                onLeave: ({progress, direction, isActive}) => {
-                    tlShapeShift.pause()
-                    tlShapeShift.kill()
-                    gsap.to("#body",{
-                        morphSVG: {shape: "#rectangle"}, 
-                        duration: 1.28,
-                        ease: "power4.out"
-                    })
-                    gsap.to("#crown",{
-                        rotate: -16,
-                        y: "-20%",
-                        duration: 1.28,
-                        ease: "power4.out"
-                    })
-                }
-            },
-            duration: 1.28,
-            ease: "power4.out"
-        })
-
-        //
-        // TOMATO 4 END
-        //
-        
-        //
-        // Square START
-        //
-        let elRed = this.$el.querySelector("#tomato5 .__isRed")
-        let elGreen = this.$el.querySelector("#tomato5 .__isGreen")
-        let elOrange = this.$el.querySelector("#tomato5 .__isOrange")
-        let elYellow = this.$el.querySelector("#tomato5 .__isYellow")
-        let elBlack = this.$el.querySelector("#tomato5 .__isBlack")
-        gsap.to(".square-content",{
-            scrollTrigger:{
-                trigger: "#tomato5", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                end: "bottom bottom",
-                id:"square",
-                onEnter: ({progress, direction, isActive}) => {
-                    gsap.to(this.$data, { duration: 2, tomatoColor: "#f00" })
-                },
-                onUpdate: ({progress, direction, isActive}) => {
-                    if(progress > 0 && elRed.classList.contains("__isActive") == false){
-                        elRed.classList.add("__isActive")
-                    }
-                    if(progress > 0.1 && elGreen.classList.contains("__isActive") == false){
-                        elGreen.classList.add("__isActive")
-                    }
-                    if(progress > 0.2 && elOrange.classList.contains("__isActive") == false){
-                        elOrange.classList.add("__isActive")
-                    }
-                    if(progress > 0.3 && elYellow.classList.contains("__isActive") == false){
-                        elYellow.classList.add("__isActive")
-                    }
-                    if(progress > 0.4 && elBlack.classList.contains("__isActive") == false){
-                        elBlack.classList.add("__isActive")
-                    }
-                    if(progress > 0.9 ){
-                        elRed.classList.remove("__isActive")
-                        elGreen.classList.remove("__isActive")
-                        elOrange.classList.remove("__isActive")
-                        elYellow.classList.remove("__isActive")
-                        elBlack.classList.remove("__isActive")
-                        // elBlack.classList.add("__isHidden")
-                    }
-                    if(progress > 0.99 ){
-                        // remove transition from elBlack
-                        elBlack.style.transition = "none"
-                        elBlack.classList.remove("__isActive")
-                        // elBlack.classList.remove("__isHidden")
-
-                        gsap.to("#body", {
-                            fill: "#2B0E38",
-                            duration: 1.28,
-                            onUpdate(){
-                                // console.log(test)
-                                // this.tomatoColor = test.tc
-                            }
-                        })
-                    }
-                },
-                onLeave: function() {
-                    gsap.to("#tomato6", {
-                        delay: 0.96,
-                        duration: 1.28,
-                        opacity: 1,
-                        ease: "power4.out"
-                    })
-                },
-                onEnterBack: function() {
-                    gsap.to("#tomato6", {
-                        duration: .28,
-                        opacity: 0,
-                        ease: "power4.out"
-                    })
-                },
-                pin:true,
-            },
-            duration: 1.28,
-            opacity: 1,
-            ease: "power4.out"
-        })
-
-
-        gsap.to("#tomato6 .square-content",{
-            scrollTrigger:{
-                trigger: "#tomato6", // start the animation when ".box" enters the viewport (once)
-                // markers: true,
-                end: "90% top",
-                id:"6",
-                pin:true,
-            }
-        })
-    
-        
-
-
     },
     unmounted() {
         window.removeEventListener("resize", this.setSquareContent)
     },
     methods: {
-        startAnimation() {
+        initialiseAnimation() {
             // gsap.to("#body", {morphSVG: {shape: "#circle"}, duration: 1.28, ease: "bounce.out"})
-            gsap.to("#crown", {rotate: 180, duration: 1.28, ease: "bounce.out"})
+            // PIN TOMATO Illustration FOR 10 PAGE SLIDES
+            gsap.to(".svg-tomato", {
+                scrollTrigger:{
+                    trigger: ".svg-tomato", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    id:"Tomato",
+                    pin: true,
+                    end: "+=600%",
+                    onLeave: () => {
+                        gsap.to("#tomato6 .square-content", {
+                            opacity: 0,
+                            duration: 0.32,
+                        })
+                    },
+                    onEnterBack: () => {
+                        gsap.to("#tomato6 .square-content", {
+                            opacity: 1,
+                            duration: 0.32,
+                        })
+                    },
+                },
+                rotate: 0,
+                duration: 2.24,
+                ease: "elastic.out(1, 0.3)"
+            })
+
+
+            //
+            // Crown animation
+            //
+            gsap.to("#crown",{
+                scrollTrigger:{
+                    trigger: "#tomato1  ", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    start: "20% top",
+                    end: "bottom 20%",
+                // scrub: true,
+                },
+                rotate: 0,
+                duration: 2.24,
+                ease: "elastic.out(1, 0.3)"
+            })
+
+            gsap.to("#tomato1",{
+                scrollTrigger:{
+                    trigger: "#tomato1", // start the animation when ".box" enters the viewport (once)
+                    start: "top top",
+                    end: "bottom 20%",
+                    // markers: true,
+                    // scrub: true,
+                    pin: true,
+                },
+                opacity: 1,
+                duration: 2.44,
+                ease: "power4.out"
+            })
+            //
+            // Crown animation END
+            //
+
+
+            //
+            // Color slides START
+            //
+            gsap.to("#tomato2 .tomato-cta",{
+                scrollTrigger:{
+                    trigger: "#tomato2", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    start: "top top",
+                    end: "bottom 20%",
+                    id:"Slide2",
+                    pin: true,
+                },
+                opacity: 1,
+                duration: 1.28,
+                ease: "power4.out"
+            })
+        
+            gsap.to("#tomato2 .tomato-sliders-container",{
+                scrollTrigger:{
+                    trigger: "#tomato2", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    start: "top top",
+                    end: "bottom 20%",
+                    id:"sliders",
+                // pin: true,
+                },
+                opacity: 1,
+                x: 0,
+                delay: 0.64,
+                duration: 1.28,
+                ease: "power4.out",
+                onComplete: () => {
+                    console.log("COMPLETE SVG TOMATO")
+                }
+            })
+
+            //
+            // Color slides END
+            //
+
+            //
+            // Shape shift START
+            //
+            const tlShapeShift = gsap.timeline( {
+                scrollTrigger:{
+                    trigger: "#tomato3", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    start: "top top",
+                    end: "center top",
+                    id:"shape-shifter",
+                    pin:true,
+                    onLeave: ({progress, direction, isActive}) => {
+                        tlShapeShift.pause()
+                        tlShapeShift.kill()
+                        gsap.to("#body",{
+                            morphSVG: {shape: "#circle"}, 
+                            duration: 1.28,
+                            ease: "power4.out"
+                        })
+                    }
+                },
+                repeat:-1
+            }).to("#body",{
+                morphSVG: {shape: "#circle"}, 
+                duration: 1.28,
+                ease: "power4.out"
+            }).to("#body",{
+                morphSVG: {shape: "#rectangle"}, 
+                duration: 1.28,
+                ease: "power4.out",
+            }).to("#body",{
+                morphSVG: {shape: "#body"}, 
+                duration: 1.28,
+                ease: "power4.out",
+            })
+
+            //
+            // Shape shift END
+            //
+
+
+            //
+            // TOMATO 4 START
+            //
+            gsap.to("#body",{
+                scrollTrigger:{
+                    trigger: "#tomato4", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    // pin: true,
+                    start: "top top",
+                    end: "center top",
+                    id:"circle-text",
+                    onLeave: ({progress, direction, isActive}) => {
+                        tlShapeShift.pause()
+                        tlShapeShift.kill()
+                        gsap.to("#body",{
+                            morphSVG: {shape: "#rectangle"}, 
+                            duration: 1.28,
+                            ease: "power4.out"
+                        })
+                        gsap.to("#crown",{
+                            rotate: -16,
+                            y: "-20%",
+                            duration: 1.28,
+                            ease: "power4.out"
+                        })
+                    }
+                },
+                duration: 1.28,
+                ease: "power4.out"
+            })
+
+            //
+            // TOMATO 4 END
+            //
+        
+            //
+            // Square START
+            //
+            let elRed = this.$el.querySelector("#tomato5 .__isRed")
+            let elGreen = this.$el.querySelector("#tomato5 .__isGreen")
+            let elOrange = this.$el.querySelector("#tomato5 .__isOrange")
+            let elYellow = this.$el.querySelector("#tomato5 .__isYellow")
+            let elBlack = this.$el.querySelector("#tomato5 .__isBlack")
+            gsap.to(".square-content",{
+                scrollTrigger:{
+                    trigger: "#tomato5", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    end: "bottom bottom",
+                    id:"square",
+                    onEnter: ({progress, direction, isActive}) => {
+                        gsap.to(this.$data, { duration: 2, tomatoColor: "#f00" })
+                    },
+                    onUpdate: ({progress, direction, isActive}) => {
+                        if (this.$el.querySelector(".square-content").getBoundingClientRect().top <= 0) {
+                            return
+                        }
+
+                        if(progress > 0 && elRed.classList.contains("__isActive") == false){
+                            elRed.classList.add("__isActive")
+                        }
+                        if(progress > 0.1 && elGreen.classList.contains("__isActive") == false){
+                            elGreen.classList.add("__isActive")
+                        }
+                        if(progress > 0.2 && elOrange.classList.contains("__isActive") == false){
+                            elOrange.classList.add("__isActive")
+                        }
+                        if(progress > 0.3 && elYellow.classList.contains("__isActive") == false){
+                            elYellow.classList.add("__isActive")
+                        }
+                        if(progress > 0.4 && elBlack.classList.contains("__isActive") == false){
+                            elBlack.classList.add("__isActive")
+                        }
+                        if(progress > 0.9 ){
+                            elRed.classList.remove("__isActive")
+                            elGreen.classList.remove("__isActive")
+                            elOrange.classList.remove("__isActive")
+                            elYellow.classList.remove("__isActive")
+                            elBlack.classList.remove("__isActive")
+                        // elBlack.classList.add("__isHidden")
+                        }
+                        if(progress > 0.99 ){
+                            elBlack.style.transition = "none"
+                            elBlack.classList.remove("__isActive")
+                            gsap.to("#body", {
+                                fill: "#2B0E38",
+                                duration: 1.28,
+                                onUpdate(){
+                                // this.tomatoColor = test.tc
+                                }
+                            })
+                        }
+                    },
+                    onLeave: function() {
+                        gsap.to("#tomato6", {
+                            delay: 0.96,
+                            duration: 1.28,
+                            opacity: 1,
+                            ease: "power4.out"
+                        })
+                    },
+                    onEnterBack: function() {
+                        gsap.to("#tomato6", {
+                            duration: .28,
+                            opacity: 0,
+                            ease: "power4.out"
+                        })
+                    },
+                    pin:true,
+                },
+                duration: 1.28,
+                opacity: 1,
+                ease: "power4.out"
+            })
+
+
+            gsap.to("#tomato6 .square-content",{
+                scrollTrigger:{
+                    trigger: "#tomato6", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    end: "90% top",
+                    id:"6",
+                    pin:true,
+                }
+            })
         },
         setSquareContent() {
             let targetElement = this.$el.querySelector(".square-content")
@@ -543,7 +535,7 @@ export default defineComponent({
     margin-top: -700vh;
     width: 70%;
     height: 50vh;
-    text-align: left;
+    text-align: start;
     opacity: 0;
     z-index: 16;
 

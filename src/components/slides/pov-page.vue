@@ -33,9 +33,8 @@
 
             <div ref="content">
                 <!-- <div class="container"> -->
-                    <!-- <tomaat v-if="typeIndex == 1" /> -->
-                    <pen @completed="nextPage" />
-                    <!-- <pen v-if="typeIndex == 0" /> -->
+                    <tomaat v-if="typeIndex == 1" />
+                    <pen v-if="typeIndex == 0" />
                 <!-- </div> -->
             </div>
         </div>
@@ -197,12 +196,13 @@ export default defineComponent({
 }
 
 .pov-content {
-    text-align: left;
+    text-align: start;
     padding-top: 64px;
     overflow-x: hidden;
 
     > .container {
         background-color: #fff;
+        overflow: hidden;
     }
 }
 

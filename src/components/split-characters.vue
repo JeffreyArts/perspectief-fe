@@ -2,9 +2,9 @@
     <div class="split-characters">
         <span class="word" v-for="word, ii in words" :key="ii">
             <span class="character" v-for="c, i in word" :key="i">
-                <span v-if="c !== ' '">{{ c }}</span>
+                <span v-if="c && c !== ' '">{{ c }}</span>
             </span>
-            <span>&nbsp;</span>
+            <span v-if="ii !== words.length-1">&nbsp;</span>
         </span>
     </div>
 </template>
@@ -39,7 +39,6 @@ export default defineComponent({
                 
 
             if (!content || !_.isString(content)) {
-                console.log(content)
                 console.warn("Missing content (technical issue)")
                 return ""
             }
@@ -50,19 +49,10 @@ export default defineComponent({
                 }
                 return v
             })
-            console.log(_.compact(res))
+            
             return _.compact(res)
         }
-    },
-    // watch: {
-    //     $slots() {
-    //         console.log("slots changed")
-    //     }
-    // },
-    mounted() {
-
-
-    },
+    }
 })
 </script>
 

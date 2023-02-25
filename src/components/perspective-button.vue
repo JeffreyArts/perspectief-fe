@@ -2,7 +2,10 @@
     <div class="perspective-button" ref="button">
         <div class="perspective-button-top" ref="top" />
         <div class="perspective-button-bottom" ref="bottom" />
-        <slot />
+        <div class="perspective-button-content" ref="content" >
+            <slot />
+        </div>
+
     </div>
 </template>
 
@@ -37,14 +40,14 @@ export default defineComponent({
     },
     methods: {
         mouseMove(e: MouseEvent) {
-            
+
             let x = e.clientX 
             let y = e.clientY
             let topDegrees = 90
             let bottomDegrees = 90
             
             if (this.$refs?.top && this.$refs.top instanceof HTMLElement && this.$refs.bottom instanceof HTMLElement && this.$refs.button instanceof HTMLElement ) {
-                const breakpoint = this.$refs.button.offsetTop + this.$refs.button.offsetHeight/2
+                const breakpoint = this.$refs.button.getBoundingClientRect().top + this.$refs.button.offsetHeight/2
                 if (y <= breakpoint) {
                     topDegrees = y/breakpoint
                     this.$refs.top.style.opacity = "1"
@@ -75,16 +78,12 @@ export default defineComponent({
 @import "@/assets/scss/variables.scss";
 
 .perspective-button {
-    color: $white;
-    background-color: #222;
     display: inline-block;
-    padding: 8px 32px;
     position: relative;
     perspective: 144px;
     transform-origin: center;
     transition: $transitionDefault;
     cursor: pointer;
-    z-index: 1;
     &:hover {
         scale: 1.28;
     }
@@ -104,6 +103,9 @@ export default defineComponent({
     transform-origin: center bottom;
     transform: rotateX(var(--topDegrees));
     transform-style: preserve-3d;
+    @media (pointer: coarse) {
+        display: none;
+    }
 }
 
 .perspective-button-bottom {
@@ -114,11 +116,23 @@ export default defineComponent({
     content: "";
     left: 0;
     bottom: 0;
-    top: 50%;
+    top: calc(50% - 1px);
     right: 0;
     translate: 0 100%;
     transform-origin: center top;
     transform: rotateX(var(--bottomDegrees));
     transform-style: preserve-3d;
+
+    @media (pointer: coarse) {
+        display: none;
+    }
+}
+
+.perspective-button-content {
+    color: $white;
+    background-color: #222;
+    z-index: 1;
+    display: inline-block;
+    padding: 8px 32px;
 }
 </style>
