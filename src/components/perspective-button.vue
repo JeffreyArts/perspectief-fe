@@ -65,7 +65,7 @@ export default defineComponent({
                 if (bottomDegrees < .64) {
                     bottomDegrees = .64
                 }
-                console.log(y,  this.$refs.button)
+
                 this.$refs.top.style.setProperty("--topDegrees", `${topDegrees * 90}deg`)
                 this.$refs.bottom.style.setProperty("--bottomDegrees", `-${bottomDegrees * 90}deg`)
             }
