@@ -256,10 +256,7 @@ export default defineComponent({
                 x: 0,
                 delay: 0.64,
                 duration: 1.28,
-                ease: "power4.out",
-                onComplete: () => {
-                    console.log("COMPLETE SVG TOMATO")
-                }
+                ease: "power4.out"
             })
 
             //

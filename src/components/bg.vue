@@ -160,7 +160,6 @@ export default defineComponent({
             })
             setTimeout(() => {
                 _.each(this.verticalLines, (line) => {
-                    console.log(line, line.dashArray)
                     gsap.to(line, {
                         duration: 1.28,
                         ease: "ease.in",
