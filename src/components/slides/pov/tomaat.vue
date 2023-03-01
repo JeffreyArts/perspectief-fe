@@ -75,7 +75,7 @@
 
 
                     <div class="tomato-slide" id="tomato5">
-                        <div class="square-content" ratio="1x1">
+                        <div class="square-content">
                             <span class="square-content-row __isRed __isActive">Zo heb je bijvoorbeeld </span>
                             <span class="square-content-row __isGreen">Groene</span>
                             <span class="square-content-row __isOrange">Oranje</span>
@@ -87,7 +87,7 @@
 
                     <div class="tomato-slide" id="tomato6">
 
-                        <div class="square-content" :ratio="isMobile ? '' : '1x1'">
+                        <div class="square-content">
                             <p class="square-content-row">
                                 In een minstens zo gevarieerd aanbod van smaken en vormen. 
                                 Hoe breder jouw kennis over deze verschillende variaties, contexten en andere informatie over tomaten. 
@@ -645,6 +645,9 @@ export default defineComponent({
     justify-content: center;
     z-index: 1;
     height: 150vh;
+    .square-content {
+        aspect-ratio: 1/1;
+    }
 }
 
 .square-content {
@@ -720,8 +723,9 @@ export default defineComponent({
             width: 59%;
             transform: translateY(36px);
             color: #fff;
+            aspect-ratio: 1/1;
         }
-
+        
         p {
             padding: 32px;
         }
