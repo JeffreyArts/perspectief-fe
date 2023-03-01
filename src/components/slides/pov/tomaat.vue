@@ -645,9 +645,6 @@ export default defineComponent({
     justify-content: center;
     z-index: 1;
     height: 150vh;
-    .square-content {
-        aspect-ratio: 1/1;
-    }
 }
 
 .square-content {
@@ -656,6 +653,7 @@ export default defineComponent({
     display: flex;
     flex-flow: column;
     height: 100%;
+    aspect-ratio: 1/1;
     justify-content: flex-end;
     color: #fff;
 }

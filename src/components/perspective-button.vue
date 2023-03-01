@@ -25,6 +25,7 @@ export default defineComponent({
     },
     data: () => {
         return {
+            mouseMoveTriggered: false
         }
     },
     computed: {
@@ -33,14 +34,22 @@ export default defineComponent({
         }
     },
     mounted() {
+        document.addEventListener("mouseover", this.mouseMove)
         document.addEventListener("mousemove", this.mouseMove)
     },
     unMounted() {
+        document.removeEventListener("mouseover", this.mouseMove)
         document.removeEventListener("mousemove", this.mouseMove)
     },
     methods: {
+        update(e: MouseEvent) {
+            this.mouseMove(e)
+        },
         mouseMove(e: MouseEvent) {
-
+            if (this.mouseMoveTriggered) {
+                return
+            }
+            this.mouseMoveTriggered = true
             let x = e.clientX 
             let y = e.clientY
             let topDegrees = 90
@@ -57,18 +66,19 @@ export default defineComponent({
                     this.$refs.bottom.style.opacity = "1"
                     bottomDegrees = 1-(y-breakpoint) / (window.innerHeight-breakpoint)
                 }
-
+                
                 if (topDegrees < .32) {
                     topDegrees = .32
                 }
-                    
+                
                 if (bottomDegrees < .64) {
                     bottomDegrees = .64
                 }
-
+                
                 this.$refs.top.style.setProperty("--topDegrees", `${topDegrees * 90}deg`)
                 this.$refs.bottom.style.setProperty("--bottomDegrees", `-${bottomDegrees * 90}deg`)
             }
+            this.mouseMoveTriggered = false
         }
     }
 })
