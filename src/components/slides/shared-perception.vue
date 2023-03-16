@@ -108,9 +108,56 @@
                 <div class="television-container">
                     <div class="television-screen">
                         <div class="television-screen-content">
-                            <p>
-                                in de 20e eeuw namen massa-media zoals radio & televisie deze rol gestaag over
-                            </p>
+
+                            <div class="first-section"  :class="[tvSection == 1 ? '__isVisible' : '']">
+                                <p>
+                                    in de 20e eeuw namen massa-media zoals radio & televisie deze rol gestaag over
+                                </p>
+                            </div>
+                            
+                            <div class="second-section" :class="[tvSection == 2 ? '__isVisible' : '']">
+                                <p>
+                                    Het wereldwijde web heeft namelijk een eigenschap waardoor het zichzelf fundamenteel onderscheid van de eerder genoemde media. 
+                                    Het biedt namelijk de mogelijkheid voor twee-richting verkeer van informatie. 
+                                    De ontvanger van informatie kan via dit medium ook als zender van de informatie fungeren. 
+                                    In het begin van het web was dit uitsluitend mogelijk via het coderen (en consumeren) van webpagina’s.
+                                </p>
+                                <p>
+                                    Maar naarmate de technologie zich verder ontwikkelde,
+                                    ontstonden er diverse alternatieven om deze technische drempels te verlagen voor de internetgebruikers 
+                                    om deel te kunnen nemen aan dit netwerk van informatie. 
+                                    Waar je in de begindagen van het internet, PHP & HTML moest leren om niet als consument van informatie, 
+                                    maar als publicist van informatie deel te kunnen nemen aan dit netwerk van informatie. 
+                                    Zijn er tegenwoordig talloze platformen welk deze complexiteit hebben weg genomen.
+                                </p>
+                                <p>
+                                    Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
+                                    Dit leidt tot een groei van diversiteit in collectieve standpunten. 
+                                    Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
+                                    Waarbij de informatie die het verspreid, vanuit een nog kleiner aantal standpunten wordt gedeeld.
+                                     Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media. 
+                                    Maar met het internet heeft nu iedere collectieve waarheid de mogelijkheid om vanuit het standpunt hun perceptie op de wereld te delen.
+                                </p>
+
+                                <p>
+                                    De websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
+                                    Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
+                                    Bieden ze nog altijd de ruimte voor een diverser spectrum aan standpunten dan dat de eerdere media dit (konden) aanbieden.
+                                </p>
+
+                                <form class="form" @submit.prevent="submitForm">
+                                    <input type="text" v-model="formInput" />
+                                    <button type="submit">Verstuur <span>&gt;</span></button>
+                                </form> 
+                            </div>
+
+                            <div class="third-section" :class="[tvSection == 3 ? '__isVisible' : '']">
+                                <div v-for="(m, i) in messages" :key="i" class="message">
+                                    <span class="message-date">{{ m.date }}</span>
+                                    <span class="message-text">{{ m.message }}</span>
+                                </div>
+                            </div>
+
                         </div>
                         <static-noise class="television-screen-bg"/>
                     </div>
@@ -136,7 +183,39 @@
         </div>
         
 
-        <div class="scroll-lock" v-if="scrollLock"></div>
+        <div class="slotstuk" :class="[slotstuk ? '__isActive' : '']" id="slide-5">
+            <div class="slot-stuk-handle" @click="slotstukEnter">
+                Ga verder &gt;
+            </div>
+
+            <div class="slot-stuk-content">
+                <div>
+                    <p>
+                        Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
+                        Dit leidt tot een groei van diversiteit in collectieve standpunten. 
+                        Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
+                        Waarbij de informatie die het verspreid, vanuit een nog kleiner aantal standpunten wordt gedeeld. 
+                        Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media.
+                        Maar met het internet heeft nu iedere collectieve waarheid de mogelijkheid om vanuit het standpunt hun perceptie op de wereld te delen.
+                    </p>
+                    <p>
+                        De websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
+                        Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
+                        Bieden ze nog altijd de ruimte voor een diverser spectrum aan standpunten dan dat de eerdere media dit (konden) aanbieden.
+                    </p>
+                </div>
+                
+                <div class="slot-stuk-content-button-container">
+                    <button class="slot-stuk-content-button" @click="closeSharedPerception">
+                        Volgende stap
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path id="perception-chevron" d="M24.3819 1.37294C26.2245 -0.457646 29.2119 -0.457646 31.0545 1.37294L80 50L31.0545 98.6271C29.2119 100.458 26.2245 100.458 24.3819 98.6271C22.5394 96.7965 22.5394 93.8285 24.3819 91.9979L66.6549 50L24.3819 8.00206C22.5394 6.17148 22.5394 3.20352 24.3819 1.37294Z" fill="black"/>
+                            <rect id="perception-square" width="100" height="100"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -146,8 +225,10 @@ import { defineComponent } from "vue"
 import { gsap } from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin"
 import Glitch from "@/components/glitch.vue"
 import StaticNoise from "@/components/static-noise.vue"
+import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent({
@@ -164,23 +245,27 @@ export default defineComponent({
             radius: 1,
             hasClicked: false,
             hasScrolled: false, 
+            slotstuk: false, 
             tvSticky: false, 
-            scrollLock: false,
             allowScroll: true,
+            tvSection: 1,
+            formInput: "",
+            buttonHover: null as null | gsap.core.Tween,
+            messages: [] as Array<{message: string, date: string}>
             // allowScroll: false,
-            // showSquares: true,
         }
     },
     computed: {
     },
     mounted() {
+        gsap.registerPlugin(MorphSVGPlugin)
         gsap.registerPlugin(ScrollToPlugin)
         gsap.registerPlugin(ScrollTrigger)
 
         ScrollTrigger.defaults({
             scroller: ".shared-perception-container"
         })
-        
+        this.getMessages()
         this.carouselInitialisation()
         this.slide2()
         this.slide3()
@@ -189,69 +274,156 @@ export default defineComponent({
 
     },
     methods: {
-        getCenterPoint(tv: {x:number, y:number}, ball: HTMLElement) {
-            const ballPos = ball.getBoundingClientRect()
-            
-            return {
-                x: tv.x - ballPos.width/2 ,
-                y: tv.y - ballPos.height/2 
-            }
+        getMessages() {
+            const limit = 64
+            fetch(`${import.meta.env.VITE_REST_API}/messages?_limit=64`, {
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
+                },
+                
+            })  .then(response => response.json())
+                .then(data => {
+                    this.messages = _.map(data.data, (d) => {
+                        return {
+                            date: dayjs(d.attributes.createdAt).format("DD/MM/YYYY | HH:mm"),
+                            message: d.attributes.text
+                        }
+                    })
+                })
+
+    
         },
-        // scrollingFinished() {
-        //     const balls = this.$el.querySelector(".balls") as HTMLElement
-        //     const ball1 = this.$el.querySelector("#ball-1") as HTMLElement
-        //     const ball2 = this.$el.querySelector("#ball-2") as HTMLElement
-        //     const ball3 = this.$el.querySelector("#ball-3") as HTMLElement
-        //     const ball4 = this.$el.querySelector("#ball-4") as HTMLElement
-        //     const tv = this.$el.querySelector(".television-screen") as HTMLElement
-        //     let parentWidth = balls?.clientWidth || document.body.clientWidth
-        //     const centerPointTV = {
-        //         x: tv.getBoundingClientRect().x + tv.clientWidth / 2,
-        //         y: tv.getBoundingClientRect().y + tv.clientHeight / 2,
-        //     }
-        //     console.log(tv,tv.offsetTop,this.getCenterPoint(centerPointTV, ball3), ball3)
-            
-        //     gsap.set(ball4, {x:0})
-        //     gsap.set(ball3, {x:0})
-        //     gsap.to(ball4, {
-        //         duration: 3, // the duration of the animation in seconds
-        //         scale:.2,
-        //         x: this.getCenterPoint(centerPointTV, ball4).x,
-        //         // y: this.getCenterPoint(centerPointTV, ball4).y, 
-        //         ease: "power2.out", // the easing function to use
-        //         onComplete: () => {
-        //             console.log("Ball4.1")
-        //         }
-        //     })
-        //     gsap.to(ball3, {
-        //         duration: 11, // the duration of the animation in seconds
-        //         scale:.2,
-        //         x: this.getCenterPoint(centerPointTV, ball3).x,
-        //         y: this.getCenterPoint(centerPointTV, ball3).y,
-        //         // y: this.getCenterPoint(centerPointTV, ball3).y, 
-        //         ease: "power2.out", // the easing function to use
-        //         onComplete: () => {
-        //             console.log("Ball4.2")
-        //         }
-        //     })
+        submitForm() {
+            // Add message to central db
+            if (this.formInput)  {
+                fetch(`${import.meta.env.VITE_REST_API}/messages`, {
+                    method: "POST",
+                    headers: {
+                        authorization: `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
+                    },
+                    body: JSON.stringify({
+                        data: {
+                            text: this.formInput
+                        }
+                    })
+                })
+            }
+                   
+            // Animate to the next section in the mean time
+            gsap.to(".second-section", {
+                duration: .8,
+                opacity: 0,
+                ease: "power4.inOut",
+                onComplete: () => {
+                    this.tvSection = 3
+                    gsap.fromTo(".third-section", {
+                        opacity: 0
+                    }, {
+                        duration: .8,
+                        opacity: 1,
+                        ease: "power4.inOut",
+                    })
+                }
+            })
 
-        //     // gsap.timeline()
-        //     //     .to(ball4, {
-        //     //         opacity: 0,
-        //     //         duration: 1.44,
-        //     //         ease: "Linear.easeNone",
-        //     //     })
+            setTimeout(() => {
+                if (!this.formInput) {
+                    this.formInput = "<de leegte>"
+                }
+                // add message to messages
+                this.messages.unshift({
+                    date: dayjs().format("DD/MM/YYYY | HH:mm"),
+                    message: this.formInput
+                })
+            }, 500)
 
+            setTimeout(() => {
+                this.slotstuk = true
+                gsap.fromTo(".slot-stuk-handle", {
+                    xPercent: 100
+                }, {
+                    xPercent: 0,
+                    ease: "power4.inOut",
+                    duration: 1.6,
+                })
+            }, 1600)
+        },
+        closeSharedPerception() {
+            gsap.to("#perception-chevron", {
+                morphSVG: {shape: "#perception-square"}, 
+                duration: .72,
+                opacity: 0,
+                ease: "bounce.out",
+            })
+            gsap.to("#slide-3", {
+                duration: .32,
+                opacity: 0,
+                ease: "power4.inOut",
+            })
+            gsap.to(".slot-stuk-content-button", {
+                opacity: 0,
+                duration: .8,
+                ease: "rough({ strength: 1, points: 10, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
+            })
+            gsap.to(".slot-stuk-content", {
+                color: "#fff",
+                duration: 0.8,
+                ease: "rough({ strength: 1, points: 32, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
+                onComplete: () => {
+                    // set overflow hidden on ".slot-stuk-content"
+                    const content = this.$el.querySelector(".slot-stuk-content") as HTMLElement
+                    content.style.padding = "0"
+                    content.style.overflow = "hidden"
+                }
+            })
+
+            gsap.to(".slot-stuk-content", {
+                height: 0,
+                delay: 0.96,
+                top: "50%",
+                opacity: 0,
+                duration: 1.28,
+                ease: "power4.inOut",
+                onComplete: () => {
+                    this.$emit("next", "shared-perception")
+                }
+            })
+        },
+        slotstukEnter() {
+            const content = this.$el.querySelector(".slot-stuk-content") as HTMLElement
+            const handle = this.$el.querySelector(".slot-stuk-handle") as HTMLElement
+            const ease = "back.inOut(2.56)"
             
-            
-        // },
+            gsap.to(".slot-stuk-handle", {
+                duration: 1.28,
+                ease: ease,
+                x: -content.offsetLeft + 32,
+            })
+            gsap.to(".slot-stuk-handle", {
+                duration: .64,
+                delay:.64,
+                width: 0,
+                // ease:"",
+            })
+            gsap.to(".slot-stuk-content", {
+                duration: 1.28,
+                ease: ease,
+                x: -content.offsetLeft + 32
+            })
+
+            // setTimeout(() => {
+               
+            // }, 1000)
+
+        },
+      
         tvSlide() {
             gsap.set(".television-screen-bg", {
                 opacity: 0,
             })
             gsap.to(".television-slide",  {
                 ease: "Linear.easeNone",
-                duration: 1.44, // Not required cause of scrollTrigger, but checking if it prevents the timeline from messing up
                 scrollTrigger: {
                     trigger:".cross-shaft",
                     scrub: true,
@@ -268,10 +440,8 @@ export default defineComponent({
                 },
             })
 
-            const timeline = gsap.timeline()
-            timeline.to(".television-screen-content", {
+            const animation1 = gsap.to(".television-screen-content", {
                 opacity: 0,
-                duration: 1.44, // Not required cause of scrollTrigger, but checking if it prevents the timeline from messing up
                 scrollTrigger: {
                     trigger:".balls",
                     scrub: true,
@@ -281,49 +451,47 @@ export default defineComponent({
                     // markers: true,
                 }
             })
-                .to(".television-screen-bg", {
-                    opacity: 1,
-                    duration: 1.44, // Not required cause of scrollTrigger, but checking if it prevents the timeline from messing up
-                    scrollTrigger: {
-                        trigger:".balls",
-                        scrub: true,
-                        start: "15% bottom",
-                        end: "40% bottom",
-                        id:"tv",
+            const animation2 =  gsap.to(".television-screen-bg", {
+                opacity: 1,
+                immediateRender: false,
+                scrollTrigger: {
+                    trigger:".balls",
+                    scrub: true,
+                    start: "15% bottom",
+                    end: "40% bottom",
+                    id:"tv",
                     // markers: true,
-                    },
-                })
-                .to(".television-screen-content", {
-                    opacity: .9,
-                    duration: 1.44, // Not required cause of scrollTrigger, but checking if it prevents the timeline from messing up
-                    backgroundColor: "#111",
-                    color: "transparent",
-                    scrollTrigger: {
-                        trigger:".balls",
-                        scrub: true,
-                        start: "40% bottom",
-                        end: "60% bottom",
-                        id:"tv",
+                },
+            })
+            const animation3 = gsap.to(".television-screen-content", {
+                opacity: 0.9,
+                backgroundColor: "#111",
+                color: "transparent",
+                immediateRender: false,
+                scrollTrigger: {
+                    trigger:".balls",
+                    scrub: true,
+                    start: "40% bottom",
+                    end: "60% bottom",
+                    id:"tv",
                     // markers: true,
-                    },
-                })
-                .to(".television-screen-content", {
-                    duration:0.01,
-                    backgroundColor: "#100",
-                    scrollTrigger: {
-                        trigger:".balls",
-                        start: "98% bottom",
-                        end: "98% bottom",
-                        id:"end",
-                        // markers: true,
-                    },
-                })
+                },
+                onComplete: () => {
+                    animation1.kill()
+                    animation2.kill()
+                    animation3.kill()
+                    gsap.to(".television-screen-content", {
+                        opacity: 0.9,
+                        backgroundColor: "#111",
+                        color: "transparent",
+                    })
+                },
+            })
 
 
 
         },
         slide4() {
-            console.log("slide4")
             const balls = this.$el.querySelector(".balls")
             const ball1 = this.$el.querySelector("#ball-1")
             const ball2 = this.$el.querySelector("#ball-2")
@@ -454,6 +622,8 @@ export default defineComponent({
                     // markers: true,
                 }
             })
+
+
             gsap.timeline().to("#ball-4",  {
                 x: parent.width - 32 - ball4.clientWidth,
                 y: `-=${slideInPixels}`,
@@ -467,24 +637,48 @@ export default defineComponent({
                     scrub: true,
                     // markers: true,
                 }
+            }).to("#ball-4",  {
+                x: parent.width/2 - ball4.clientWidth/2,
+                y: ball4.offsetParent.clientHeight - ball4.offsetTop - ball4.clientHeight - 128, 
+                scale: 0,
+                blur: 0,
+                backgroundColor: "#111",
+                immediateRender: false,
+                ease: "linear",
+                scrollTrigger: {
+                    id: "4.2",
+                    trigger: ".balls",
+                    start: "96% 100%",
+                    end: "100% 100%",
+                    scrub: true,
+                    // markers: true,
+                }
             })
-                .to("#ball-4",  {
-                    x: parent.width/2 - ball4.clientWidth/2,
-                    y: ball4.offsetParent.clientHeight - ball4.offsetTop - ball4.clientHeight - 128, 
-                    scale: 0,
-                    blur: 0,
-                    backgroundColor: "#111",
-                    immediateRender: false,
-                    ease: "linear",
-                    scrollTrigger: {
-                        id: "4.2",
-                        trigger: ".balls",
-                        start: "96% 100%",
-                        end: "100% 100%",
-                        scrub: true,
-                        // markers: true,
-                    }
-                })
+
+            gsap.timeline().to(".television-container", {
+                height: window.innerHeight - (128 + 32),
+                scrollTrigger: {
+                    id: "4.2",
+                    trigger: ".balls",
+                    start: "92% 100%",
+                    end: "100% 100%",
+                    scrub: true,
+                    // markers: true,
+                },
+                onComplete: () => {
+                    this.tvSection = 2
+                    this.$el.querySelector(".television-screen-content").style.pointerEvents = "visible"
+                    // this.$el.querySelector(".shared-perception-container").style.pointerEvents = "none"
+                    this.allowScroll = false
+                    gsap.to(".television-screen-content", {
+                        color: "#fff",
+                        opacity: 1,
+                        duration: 0.8,
+                        immediateRender: false,
+                        ease: "power4.out"
+                    })
+                }
+            })
 
         },
         slide3() {
@@ -614,9 +808,6 @@ export default defineComponent({
                 scrollTo: { 
                     y: "#slide-1"
                 },
-                onComplete: () => {
-                    // this.showSquares = true
-                }
             })
             gsap.timeline()
                 .to("#slide-1 .card", {
@@ -866,7 +1057,7 @@ export default defineComponent({
 }
 
 .television-container {
-    width: calc(100% - 128px);
+    width: calc(100% - 64px);
     background-color: #fff;
     border:1px solid $black;
     aspect-ratio: 4/3;
@@ -895,9 +1086,79 @@ export default defineComponent({
 .television-screen-content {
     width: 100%;
     height: 100%;
-    padding: 24px;
+    padding: 16px;
     z-index: 1;
     margin: 0;
+    display: flex;
+    align-items: center;
+    overflow-y: scroll;
+
+    p {
+        padding: 0;
+        margin: 0;
+
+        + p {
+            margin-top: 16px;
+        }
+    }
+    .first-section,
+    .second-section,
+    .third-section {
+        display: none;
+        &.__isVisible {
+            display: block;
+        }
+    }
+
+    .second-section {
+        height: 100%;
+        text-align: left;
+    }
+    .third-section {
+        align-self: flex-start;
+    }
+    .form {
+        padding-top: calc(100vh - 80px);
+        display: flex;
+        flex-flow:row nowrap;
+        padding-bottom: 16px;
+        justify-content: space-between;
+
+        input {
+            background-color: transparent;
+            border: 0 none transparent;
+            border-bottom: 1px solid $white;
+            color: $white;
+            width: calc(100% - 96px);
+            padding-bottom: 4px;
+
+            &:focus {
+                outline: none;
+
+            }
+        }
+        button {
+            background-color: transparent;
+            border: 0 none transparent;
+            color: $white;
+            padding: 0;
+            margin: 0;
+            span {
+                transition: $transitionDefault;
+                cursor: pointer;
+            }
+            
+
+            &:hover,
+            &:focus {
+                outline: none;
+                span {
+                    display: inline-block;
+                    transform: translateX(4px);
+                }
+            }
+        }
+    }
 }
 
 .television-screen-bg {
@@ -974,6 +1235,140 @@ export default defineComponent({
                           linear-gradient(to bottom, #ccc 1px, transparent 2px);
         background-size: 160px 160px;
         z-index: 1;
+    }
+}
+
+.message {
+    display: block;
+    width: 100%;
+    padding-left: 16px;
+    font-family: courier new, courier;
+    text-align: left;
+
+    + .message {
+        margin-top: 16px;
+    }
+}
+
+.message-date {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    opacity: 0.8;
+
+    &:before {
+        content: ">";
+        position: absolute;
+        left: -16px;
+        opacity: 1;
+    }
+}
+
+.message-text {
+    display: inline-block;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+.slotstuk {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    
+    &.__isActive {
+        opacity: 1;
+        transition: $transitionDefault;
+        pointer-events: auto;
+    }
+}
+
+.slot-stuk-handle {
+    border-top: 1px solid #111;
+    border-left: 1px solid #111;
+    border-bottom: 1px solid #111;
+    padding: 8px 0 8px 8px;
+    font-size: 16px;
+    background-color: #fff;
+    display: block;
+    bottom: 48px;
+    position: absolute;
+    margin-left: 128px;
+    // min-width: 256px;
+    width: calc(100% - 127px);
+    &:after {
+        content: "";
+        top: 0;
+        bottom: 0;
+        background-color: #fff;
+        width: 1px;
+        position: absolute;
+        right: 1px;
+        z-index: 1;
+    }
+}
+
+.slot-stuk-content {
+    background-color: #fff;
+    border:1px solid $black;
+    font-size: 14px;
+    line-height: 1.8;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    width: calc(100vw - 64px);
+    position: absolute;
+    display: block;
+    left: 100vw;
+    top: 32px;
+    bottom: 32px;
+    overflow: auto;
+    z-index: -1;
+    
+    @media all and (min-width: 480px) and (min-height: 768px){
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    p {
+        margin: 0;
+        + p {
+            margin-top: 16px;
+        }
+    }
+}
+
+.slot-stuk-content-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    padding: 0 32px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    
+    @media all and (min-width: 768px){
+        justify-content: flex-end;
+        bottom: 0;
+        position: absolute;
+    }
+}
+
+.slot-stuk-content-button {
+    border: 0 none transparent;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+
+    svg {
+        margin-left: 8px;
+        height: 32px;
     }
 }
 

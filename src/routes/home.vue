@@ -7,6 +7,7 @@
         <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
         <pov-page @next="nextStep" v-if="step == 5 || step == 6 || step == 7"/>
         <shared-perception @next="nextStep" v-if="step == 7"/>
+        <conclusion @next="nextStep" v-if="step == 8"/>
     </div>
 </template>
 
@@ -21,13 +22,14 @@ import introductionPage from "@/components/slides/introduction-page.vue"
 import sharedPerception from "@/components/slides/shared-perception.vue"
 import povPage from "@/components/slides/pov-page.vue"
 import stripes from "@/components/slides/stripes.vue"
+import conclusion from "@/components/slides/conclusion.vue"
 import bg from "@/components/bg.vue"
 import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 
     name: "homePage",
-    components: {stripes, bigQuote, bg, welcomePage, introductionPage, povPage, sharedPerception},
+    components: {stripes, conclusion, bigQuote, bg, welcomePage, introductionPage, povPage, sharedPerception},
     props: [],
     setup() {
         const localDB = LocalDB()
@@ -38,7 +40,7 @@ export default defineComponent ({
     data() {
         return {
             consoleEvents: [] as Array<string>,
-            step: 5,
+            step: 8,
             bgFadeOut: false,
         }
     },
