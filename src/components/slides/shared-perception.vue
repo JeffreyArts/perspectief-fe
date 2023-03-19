@@ -247,7 +247,7 @@ export default defineComponent({
             hasScrolled: false, 
             slotstuk: false, 
             tvSticky: false, 
-            allowScroll: true,
+            allowScroll: false,
             tvSection: 1,
             formInput: "",
             buttonHover: null as null | gsap.core.Tween,
@@ -296,6 +296,8 @@ export default defineComponent({
         },
         submitForm() {
             // Add message to central db
+            document.querySelector(".pov-page-container")?.classList.add("__isHidden")
+            
             if (this.formInput)  {
                 fetch(`${import.meta.env.VITE_REST_API}/messages`, {
                     method: "POST",
