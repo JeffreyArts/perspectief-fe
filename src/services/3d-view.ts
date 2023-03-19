@@ -27,11 +27,7 @@ const view3D  = {
 
         // const camera            = new THREE.OrthographicCamera( -1, 1, -1, 1, 0, 1000 )
         const camera = new THREE.OrthographicCamera( -1, 1, -1, 1, 0, 1000 )
-        camera.updateProjectionMatrix()
-    
-        const cameraHelper = new THREE.CameraHelper(camera)
-        scene.add(cameraHelper)
-
+        
         camera.zoom = .16
         camera.updateProjectionMatrix()
 

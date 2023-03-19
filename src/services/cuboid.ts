@@ -390,7 +390,12 @@ const Cuboid  = {
             return `${cl.position.x}, ${cl.position.y}, ${cl.position.z}, ${cl.data.length}`
         })
     },
-    update: (cuboid, props = {delay: 0, cuboidLines: [], transition: null, duration: null}) => {
+    update: (cuboid: THREE.Mesh, props = {
+        delay: 0, 
+        cuboidLines: [], 
+        transition: "linear" as string, 
+        duration: 0
+    }) => {
         if (_.isNull(props.transition)) {
             console.error("Missing required `transition` property for updateCuboid, should be a tween transition function")
             return

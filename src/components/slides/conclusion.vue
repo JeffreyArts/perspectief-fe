@@ -78,13 +78,13 @@
             </div>
             <div class="perspective-buttons-container">
                 <div class="perspective-buttons">
-                    <button class="perspective-button" id="button-1" :class="[readPages[0] ? '__isDone' : '']">
+                    <button class="perspective-button" id="button-1" @click="setPage(0)" :class="[readPages[0] ? '__isDone' : '']">
                         <icon-checkmark v-if="readPages[0]"/>
                     </button>
-                    <button class="perspective-button" id="button-2" :class="[readPages[1] ? '__isDone' : '']">
+                    <button class="perspective-button" id="button-2" @click="setPage(1)" :class="[readPages[1] ? '__isDone' : '']">
                         <icon-checkmark v-if="readPages[1]"/>
                     </button>
-                    <button class="perspective-button" id="button-3" :class="[readPages[2] ? '__isDone' : '']">
+                    <button class="perspective-button" id="button-3" @click="setPage(2)" :class="[readPages[2] ? '__isDone' : '']">
                         <icon-checkmark v-if="readPages[2]"/>
                     </button>
                 </div>
@@ -124,6 +124,7 @@ export default defineComponent({
             box2Open: false,
             box3Open: false,
             step: 2,
+            page: null as null | 0 | 1 | 2 ,
             readPages: [false, false, true],
             pageTitle: "Samenvatting",
             pulseDelay: 0, // default: 4.8
@@ -133,6 +134,19 @@ export default defineComponent({
                 three.camera,
                 three.renderer.domElement
             ),
+            allCuboids: [],
+            clickTimeout: 0,
+            mouseDown: false,
+            seed: Math.floor(Math.random()*9000+1000).toString(),
+            sensitivity: "abstract",
+            sensitivityScales: ["abstract","non-identity","identity","open"],
+            activeCuboid: null as null | THREE.Mesh,
+            initialised: false,
+            isLoading: true,
+            cuboids: [],
+            cameraPosition: three.camera.position,
+            cameraPositionX: three.camera.position.x,
+            cameraPositions: [],
             map: [
                 [1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1],
@@ -142,11 +156,8 @@ export default defineComponent({
                 [1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1],
             ],
-            allCuboids: [],
-            mouseDown: false,
-            transitionDuration: 4800,
+            transitionDuration: 2400,
             transitionType: "power2.inOut",
-            activeCuboid: null as null | THREE.Mesh,
         }
     },
     computed: {
@@ -154,7 +165,7 @@ export default defineComponent({
     mounted() {
 
         // Temp for dev
-        this.initializeCuboid()
+        this.initializeThreeJS()
 
 
         gsap.set(".page-title", {
@@ -198,6 +209,10 @@ export default defineComponent({
             }
         })
 
+    },
+    unmounted() {
+        this.animation = false
+        window.removeEventListener("resize", () => {this.updateCanvasSize})
     },
     methods: {
         openBox2() {
@@ -416,187 +431,116 @@ export default defineComponent({
                 }
             }, options.duration/(oldText.length + newText.length) * oldText.length * 1000 )         
         }, 
-        initializeCuboid() {
-            // three.camera = new THREE.OrthographicCamera( -1, 1, -1, 1, 0, 1000 )
-            // three.camera.updateProjectionMatrix()
-        
-            // three.scene.add(three.camera)
-            // const cameraHelper = new THREE.CameraHelper(three.camera)
-            // scene.add(cameraHelper)
+        setPage(index: 0 | 1 | 2) {
+            // console.log("setPage", index)
+            this.page = index
+            if (index === 0) {
+                this.moveToPoint( {x:225,y:225,z:0}, {x:0,y:2.5,z:0})
+            } else if (index === 1) {
+                this.moveToPoint( {x:0,y:90,z:270}, {x:0,y:2.5,z:0})
+            } else if (index === 2) {
+                this.moveToPoint( {x:220,y:0,z:220}, {x:0,y:2.5,z:0})
+            }
+        },
+        initializeThreeJS() {
 
-            // three.camera.zoom = .16
-            // three.camera.updateProjectionMatrix()
-            const cube = new THREE.Mesh(
-                new THREE.BoxGeometry(1, 1, 1),
-                new THREE.MeshBasicMaterial({ color: 0x00ff00 })
-            )
-            three.scene.add(cube)
-            three.camera.lookAt(cube.position)
-            three.controls = new OrbitControls( three.camera, three.renderer.domElement )
-        
-        
+            // Rendering scene
+            var that = this
+            function animate(index) {
+                if (!that.animation) {
+                    return
+                }
+                // console.log(`{x:${three.camera.position.x},y:${three.camera.position.y},z:${three.camera.position.z}}`)
+                three.renderer.render(three.scene, three.camera)
+
+                requestAnimationFrame(animate)
+            }
+
+
+            // Enable animation loop
+            this.animation = true
+            animate()
+
+
+                
             document.body.onmousedown = (evt)  =>{ 
                 this.mouseDown = true
             }
             document.body.onmouseup = (evt) => {
                 this.mouseDown = false
             }
-
-            this.updateMap(three.scene.initialised)
-
-            // Prevent multiple camera's / meshes to be added
-            // Everything after this if statement will only be added the first time that this component is mounted
-            if (three.scene.initialised) {
-                this.mesh = _.find(three.scene.children, {type:"Mesh"})
-                this.isLoading = false
-                return
-            }
-
-
-            three.scene.initialised = true
-            const cuboidContainer = this.$refs["cuboid"] as HTMLElement
-            if (!cuboidContainer) {
-                console.error("Missing cuboid container element")
-                return
-            }
-            // Rendering scene
-            const that = this as any
-            function animate(index : number) {
-                if (!that.animation) {
-                    return
-                }
-                three.renderer.render(three.scene, three.camera)
-                that.interactionManager.update()
-            }
-
-            three.scene.background = new THREE.Color("#ffffff") // optional
-
-
-            // Enable animation loop
-            this.animation = true
-            animate(0)
-            gsap.ticker.add(animate) // Add this line
+                
 
             // Add scene to dom
-            cuboidContainer.append(three.renderer.domElement)
-
-            three.controls.minDistance = 8
-            three.controls.maxDistance = 32
-            
-            three.controls.maxPolarAngle = degreesToRadians(180 - 90) 
-            three.controls.minPolarAngle = degreesToRadians(180 - 180) 
-            this.updateMap(three.scene.initialised)
-
-            // Helper function for updating scene on screen resizing
-            window.addEventListener("resize", () => {this.updateCanvasSize(three.camera, three.renderer)})
-            window.dispatchEvent(new Event("resize"))
-        },
-        onMouseMove( event ) {
-            if (this.mouseDown) {
-                this.cameraPosition = three.camera.position
-                this.cameraPositionX = three.camera.position.x
-            }
-        },
-        updateCanvasSize(camera, renderer) {
-            const cuboidContainer = this.$refs["cuboid"] as HTMLElement
-            if (!cuboidContainer) {
-                console.error("Missing cuboid container element")
+            const cuboidElement = this.$refs["cuboid"] as HTMLElement
+            if (_.isNull(cuboidElement)) {
+                console.error("ThreeJS Canvas not found")
                 return
             }
-            console.log("update canvas size", cuboidContainer.clientWidth, cuboidContainer.clientHeight)
-            var width = cuboidContainer.clientWidth
-            var height = cuboidContainer.clientWidth
-
-            renderer.setSize( width, height)
-            camera.bottom = -height
-            camera.top = height
-            camera.left = -width
-            camera.right = width
-
-            camera.updateProjectionMatrix()
-        },
-        updateMap(firstLoad) {
-            this.seed =  Math.floor(Math.random()*9000+1000).toString()
-            let cubeDimensions = {
-                x:5,
-                y:5,
-                z:5,
-            }
-            if (this.sensitivity == "open") {
-                cubeDimensions.x = 7
-                cubeDimensions.y = 7
-                cubeDimensions.z = 7
-            }
-
-            if (!firstLoad) {
-                var total = 0
-                var update = false
-                for (let x = 0; x < this.map.length; x++) {
-                    for (let z = 0; z < this.map[x].length; z++) {
-                        if (this.map[x][z] == 1) {
-                            if (this.allCuboids[total]) {
-                                this.allCuboids[total].cuboidLines = Cuboid.generateCuboidLines(cubeDimensions, this.sensitivity, this.seed + total)
-                                update = true
-                            } else {
-                                var cuboid = this.createCuboid(`${x}-${z}`, this.sensitivity)
-                                cuboid.position.x = x*this.offset
-                                cuboid.position.z = z*this.offset
-                                cuboid.cuboidLines = Cuboid.generateCuboidLines(cubeDimensions, this.sensitivity, this.seed + total)
-
-                                this.allCuboids.push(cuboid)
-                            }
-                            total++
-                        }
-                    }
-                }
-
-                three.controls.target.set((cubeDimensions.x-1)/2, (cubeDimensions.y-1)/2, (cubeDimensions.z-1)/2)
-                console.log(three.controls.target)
-                three.camera.lookAt(three.controls.target)
+            cuboidElement.append(three.renderer.domElement)
             
-                this.isLoading = false
+            // Replace perspective camera with orthographic camera
+            three.camera = new THREE.OrthographicCamera( -1, 1, -1, 1, 0, 1000 )
+            three.camera.updateProjectionMatrix()
+            three.camera.position.set( 8, 16, 8)
+            
+            three.scene.add(three.camera)
 
-                var centerCuboid = this.allCuboids[Math.floor((this.allCuboids.length-1)/2)]
-            } else {
-                // centerCuboid
-                var z = Math.floor(this.map.length/2)
-                var x = Math.floor(this.map[z].length/2)
-                var centerCuboid = Cuboid.get(`cuboid-${x}-${z}`, three.scene)
+            three.camera.zoom = 148
+            three.camera.updateProjectionMatrix()
+
+
+            // Set orbit controls
+            three.controls = new OrbitControls( three.camera, three.renderer.domElement )
+            this.updateMap(three.scene.initialised)
+
+            
+
+            // add cube
+            // const geometry = new THREE.BoxGeometry( 1, 1, 1 )
+            // const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } )
+            // const cube = new THREE.Mesh( geometry, material )
+            // three.scene.add( cube )
+            // three.controls.target.set( cube.position)
+            // three.camera.lookAt(three.controls.target)
+            
+            
+
+            // Code for Vite dev flow
+            if (three.scene.initialised) {
+                // this.mesh = _.find(three.scene.children, {type:"Mesh"})
+                // this.isLoading = false
+                return
             }
-            if (!update) {        
-                three.camera.position.x = centerCuboid.position.x + 32
-                three.camera.position.z = centerCuboid.position.z + 32
-                three.camera.position.y = 64
+            three.scene.initialised = true
+        
+            // Helper function for updating scene on screen resizing
+            window.addEventListener("resize", this.updateCanvasSize)
+            window.dispatchEvent(new Event("resize"))
+        },
+        updateCanvasSize() {
+            const cuboidElement = this.$refs["cuboid"] as HTMLElement
+            if (_.isNull(cuboidElement)) {
+                console.error("ThreeJS Canvas not found")
+                return
             }
+            var width = cuboidElement.clientWidth
+            var height = cuboidElement.clientWidth
 
-            Cuboid.update(centerCuboid, {
-                delay: this.delay, 
-                cuboidLines: centerCuboid.cuboidLines,
-                transition: this.transitionType, 
-                duration: this.transitionDuration
-            })
+            three.renderer.setSize( width, height)
+            three.camera.bottom = -height
+            three.camera.top = height
+            three.camera.left = -width
+            three.camera.right = width
 
-            this.moveToCuboid(centerCuboid).then(() => {
-                this.initialised = true
-            })
+            three.camera.updateProjectionMatrix()
         },
-        addPosition() {
-            this.cameraPositions.push({
-                x: Math.round(three.camera.position.x),
-                y: Math.round(three.camera.position.y),
-                z: Math.round(three.camera.position.z)
-            })
-        },
-        createCuboid(id, sensitivity) {
-            let cubeDimensions = {
+        createCuboid(id) {
+            
+            const cubeDimensions = {
                 x:5,
                 y:5,
                 z:5,
-            }
-            if (sensitivity == "open") {
-                cubeDimensions.x = 5
-                cubeDimensions.y = 5
-                cubeDimensions.z = 5
             }
    
             let newCuboid = Cuboid.create(cubeDimensions, {name: `cuboid-${id}`, maxLines: 320})
@@ -620,19 +564,103 @@ export default defineComponent({
 
                     if (!this.activeCuboid || cuboid.name != this.activeCuboid.name) {
                         this.moveToCuboid(cuboid)
-                    // this.clickTimeout = setTimeout(() => {
-                    //     if (!this.mouseDown) {
-                    //     }
-                    // }, 160)
                     } else {
                         this.moveToSide(event.target.data.side)
                     }
                 })
             })
             
+            three.controls.target.set((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
+            three.camera.lookAt(three.controls.target)
             return newCuboid
         },
-        moveToSide(side) {
+        updateMap(firstLoad) {
+            this.seed = Math.floor(Math.random() * 9000 + 1000).toString()
+            let faceDimensions = {
+                x: this.sensitivity == "open" ? 7 : 5,
+                y: this.sensitivity == "open" ? 7 : 5,
+                z: this.sensitivity == "open" ? 7 : 5,
+            }
+            const offset = faceDimensions.x/2
+            let totalCuboids = 0
+            let update = false
+
+            // Loop through the map and create or update cuboids
+            for (let x = 0; x < this.map.length; x++) {
+                for (let z = 0; z < this.map[x].length; z++) {
+                    if (this.map[x][z] == 1) {
+                        let currentCuboid = this.allCuboids[totalCuboids]
+
+                        if (currentCuboid) {
+                            currentCuboid.cuboidLines = Cuboid.generateCuboidLines(faceDimensions, this.sensitivity, this.seed + totalCuboids)
+                            update = true
+                        } else {
+                            currentCuboid = this.createCuboid(`${x}-${z}`, this.sensitivity)
+                            currentCuboid.position.set(x * offset, 0, z * offset)
+                            currentCuboid.cuboidLines = Cuboid.generateCuboidLines(faceDimensions, this.sensitivity, this.seed + totalCuboids)
+
+                            this.allCuboids.push(currentCuboid)
+                        }
+                        currentCuboid.position.set(0,0.5,0)
+                        totalCuboids++
+                    }
+                }
+            }
+
+
+            let centerIndex = Math.floor((this.allCuboids.length - 1) / 2)
+            let centerCuboid = firstLoad ? Cuboid.get(`cuboid-${Math.floor(this.map.length / 2)}-${Math.floor(this.map[0].length / 2)}`, three.scene) : this.allCuboids[centerIndex]
+
+            console.log(update, centerCuboid.position)
+            if (!update) {
+                three.camera.position.set(centerCuboid.position.x + 32, 64, centerCuboid.position.z + 32)
+            }
+
+            Cuboid.update(centerCuboid, {
+                delay: 0,
+                cuboidLines: centerCuboid.cuboidLines,
+                transition: "power4.out",
+                duration: 2.4,
+            })
+
+            this.moveToCuboid(centerCuboid).then(() => {
+                this.initialised = true
+            })
+        }, 
+        moveToPoint(cameraPosition, centerPoint) {
+            return new Promise((resolve) => {
+                this.clickTimeout = setTimeout(() => {
+                    if (!this.mouseDown) {
+                        const cameraTween = gsap.to(three.camera.position, {
+                            duration: this.transitionDuration / 1000,
+                            x: cameraPosition.x,
+                            y: cameraPosition.y,
+                            z: cameraPosition.z,
+                            ease: "back.out(1.7)",
+                            onUpdate: () => {
+                                three.camera.lookAt(centerPoint.x, centerPoint.y, centerPoint.z)
+                                if (this.mouseDown) {
+                                    cameraTween.kill()
+                                }
+                            },
+                        })
+                        
+                        // gsap.to(three.controls.target, {
+                        //     duration: this.transitionDuration / 1000,
+                        //     x: centerPoint.x,
+                        //     y: centerPoint.y,
+                        //     z: centerPoint.z,
+                        //     ease: "bounce.out",
+                        //     onComplete: () => {
+                        //         three.controls.update()
+                        //         resolve()
+                        //     },
+                        // })
+                    }
+                }, 160)
+            })
+        },
+        moveToSide(side : "bottom" | "top" | "front" | "back" | "left" | "right") {
             if (side == "bottom" || side == "top") {
                 return
             }
@@ -655,57 +683,9 @@ export default defineComponent({
             
             return this.moveToPoint(cameraPoint, centerPoint)
         },
-        updatePosition(index, axis) {
-            var position = this.cameraPositions[index]
-            if (position) {
-                three.camera.position[axis] = position[axis]
-                three.camera.lookAt( this.activeCuboid.position.x, this.sensitivity == "open" ? 3.5 : 2.5, this.activeCuboid.position.z)
-            }
-        },
-        moveToPoint(cameraPosition, centerPoint) {
-        
-            return new Promise((resolve, reject) => {
-                this.clickTimeout = setTimeout(() => {
-                    if (!this.mouseDown) {
-                    // Replace TWEEN.Tween with gsap.to
-                        const tween = gsap.to(three.camera.position, {
-                            duration: this.transitionDuration / 1000, // Convert duration to seconds for GSAP
-                            x: cameraPosition.x,
-                            y: cameraPosition.y,
-                            z: cameraPosition.z,
-                            ease: this.transitionType,
-                            onUpdate: () => {
-                                three.camera.lookAt(centerPoint.x, centerPoint.y, centerPoint.z)
-                                if (this.mouseDown) {
-                                    tween.kill()
-                                }
-                            }
-                        })
-
-                        gsap.to(three.controls.target, {
-                            duration: this.transitionDuration / 1000, // Convert duration to seconds for GSAP
-                            x: centerPoint.x,
-                            y: centerPoint.y,
-                            z: centerPoint.z,
-                            ease: this.transitionType,
-                            onComplete: () => {
-                                three.controls.update()
-                                resolve()
-                            }
-                        })
-                    }
-                }, 160)
-            })
-
-        },
-
-        moveToCuboid(cuboid) {
-
-            const center = cuboid.position.clone()
-            center.y = 2.5
-            
-            const destination = cuboid.position.clone()
-            destination.y += 130
+        moveToCuboid(cuboid: THREE.Mesh) {
+            const center = cuboid.position.clone().setY(2.5)
+            const destination = cuboid.position.clone().setY(cuboid.position.y + 130)
 
             let oldCuboid = null
 
@@ -715,40 +695,38 @@ export default defineComponent({
 
             this.activeCuboid = cuboid
 
-            if (cuboid.position.x < three.camera.position.x) {
-                destination.x += 128
-            } else {
-                destination.x -= 128
-            }
+            destination.setX(
+                cuboid.position.x < three.camera.position.x
+                    ? destination.x + 128
+                    : destination.x - 128
+            )
+            destination.setZ(
+                cuboid.position.z < three.camera.position.z
+                    ? destination.z + 128
+                    : destination.z - 128
+            )
 
-            if (cuboid.position.z < three.camera.position.z) {
-                destination.z += 128
-            } else {
-                destination.z -= 128
-            }
-            
             cuboid.visible = true
-
-            // Replace TWEEN.Tween with gsap.to
             gsap.to(cuboid.material, {
                 duration: 0.8,
                 opacity: 1,
-                ease: this.transitionType
+                ease: "power4.out",
             })
-
+            
             if (oldCuboid) {
                 gsap.to(oldCuboid.material, {
-                    duration: this.transitionDuration / 1000, // Convert duration to seconds for GSAP
+                    duration: this.transitionDuration / 1000,
                     opacity: 0,
-                    ease: this.transitionType,
+                    ease: "back.out(1.7)",
                     onComplete: () => {
                         cuboid.visible = false
-                    }
+                    },
                 })
             }
 
             return this.moveToPoint(destination, center)
         }
+
     }
 })
 
