@@ -41,15 +41,13 @@ export default defineComponent({
 })
 </script>
   
-<style lang="scss">
+<style lang="scss" scoped>
   figure {
     position: absolute;
     width: 100%;
     height: 100%;
     background-repeat: repeat;
     margin: 0;
-
-    // &.__is1 {;}
   }
   </style>
   
