@@ -68,23 +68,110 @@
                 </p>
             </div>
         </div>
-
-        <div class="bubbels-container" v-if="step == 2">
+        <div class="bubbels-container" :class="[step == 1 ? '__isHidden' : '']">
             <div class="perspective-container">
                 <figure class="cuboid-container" ref="cuboid"></figure>
-                <section class="text-container">
-                    {{ mouseDown }}
+                <section class="text-container" ref="textcontainer">
+                    <div v-if="page == 0">
+                        <p>
+                            Sociale-media bubbels ontstaan door de algoritmes welk sociale media hebben ontwikkeld om een zo breed mogelijk scala aan gebruikers, 
+                            met een minstens zo'n breed scala aan interesses, zo lang mogelijk op hun platform te houden. 
+                            Sociale media websites kosten ontzettend veel geld om te ontwikkelen en te onderhouden, maar zijn vaak gratis te gebruiken. 
+                            Daar hebben deze platformen iets op gevonden: advertenties. 
+                            Om de effectiviteit (conversie) van advertenties te verhogen hebben de platformen er baat bij om een zo groot mogelijk aantal doelgroepen te kunnen definiëren. 
+                            Hoe groter het aantal doelgroepen, hoe gerichter de adverteerders namelijk kunnen adverteren. Om deze doelgroepen te kunnen creëren, 
+                            moet je labels bedenken waartoe je deze doelgroepen kunt definiëren. Hoe specifieker de definitie van een doelgroep, hoe waardevoller deze wordt. 
+                            Een doelgroep “mensen die van eten houden” is voor een producent van frikandellen/bitterballen/kroketten minder waardevol dan de doelgroep 
+                            “mensen die graag frituren”. Dat betekend niet dat de eerste doelgroep helemaal geen waarde, de tweede doelgroep is gewoon van meer waarde. 
+                            Sociale media hebben er dus baat bij om hun gebruikers in doelgroepen onder te verdelen. 
+                            De algoritmes die zij op hun websites hebben draaien, dragen daarbij een fundamentele rol in de definitie ervan. 
+                            Niet alleen omdat ze deze doelgroepen kunnen definiëren, maar ook actief in stand houden.
+                        </p>
+
+                        <p>
+                            In dit standpunt heb ik de sociale-media bubbels beschreven vanuit een commercieel standpunt. 
+                            Hierbij stel ik dat de commerciële belangen een invloed hebben op de creatie van sociale-media bubbels, 
+                            omdat dit direct leidt tot omzetverhoging van het platform. 
+                            Omdat de kwantiteit van bubbels leidt specifieke advertentieprofielen die waardevoller zijn dan generieke, algemenere onderwerpen.
+                        </p>
+                        <footer>
+                            Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
+                        </footer>
+                    </div>
+
+                    
+                    <div v-if="page == 1">
+                        <p>
+                            Een sociale-media bubbel is een door algoritme-gecureerd standpunt ten behoeven van een specifiek onderwerp.
+                            Dit biedt de gebruiker de mogelijkheid om het sociale media platform dit algoritme zo in te richten dat hij of zij de informatie te zien krijgt 
+                            waar hij of zij in geïnteresseerd is. Wanneer de gebruiker het platform wilt gebruiken door het bekijken van schattige dieren filmpjes. 
+                            Dan zal het algoritme meer-en-meer video's aanraden van otters die elkaars handen vasthouden, of hupsende, fluffy konijntjes. 
+                            Wilt de gebruiker zichzelf liever educeren op wetenschappelijke thema's, dan zal het video's laten zien van Fritz Haber of fluorescerende schorpioenen. 
+                            De social-media bubbel heeft echter wel een keerzijde. Het heeft geen moreel kompas. Met hetzelfde gemak als dat het eerder genoemde bubbels creëert, 
+                            creëert het met hetzelfde gemak bubbels met video's van kleine meisjes die turnen, 
+                            video's met tips om af te vallen of video's met informatie over hoe je gemakkelijk geld kunt verdienen. 
+                            Op zichzelf niet problematisch. Het is immers geen enkel probleem wanneer de gebruiker een klein meisje is, 
+                            kampt met overgewicht of geïnteresseerd is in financiën. Het wordt echter wel een probleem wanneer de gebruiker een man van boven de 40 is, 
+                            iemand die onzeker is over zijn of haar uiterlijk, of zeer slecht risico's kan inschatten.
+                        </p>
+
+                        <p>
+                            Nu zou je het standpunt kunnen innemen dat het platform niet het probleem is, maar de persoon die het algoritme heeft ingericht. 
+                            En dat is precies waar dit standpunt over gaat. 
+                            Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan 
+                            de hand van de invloed de ze hebben op de gebruiker.
+                        </p>
+                        <footer>
+                            Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
+                        </footer>
+                    </div>
+
+
+
+                    <div v-if="page == 2">
+                        <p>
+                            Sociale-media bubbels zorgen voor een diversiteit aan standpunten waarop je de wereld kunt waarnemen.
+                            Dit leidt tot een breed scala aan verschillende waargenomen realiteiten. 
+                            Neem als voorbeeld bijvoorbeeld de bubbel omtrent de flat-earth theorie. 
+                            Binnen deze bubbel wordt er informatie uitgewisseld met argumenten over waarom de aarde niet bolvorming, maar plat is. 
+                            De mensen die deel uitmaken van deze bubbel zijn per definitie mensen die op enige wijze interesse hebben in dit onderwerp. 
+                            Ongeacht of zij er voor open staan om hun eigen waargenomen realiteit daadwerkelijk in twijfel te trekken of niet, 
+                            zonder interesse in het onderwerp zullen zij geen deel uitmaken van deze bubbel. 
+                            Dat gezegd hebbende, de groep mensen die geloven dat de aarde plat is binnen deze bubbel, 
+                            zal disproportioneel groter zijn dan de groep mensen die dat niet geloven. 
+                            Hierdoor ontstaat de situatie waarin de klassieke manier van waarheidsbepaling (dat wat de meerderheid van de groep voor waar aanneemt) 
+                            voor een ander resultaat zal zorgen binnen deze bubbel dan daarbuiten. Nu is de flat-earth theorie relatief gemakkelijk te weerleggen, 
+                            we hebben immers eeuwen aan wetenschappelijke kennis opgedaan als mensheid waarmee we goed kunnen onderbouwen waarom de aarde niet plat is. 
+                            Wanneer het onderwerp nieuw is echter, en er nog geen eeuwen aan wetenschappelijk onderzoek aan vooraf is gegaan. 
+                            Dan is er veel minder ruimte voor een absolute waarheid. De dynamiek binnen zo'n bubbel blijft echter hetzelfde. 
+                            Zo vindt er in politiek georiënteerde bubbels zelden een tegen geluid van iemand die tot de politieke “tegenpartij” hoort. 
+                            Maar deze eigenschap van van sociale-media bubbels is niet alleen maar negatief. 
+                            Door het ontstaan van deze bubbels ontstaat er ook de mogelijkheid om een verdieping te zoeken (en vinden) 
+                            in standpunten die op geen enkele andere wijze mogelijk zouden zijn, omdat dit simpelweg teveel zou afwijken van de algemene perceptie. 
+                            Kennisontwikkeling ontstaat door het laag voor laag opbouwen van informatie, 
+                            wanneer deze lagen voor iedereen hetzelfde zou zijn dan heeft niemand een afwijkend standpunt meer, en zal de snelheid van informatie groei stagneren.
+                        </p>
+
+                        <p>
+                            In dit standpunt tracht ik duidelijk te maken dat de sociale-media bubbels de mogelijkheid bieden om een verdieping te realiseren, 
+                            welk via de traditionele massa media niet mogelijk is. 
+                            Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan de hand van de intenties van de gebruiker.
+                        </p>
+                        <footer>
+                            Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
+                        </footer>
+                    </div>
                 </section>
             </div>
             <div class="perspective-buttons-container">
                 <div class="perspective-buttons">
-                    <button class="perspective-button" id="button-1" @click="setPage(0)" :class="[readPages[0] ? '__isDone' : '']">
+                    <button class="perspective-button" id="button-1" @click="setPage(0)" :class="[readPages[0] ? '__isDone' : '', page == 0 ? '__isActive' : '']">
                         <icon-checkmark v-if="readPages[0]"/>
                     </button>
-                    <button class="perspective-button" id="button-2" @click="setPage(1)" :class="[readPages[1] ? '__isDone' : '']">
+                    <button class="perspective-button" id="button-2" @click="setPage(1)" :class="[readPages[1] ? '__isDone' : '', page == 1 ? '__isActive' : '']">
                         <icon-checkmark v-if="readPages[1]"/>
                     </button>
-                    <button class="perspective-button" id="button-3" @click="setPage(2)" :class="[readPages[2] ? '__isDone' : '']">
+                    <button class="perspective-button" id="button-3" @click="setPage(2)" :class="[readPages[2] ? '__isDone' : '', page == 2 ? '__isActive' : '']">
                         <icon-checkmark v-if="readPages[2]"/>
                     </button>
                 </div>
@@ -104,6 +191,7 @@ import { defineComponent } from "vue"
 import { gsap } from "gsap"
 import * as THREE from "three"
 import { OrbitControls } from "@/../node_modules/three/examples/jsm/controls/OrbitControls.js"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import Cuboid from "@/services/cuboid.js"
 import view from "@/services/3d-view.js"
 import degreesToRadians from "@/services/degrees-to-radians.js"
@@ -123,9 +211,9 @@ export default defineComponent({
         return {
             box2Open: false,
             box3Open: false,
-            step: 2,
-            page: null as null | 0 | 1 | 2 ,
-            readPages: [false, false, true],
+            step: 1,
+            page: Math.floor(Math.random()*3) as 0 | 1 | 2 ,
+            readPages: [false, false, false],
             pageTitle: "Samenvatting",
             pulseDelay: 0, // default: 4.8
             animation:true,
@@ -136,6 +224,7 @@ export default defineComponent({
             ),
             allCuboids: [],
             clickTimeout: 0,
+            ignoreScroll: false,
             mouseDown: false,
             seed: Math.floor(Math.random()*9000+1000).toString(),
             sensitivity: "abstract",
@@ -156,16 +245,19 @@ export default defineComponent({
                 [1,1,1,1,1,1,1],
                 [1,1,1,1,1,1,1],
             ],
-            transitionDuration: 2400,
+            transitionDuration: 1280,
             transitionType: "power2.inOut",
         }
     },
     computed: {
     },
     mounted() {
+        gsap.registerPlugin(ScrollToPlugin)
 
-        // Temp for dev
-        this.initializeThreeJS()
+        // Only initialize after animation of first block has finished
+        setTimeout(() => {
+            this.initializeThreeJS()
+        }, 2400)
 
 
         gsap.set(".page-title", {
@@ -180,7 +272,15 @@ export default defineComponent({
         gsap.set("#box-3", {
             x: " 100%",
         })
-        
+        // gsap.set(".cuboid-container", {
+        //     xPercent: -100,
+        // })
+
+        gsap.set(".continue-button", {
+            blur: 24,
+            opacity: 0,
+        })
+
         gsap.timeline().to(".page-title", {
             x: 0,
             duration: 1.024,
@@ -236,7 +336,6 @@ export default defineComponent({
                         return
                     }
                     const parentWidth = box3.parentElement.clientWidth
-
 
                     gsap.to("#box-3", {
                         x: parentWidth - 32 - 64,
@@ -310,7 +409,6 @@ export default defineComponent({
             })
         },
         toSocialMediaBubbles() {
-
             gsap.to(".continue-button", {
                 blur: 24,
                 opacity: 0,
@@ -351,7 +449,34 @@ export default defineComponent({
                 ease: "power2.inOut",
             })
 
+            setTimeout(() => {
+                this.step = 2
 
+                
+                const textContainer = this.$refs["textcontainer"] as HTMLElement
+                if (textContainer) {
+                    textContainer.addEventListener("scroll", this.textContainerScroll)
+                }
+
+                gsap.fromTo(".cuboid-container", {
+                    xPercent: -100,
+                }, {
+                    xPercent: 0, 
+                    duration: 2.4,
+                    ease: "elastic.out(1, 0.3)",
+                })
+
+                gsap.fromTo(".text-container", {
+                    xPercent: -100,
+                }, {
+                    xPercent: 0, 
+                    duration: 3.2,
+                    ease: "power4.out",
+                })
+                setTimeout(() => {
+                    window.dispatchEvent(new Event("resize"))
+                }, 10)
+            }, 2200)
         },
         changePageTitle() {
             const oldText = this.pageTitle.toString()
@@ -374,7 +499,6 @@ export default defineComponent({
                 const tl = gsap.timeline({ 
                     duration: duration,
                 })
-                console.time()
                 for (let i = 0; i < oldText.length; i++) {
                     tl.add(
                         gsap.to({}, {
@@ -393,12 +517,8 @@ export default defineComponent({
 
             setTimeout(() => {
                 this.pageTitle = ""
-                this.step = 2
                 this.$el.querySelector(".page-title").style.textAlign = "center"
                 
-                setTimeout(() => {
-                    this.initializeCuboid()
-                })
 
                 const duration = options.duration/(oldText.length + newText.length) * newText.length
                 const staggerDuration = duration / newText.length
@@ -431,8 +551,7 @@ export default defineComponent({
                 }
             }, options.duration/(oldText.length + newText.length) * oldText.length * 1000 )         
         }, 
-        setPage(index: 0 | 1 | 2) {
-            // console.log("setPage", index)
+        setPage(index: 0 | 1 | 2) {                
             this.page = index
             if (index === 0) {
                 this.moveToPoint( {x:225,y:225,z:0}, {x:0,y:2.5,z:0})
@@ -441,6 +560,16 @@ export default defineComponent({
             } else if (index === 2) {
                 this.moveToPoint( {x:220,y:0,z:220}, {x:0,y:2.5,z:0})
             }
+
+            this.ignoreScroll = true
+            gsap.to(".text-container", {
+                scrollTo: 0,
+                duration: 1.024,
+                ease: "bounce.out",
+                onComplete: () => {
+                    this.ignoreScroll = false
+                }
+            })
         },
         initializeThreeJS() {
 
@@ -450,7 +579,6 @@ export default defineComponent({
                 if (!that.animation) {
                     return
                 }
-                // console.log(`{x:${three.camera.position.x},y:${three.camera.position.y},z:${three.camera.position.z}}`)
                 three.renderer.render(three.scene, three.camera)
 
                 requestAnimationFrame(animate)
@@ -491,7 +619,7 @@ export default defineComponent({
 
 
             // Set orbit controls
-            three.controls = new OrbitControls( three.camera, three.renderer.domElement )
+            // three.controls = new OrbitControls( three.camera, three.renderer.domElement )
             this.updateMap(three.scene.initialised)
 
             
@@ -521,7 +649,7 @@ export default defineComponent({
         updateCanvasSize() {
             const cuboidElement = this.$refs["cuboid"] as HTMLElement
             if (_.isNull(cuboidElement)) {
-                console.error("ThreeJS Canvas not found")
+                // console.error("ThreeJS Canvas not found")
                 return
             }
             const paddingLeft = parseInt(window.getComputedStyle(cuboidElement).paddingLeft)
@@ -575,8 +703,8 @@ export default defineComponent({
                 })
             })
             
-            three.controls.target.set((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
-            three.camera.lookAt(three.controls.target)
+            // three.controls.target.set((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
+            three.camera.lookAt((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
             return newCuboid
         },
         updateMap(firstLoad) {
@@ -616,7 +744,6 @@ export default defineComponent({
             let centerIndex = Math.floor((this.allCuboids.length - 1) / 2)
             let centerCuboid = firstLoad ? Cuboid.get(`cuboid-${Math.floor(this.map.length / 2)}-${Math.floor(this.map[0].length / 2)}`, three.scene) : this.allCuboids[centerIndex]
 
-            console.log(update, centerCuboid.position)
             if (!update) {
                 three.camera.position.set(centerCuboid.position.x + 32, 64, centerCuboid.position.z + 32)
             }
@@ -662,7 +789,7 @@ export default defineComponent({
                         //     },
                         // })
                     }
-                }, 160)
+                }, 0)
             })
         },
         moveToSide(side : "bottom" | "top" | "front" | "back" | "left" | "right") {
@@ -730,8 +857,19 @@ export default defineComponent({
             }
 
             return this.moveToPoint(destination, center)
-        }
-
+        },
+        textContainerScroll() {
+            const textContainer = this.$refs["textcontainer"] as HTMLElement
+            if (!textContainer || this.ignoreScroll || _.isNull(this.page)) {
+                return
+            }
+            const textContainerHeight = textContainer.clientHeight
+            const textContainerScrollHeight = textContainer.scrollHeight
+            const textContainerScrollTop = textContainer.scrollTop + textContainerHeight
+            if (textContainerScrollTop > textContainerScrollHeight - 64) {
+                this.readPages[this.page] = true
+            }
+        },
     }
 })
 
@@ -756,7 +894,7 @@ export default defineComponent({
     .page-title {
         font-weight: 800;
         font-size: 32px;
-        margin-top: 32px;
+        margin: 32px 0 0;
         display: inline-block;
         width: 100%;
         text-align: right;
@@ -764,7 +902,7 @@ export default defineComponent({
     }
     .box-container {
         position: relative;
-        margin-top: 32px;
+        margin: 64px 0 0;
         height: calc(100vh - 128px);
     }
 
@@ -799,22 +937,18 @@ export default defineComponent({
         right: 32px;
         font-size: 20px;
         cursor: pointer;
-        // pointer-events: none;
+        pointer-events: none;
     }
 
     .cuboid-container {
-        aspect-ratio: 1/1;
         width: calc(100% - 64px);
         max-width: calc(100vh - 172px);
-        margin: 0 32px;   
-        padding: 48px;
+        margin: 0 32px 0;
+        padding: 0 48px;
 
         canvas {
             max-width:100%;
             aspect-ratio: 1/1;
-            &:hover {
-                outline: 5px solid #000;
-            }
         }
     }
 
@@ -827,20 +961,28 @@ export default defineComponent({
 
     .text-container {
         background-color: #fff;
+        border:1px solid $black;
         padding: 24px 16px;
         width: calc(100% - 64px);
         margin-left: 32px;
-        margin-top: 48px;
+        // margin-top: 48px;
         max-height: 100%;
         overflow-x: none;
         overflow-y: auto;
+
+
+        font-size: 14px;
+        line-height: 24px;
     }
 
     .perspective-buttons-container {
         width: 100%;
         display: flex;
         justify-content: center;
+        z-index: 1;
+        position: relative;
     }
+    
     .perspective-buttons {
         max-width: 320px;
         display: flex;
@@ -873,6 +1015,31 @@ export default defineComponent({
                 stroke: #fff;
             }
             
+        }
+    }
+
+    .bubbels-container {
+        &.__isHidden {
+            position: absolute;
+            left: -100vw;
+            top: -100vh;
+        }
+    }
+
+    .text-container {
+        p {
+            margin: 0;
+
+            + p {
+                margin-top: 32px;
+            }
+        }
+
+        footer {
+            margin-top: 48px;
+            font-size: .8em;
+            color: #777;
+            // margin-bottom: 32px;
         }
     }
 }
