@@ -485,8 +485,8 @@ export default defineComponent({
             three.camera.position.set( 8, 16, 8)
             
             three.scene.add(three.camera)
-
-            three.camera.zoom = 148
+            
+            three.camera.zoom = cuboidElement.offsetWidth/6
             three.camera.updateProjectionMatrix()
 
 
@@ -524,14 +524,19 @@ export default defineComponent({
                 console.error("ThreeJS Canvas not found")
                 return
             }
-            var width = cuboidElement.clientWidth
-            var height = cuboidElement.clientWidth
+            const paddingLeft = parseInt(window.getComputedStyle(cuboidElement).paddingLeft)
+            const paddingRight = parseInt(window.getComputedStyle(cuboidElement).paddingRight)
+
+            // Calculate the width minus the padding
+            const width = cuboidElement.offsetWidth - paddingLeft - paddingRight
+            const height = width
 
             three.renderer.setSize( width, height)
             three.camera.bottom = -height
             three.camera.top = height
             three.camera.left = -width
             three.camera.right = width
+            three.camera.zoom = cuboidElement.offsetWidth/6
 
             three.camera.updateProjectionMatrix()
         },
@@ -802,6 +807,8 @@ export default defineComponent({
         width: calc(100% - 64px);
         max-width: calc(100vh - 172px);
         margin: 0 32px;   
+        padding: 48px;
+
         canvas {
             max-width:100%;
             aspect-ratio: 1/1;
