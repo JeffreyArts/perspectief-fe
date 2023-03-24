@@ -8,7 +8,11 @@
                 &nbsp;</span>    
             </div>
             <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
+        </div>
 
+            
+        <div class="continue-button">
+            Ga verder &gt;
         </div>
     </div>
 </template>
@@ -126,6 +130,7 @@ export default defineComponent({
                 }
             ] as Array<Quote>,
             quote: null as Quote | null,
+            continueButton: 0
         }
     },
     computed: {
@@ -136,6 +141,11 @@ export default defineComponent({
     mounted() {
         this.quote = _.sample(this.quotes) as Quote
         
+        gsap.set(".continue-button", {
+            blur: 24,
+            opacity: 0,
+        })
+
         setTimeout(() => {
             if (!this.$refs.author) {
                 return
@@ -167,9 +177,31 @@ export default defineComponent({
                     ease: "power2.inOut",
                 })
         })
+
+        this.continueButton = setTimeout(()=> {
+            gsap.to(".continue-button", {
+                blur: 0,
+                opacity: 1,
+                duration: 3.2,
+                ease: "power2.inOut",
+            })
+        }, 6400)
     },
     methods: {
         moveState() {
+            clearTimeout(this.continueButton)
+            
+            // Cancel continue-button animation
+            gsap.killTweensOf(".continue-button")
+            
+            // Fade continue button out
+            gsap.to(".continue-button", {
+                blur: 0,
+                opacity: 0,
+                duration: 1.024,
+                ease: "power2.inOut",
+            })
+
             if (this.gTimeline && this.state === 0) {
                 this.gTimeline.kill()
                 this.gTimeline.pause()
@@ -228,6 +260,8 @@ export default defineComponent({
 .big-quote {
     display: flex;
     flex-flow: column;
+    // font-size: 32px;
+
     &.__isLong {
         .big-quote-content {
             font-size: 24px;
@@ -248,6 +282,7 @@ export default defineComponent({
     width: 100%;
     text-align: center;
     text-shadow: var(--x) -1px 1px rgba(255, 255, 255, .64);
+    font-size: 24px;
     
     @media (min-width: 768px) {
         font-size: 64px;
@@ -294,6 +329,21 @@ export default defineComponent({
 
     &.__isVisible {
         opacity: 1;
+    }
+}
+
+.continue-button {
+    position: absolute;
+    bottom: 32px;
+    right: 0;
+    font-size: 20px;
+    z-index: 1990;
+    cursor: pointer;
+
+    @media (min-width: 768px) {
+        bottom: 32px;
+        // right: 64px;
+        font-size: 32px;
     }
 }
 

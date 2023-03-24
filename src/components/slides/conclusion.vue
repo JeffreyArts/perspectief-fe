@@ -1084,7 +1084,7 @@ export default defineComponent({
 
     .continue-button {
         position: absolute;
-        bottom: 16px;
+        bottom: 32px;
         right: 32px;
         font-size: 20px;
         z-index: 1990;

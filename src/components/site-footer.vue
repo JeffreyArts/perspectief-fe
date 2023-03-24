@@ -1,5 +1,5 @@
 <template>
-    <footer class="site-footer-container" :class="[isMounted ? '__isMounted' : '']" ref="button">
+    <footer class="site-footer-container" :class="[isMounted ? '__isMounted' : '']" @click="openFooter" ref="button" >
         <div class="site-footer">
             <div class="site-footer-left">
                 <a class="logo-jao" href="https://www.jeffreyarts.nl/" target="_blank" v-html="svgJeffrey"></a>
@@ -36,8 +36,23 @@ export default defineComponent({
     mounted() {
         setTimeout(() => {
             this.isMounted = true
-        },2048)    
+        }, 2048)    
     },
+    unmounted() {
+        document.removeEventListener("click", this.closeFooter)
+    },
+    methods: {
+        openFooter() {
+            this.isMounted = false
+            setTimeout(() => {
+                document.addEventListener("click", this.closeFooter)
+            })
+        },
+        closeFooter() {
+            this.isMounted = true
+            document.removeEventListener("click", this.closeFooter)
+        }
+    }
 })
 </script>
 
@@ -46,7 +61,6 @@ export default defineComponent({
 
 .site-footer-container {
     position: fixed;
-    display: none;
     bottom: 0;
     left: 0;
     right: 0;

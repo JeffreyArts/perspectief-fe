@@ -40,7 +40,7 @@ export default defineComponent ({
     data() {
         return {
             consoleEvents: [] as Array<string>,
-            step: 8,
+            step: 1,
             bgFadeOut: false,
         }
     },

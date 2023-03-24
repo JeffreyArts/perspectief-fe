@@ -251,8 +251,8 @@ export default defineComponent({
             tvSection: 1,
             formInput: "",
             buttonHover: null as null | gsap.core.Tween,
-            messages: [] as Array<{message: string, date: string}>
-            // allowScroll: false,
+            messages: [] as Array<{message: string, date: string}>,
+            formSubmitted: false
         }
     },
     computed: {
@@ -295,6 +295,13 @@ export default defineComponent({
     
         },
         submitForm() {
+
+            
+            if (this.formSubmitted) {
+                return
+            }
+            this.formSubmitted = true
+
             // Add message to central db
             document.querySelector(".pov-page-container")?.classList.add("__isHidden")
             
@@ -396,7 +403,7 @@ export default defineComponent({
             const content = this.$el.querySelector(".slot-stuk-content") as HTMLElement
             const handle = this.$el.querySelector(".slot-stuk-handle") as HTMLElement
             const ease = "back.inOut(2.56)"
-            
+
             gsap.to(".slot-stuk-handle", {
                 duration: 1.28,
                 ease: ease,
@@ -414,9 +421,6 @@ export default defineComponent({
                 x: -content.offsetLeft + 32
             })
 
-            // setTimeout(() => {
-               
-            // }, 1000)
 
         },
       

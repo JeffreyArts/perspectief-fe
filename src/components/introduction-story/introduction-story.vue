@@ -70,17 +70,6 @@ export default defineComponent({
     computed: {
         chapter() {
             return this.story[this.chapterIndex]
-            // const res = []
-            // let i = 0
-            // console.log(this.paragraphIndex % this.story[this.chapterIndex].length, this.paragraphIndex , this.story[this.chapterIndex].length)
-            // while (this.paragraphIndex % this.story[this.chapterIndex].length >= i) {
-            //     res.push(this.story[this.chapterIndex][i])
-            //     i++
-            // } 
-
-            // return _.map(res, (paragraph, index) => {
-            //     return paragraph.split(" ")
-            // })
         }
     },
     mounted() {
