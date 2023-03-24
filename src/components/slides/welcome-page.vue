@@ -2,7 +2,7 @@
     <div class="welcome-page-container" ref="container">
         <div class="welcome-page">
             <aside class="welcome-page-sidebar">
-                <div class="introduction-block" ratio="1x1">
+                <div class="introduction-block">
                     <span>Introduction</span>
                     <span>Introduction</span>
                     <span>Introduction</span>
@@ -13,7 +13,7 @@
                     <span>Introduction</span>
                 </div>
                 <div class="about-block-container">
-                    <div class="about-block" ratio="1x1">
+                    <div class="about-block">
                         Dit project is gerealiseerd door Jeffrey Arts en mede mogelijk gemaakt met ondersteuning van Fonds ZOZ
                     </div>
                 </div>
@@ -153,10 +153,11 @@ export default defineComponent({
 .introduction-block {
     position: relative;
     font-size: 31px;
-    // font-size: 41px;
     font-weight: 900;
     display: none;
     transition: $transitionDefault;
+    aspect-ratio:1/1;
+    
     &:hover {
         transform: rotate3d(-.5, 1, 0, 8deg);
     }
@@ -189,6 +190,7 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     transition: $transitionDefault;
+    aspect-ratio: 1/1;
     &:hover {
         transform: rotate3d(.5, 1, 0, 8deg);
     }
