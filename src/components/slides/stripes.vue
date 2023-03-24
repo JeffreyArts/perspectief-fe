@@ -7,12 +7,12 @@
             :viewBox="`0 0 ${vpWidth} ${vpHeight}`" 
             xml:space="preserve">
             <g>
-                <polyline 
+                <path 
                     class="stripe" 
                     :class="[stripe.visible ? '' : '__isHidden']"
                     :refs="stripe.id" 
                     :id="stripe.id" 
-                    :points="`${stripe.v.x1} ${stripe.v.y1}, ${stripe.v.x2} ${stripe.v.y2}`" 
+                    :d="`M${stripe.v.x1} ${stripe.v.y1} L ${stripe.v.x2} ${stripe.v.y2}`" 
                     :key="i"
                     v-for="stripe,i in stripes" />
                 <text>
@@ -346,6 +346,10 @@ export default defineComponent({
             translate: 0 2px;
         }
         @media (min-width: 768px ) {
+            font-size: 40px;
+            translate: 0 4px;
+        }
+        @media (min-width: 960px ) {
             font-size: 48px;
             translate: 0 4px;
         }
@@ -365,8 +369,7 @@ export default defineComponent({
     fill: none;
     stroke-width: 80px;
     stroke-linecap: round;
-    transition: $transitionDefault;
-    
+
     &.__isHidden {
         stroke: transparent;
     }
