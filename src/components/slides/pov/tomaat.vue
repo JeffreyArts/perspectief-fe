@@ -147,7 +147,6 @@ export default defineComponent({
         window.addEventListener("resize", this.setSquareContent)
 
         // SET DEFAULTS
-        gsap.set("#body", {fill: this.tomatoColor})
         gsap.set("#crown", {svgOrigin: "301px 379px", rotate: 180})
         gsap.set("#tomato2 .tomato-sliders-container", {x: "-100%"})
         ScrollTrigger.defaults({

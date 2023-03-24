@@ -32,10 +32,8 @@
             </h1>
 
             <div ref="content">
-                <!-- <div class="container"> -->
-                    <tomaat v-if="typeIndex == 1" />
-                    <pen v-if="typeIndex == 0" />
-                <!-- </div> -->
+                <tomaat v-if="typeIndex == 1" @completed="nextPage" />
+                <pen v-if="typeIndex == 0" @completed="nextPage" />
             </div>
         </div>
     </div>
@@ -82,6 +80,11 @@ export default defineComponent({
         },
     },
     mounted() {
+        // Start at the top of the page
+        if (this.$refs["scrollContainer"] instanceof Element) {
+            this.$refs["scrollContainer"].scrollTop = 0
+        }
+
         this.interval = setInterval(() => {
             if (this.selectedType) {
                 clearInterval(this.interval)
@@ -148,6 +151,14 @@ export default defineComponent({
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
 
+.pov-page-container {
+    transition: $transitionDefault;
+    opacity: 1;
+
+    &.__isHidden {
+        opacity: 0;
+    }
+}
 .pov-page {
     position: absolute;
     z-index: 1;
