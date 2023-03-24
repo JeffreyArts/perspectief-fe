@@ -107,7 +107,8 @@ export default defineComponent({
                         y2: 0,
                     }
                 }
-            ] as Array<StripeObject>
+            ] as Array<StripeObject>,
+            animation: 0
         }
     },
     watch: {
@@ -129,11 +130,7 @@ export default defineComponent({
         // set point attributes
         window.addEventListener("resize", this.resize)
         this.resize()
-        // this.$refs.stripe1.setAttribute("points", `${this.vpWidth + 100} ${this.vpHeight/2.4}, ${this.vpWidth + 100} ${this.vpHeight/2.4}`)
-        // this.$refs.stripe1
         
-        // this.stripes[0].end = this.getStripeDefinition(index)
-        // this.stripes[1].end = this.getStripeDefinition(1)
         _.each(this.stripes, (stripe, index) => {
             const tmp = this.getStripeDefinition(index)
             
@@ -330,13 +327,21 @@ export default defineComponent({
     textpath,
     text {
         fill: #ddd;
-        font-size: 24px;
+        font-size: 16px;
         text-transform: uppercase;
         line-height: 1em;
         font-weight: 800;
         transform-origin: center;
 
+        @media (min-width: 360px ) {
+            font-size: 18px;
+            translate: 0 2px;
+        }
         @media (min-width: 480px ) {
+            font-size: 24px;
+            translate: 0 2px;
+        }
+        @media (min-width: 640px ) {
             font-size: 32px;
             translate: 0 2px;
         }
@@ -344,11 +349,11 @@ export default defineComponent({
             font-size: 48px;
             translate: 0 4px;
         }
-        @media (min-width: 1024px ) {
+        @media (min-width: 1200px ) {
             font-size: 64px;
             translate: 0 6px;
         }
-        @media (min-width: 1200px ) {
+        @media (min-width: 1440px ) {
             font-size: 80px;
             translate: 0 8px;
         }

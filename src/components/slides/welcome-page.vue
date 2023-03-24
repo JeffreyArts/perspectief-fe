@@ -37,6 +37,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import Icon from "@/components/icon.vue"
 import _ from "lodash"
 
@@ -55,6 +56,12 @@ export default defineComponent({
     computed: {
     },
     mounted() {
+        gsap.registerPlugin(ScrollToPlugin)
+
+        if(window.innerWidth < 768) {
+            const welcomePageElement = this.$el.querySelector(".welcome-page")
+            welcomePageElement.scrollTop = -welcomePageElement.scrollHeight
+        }
         gsap.set(".about-block-container", { x: "-100%"})
         gsap.set(".welcome-page-sidebar", {opacity: 0, x: "-100%"})
         
@@ -142,12 +149,18 @@ export default defineComponent({
     overflow: auto;
 }
 .welcome-page-sidebar {
-    padding: 64px;
+    padding: 32px;
     width: 100%;
+    margin-top: 80px;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
     perspective: 1024px;
+    
+    @media (min-width: 768px) {
+        margin-top: 0;
+        padding: 64px;
+    }
 }
 
 .introduction-block {
@@ -249,7 +262,7 @@ export default defineComponent({
     opacity: 0;
     font-size: 32px;
     line-height:36px;
-    margin-top: 32px;
+    margin-top: 80px;
     margin-bottom: -16px;
     span {
         display: inline-block;
