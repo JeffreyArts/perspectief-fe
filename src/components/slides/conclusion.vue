@@ -68,10 +68,10 @@
                 </p>
             </div>
         </div>
-        <div class="bubbels-container" :class="[step == 1 ? '__isHidden' : '']">
+        <div class="bubbels-container" :class="[step != 2 ? '__isHidden' : '']">
             <div class="perspective-container">
                 <figure class="cuboid-container" ref="cuboid"></figure>
-                <section class="text-container" ref="textcontainer">
+                <section class="text-container" ref="textcontainer" :class="!pageSelected ? '__isHidden' : ''">
                     <div v-if="page == 0">
                         <p>
                             Sociale-media bubbels ontstaan door de algoritmes welk sociale media hebben ontwikkeld om een zo breed mogelijk scala aan gebruikers, 
@@ -178,8 +178,29 @@
             </div>
         </div>
 
+        <div class="welcome-back-container" :class="[step != 3 ? '__isHidden' : '']">
+            <div class="container">
+                <div class="welcome-back-box">
+                    <h1>Welkom terug</h1>
+                    <p>De reden waarom ik je dit heb willen laten zien, is omdat alle drie de standpunten een eigen spectrum creëren van goed/slecht. 
+                        Wat vanuit het ene standpunt goed lijkt te zijn, kan slecht worden wanneer je ander standpunt inneemt. 
+                        Wanneer je niet wisselt tussen verschillende perspectieven en je niet actief bezig bent om je eigen waarneming te betwisten, 
+                        maak je niet alleen je eigen perspectief smaller het maakt het ook moeilijker om de waargenomen realiteit van de ander te begrijpen. 
+                        Het internet biedt als medium de mogelijkheid om mensen met  afwijkende standpunten met elkaar te verbinden, 
+                        maar de platformen die op dit moment het internet domineren, verzaken hierin. Dat is mijn motivatie om deze tool te ontwikkelen. 
+                        Niet alleen om je te laten zien dat perceptie waardevol is door te laten zien hoe het je waargenomen realiteit beïnvloed, 
+                        maar ook om je de mogelijkheid te geven om jouw standpunt te delen en je perceptie te verbreden, om zo tot nieuwe collectieve waarheden te komen.
+                    </p>
+
+                    <div class="button-container">
+                        <button class="button" @click="finishPage">Start exploratie</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             
-        <div class="continue-button" @click="toSocialMediaBubbles">
+        <div class="continue-button" @click="nextStep">
             Ga verder &gt;
         </div>
     </div>
@@ -211,8 +232,9 @@ export default defineComponent({
         return {
             box2Open: false,
             box3Open: false,
+            stepTransition: false,
             step: 1,
-            page: Math.floor(Math.random()*3) as 0 | 1 | 2 ,
+            page: null as 0 | 1 | 2 | null,
             readPages: [false, false, false],
             pageTitle: "Samenvatting",
             pulseDelay: 0, // default: 4.8
@@ -250,6 +272,9 @@ export default defineComponent({
         }
     },
     computed: {
+        pageSelected() {
+            return !_.isNull(this.page)
+        },
     },
     mounted() {
         gsap.registerPlugin(ScrollToPlugin)
@@ -258,6 +283,7 @@ export default defineComponent({
         setTimeout(() => {
             this.initializeThreeJS()
         }, 2400)
+
 
 
         gsap.set(".page-title", {
@@ -408,6 +434,93 @@ export default defineComponent({
                 ease: "power2.inOut",
             })
         },
+        nextStep() {
+            if (this.stepTransition) {
+                return
+            }  
+
+            this.stepTransition = true
+            if (this.step == 1) {
+                this.toSocialMediaBubbles()
+            } else if (this.step == 2) {
+                this.toWelcomeBack()
+            }
+        },
+        finishPage() {
+            gsap.to(".welcome-back-box", {
+                y: "100vh",
+                duration: 1.024,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    this.$emit("next","finish-page")
+                }
+            })
+        },
+        toWelcomeBack() {
+
+            this.$el.querySelector(".text-container").removeEventListener("scroll", this.textContainerScroll)
+            gsap.to(".continue-button", {
+                blur: 24,
+                opacity: 0,
+                duration: 1.024,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    // delete this.$el.querySelector(".continue-button").style.pointerEvents
+                    // this.changePageTitle()
+                }
+            })
+            
+            gsap.to(".text-container", {
+                height:0,
+                opacity: 0,
+                duration: 1.28,
+                ease:"power2.inOut",
+            })
+            
+            gsap.to(".perspective-button", {
+                opacity: 0,
+                y: 32,
+                duration: .64,
+                stagger: -.24,
+                ease:"power2.inOut",
+            })
+
+            gsap.to(".page-title", {
+                opacity: 0,
+                y: -256,
+                height: 0,
+                duration: 1.6,
+                ease:"power2.inOut",
+            })
+
+
+            // Cuboid animation
+            setTimeout(() => {
+                this.moveToCuboid(this.activeCuboid)
+            }, 1200)
+
+            gsap.to(".cuboid-container", {
+                opacity: 0,
+                blur: 32,
+                marginTop: 96,
+                scale: 2,
+                delay: 1.6,
+                duration:2.4,
+                ease:"power2.inOut",
+                onComplete: () => {
+                    this.step = 3
+                    this.stepTransition = false
+
+                    gsap.fromTo(".welcome-back-box", {
+                        y: "100vh"
+                    },{
+                        y: "0",
+                        duration: 1.024,
+                        ease: "power2.inOut",
+                    })
+                }
+            })
+        },
         toSocialMediaBubbles() {
             gsap.to(".continue-button", {
                 blur: 24,
@@ -472,8 +585,12 @@ export default defineComponent({
                     xPercent: 0, 
                     duration: 3.2,
                     ease: "power4.out",
+                    onComplete: () => {
+                        this.stepTransition = false
+                    }
                 })
                 setTimeout(() => {
+                    
                     window.dispatchEvent(new Event("resize"))
                 }, 10)
             }, 2200)
@@ -551,7 +668,23 @@ export default defineComponent({
                 }
             }, options.duration/(oldText.length + newText.length) * oldText.length * 1000 )         
         }, 
-        setPage(index: 0 | 1 | 2) {                
+        setPage(index: 0 | 1 | 2) {       
+            if (_.isNull(this.page)) {
+                const cuboidElement = this.$refs["cuboid"] as HTMLElement
+                if (!cuboidElement) {
+                    return
+                }
+
+                let newTextContainerHeight =  window.innerHeight - cuboidElement.clientHeight - 256
+                gsap.fromTo(".text-container", {
+                    height:0,
+                }, {
+                    height: newTextContainerHeight,
+                    duration: 1.28,
+                    ease:"power2.inOut",
+                })
+            }         
+
             this.page = index
             if (index === 0) {
                 this.moveToPoint( {x:225,y:225,z:0}, {x:0,y:2.5,z:0})
@@ -668,8 +801,8 @@ export default defineComponent({
 
             three.camera.updateProjectionMatrix()
         },
-        createCuboid(id) {
-            
+        
+        createCuboid(id:string) {
             const cubeDimensions = {
                 x:5,
                 y:5,
@@ -697,9 +830,10 @@ export default defineComponent({
 
                     if (!this.activeCuboid || cuboid.name != this.activeCuboid.name) {
                         this.moveToCuboid(cuboid)
-                    } else {
-                        this.moveToSide(event.target.data.side)
                     }
+                    //  else {
+                    //     this.moveToSide(event.target.data.side)
+                    // }
                 })
             })
             
@@ -792,29 +926,29 @@ export default defineComponent({
                 }, 0)
             })
         },
-        moveToSide(side : "bottom" | "top" | "front" | "back" | "left" | "right") {
-            if (side == "bottom" || side == "top") {
-                return
-            }
-            let cameraPoint = this.activeCuboid.position.clone()
-            cameraPoint.y = 2.5
+        // moveToSide(side : "bottom" | "top" | "front" | "back" | "left" | "right") {
+        //     if (side == "bottom" || side == "top") {
+        //         return
+        //     }
+        //     let cameraPoint = this.activeCuboid.position.clone()
+        //     cameraPoint.y = 2.5
 
-            let centerPoint = this.activeCuboid.position.clone()
-            if (this.sensitivity == "open") {
-                centerPoint.y = 3.5
-            } else {   
-                centerPoint.y = 2.5 
-            }
+        //     let centerPoint = this.activeCuboid.position.clone()
+        //     if (this.sensitivity == "open") {
+        //         centerPoint.y = 3.5
+        //     } else {   
+        //         centerPoint.y = 2.5 
+        //     }
             
-            switch (side) {
-            case "front": cameraPoint.z += 16; break
-            case "back": cameraPoint.z -= 16; break
-            case "left": cameraPoint.x -= 16; break
-            case "right": cameraPoint.x += 16; break
-            }
+        //     switch (side) {
+        //     case "front": cameraPoint.z += 16; break
+        //     case "back": cameraPoint.z -= 16; break
+        //     case "left": cameraPoint.x -= 16; break
+        //     case "right": cameraPoint.x += 16; break
+        //     }
             
-            return this.moveToPoint(cameraPoint, centerPoint)
-        },
+        //     return this.moveToPoint(cameraPoint, centerPoint)
+        // },
         moveToCuboid(cuboid: THREE.Mesh) {
             const center = cuboid.position.clone().setY(2.5)
             const destination = cuboid.position.clone().setY(cuboid.position.y + 130)
@@ -863,11 +997,25 @@ export default defineComponent({
             if (!textContainer || this.ignoreScroll || _.isNull(this.page)) {
                 return
             }
+
             const textContainerHeight = textContainer.clientHeight
             const textContainerScrollHeight = textContainer.scrollHeight
             const textContainerScrollTop = textContainer.scrollTop + textContainerHeight
             if (textContainerScrollTop > textContainerScrollHeight - 64) {
                 this.readPages[this.page] = true
+                // Check if all readPage values are true
+                const allRead = Object.values(this.readPages).every((value) => value)
+
+                if (allRead) {
+                    this.$el.querySelector(".continue-button").style.pointerEvents = "all"
+                    // remove textContainerScroll
+                    gsap.to(".continue-button", {
+                        blur: 0,
+                        opacity: 1,
+                        duration: 1.024,
+                        ease: "power2.inOut",
+                    })
+                }
             }
         },
     }
@@ -899,7 +1047,10 @@ export default defineComponent({
         width: 100%;
         text-align: right;
         padding: 0 32px;
+        overflow: hidden;
+        line-height: 1.6em;
     }
+    
     .box-container {
         position: relative;
         margin: 64px 0 0;
@@ -936,6 +1087,7 @@ export default defineComponent({
         bottom: 16px;
         right: 32px;
         font-size: 20px;
+        z-index: 1990;
         cursor: pointer;
         pointer-events: none;
     }
@@ -955,24 +1107,48 @@ export default defineComponent({
     .perspective-container {
         display: flex;
         flex-flow: column;
-        height: calc(100vh - 216px);
+        justify-content: center;
+        height: calc(100vh - 240px);
         padding-bottom: 32px;
     }
 
     .text-container {
         background-color: #fff;
         border:1px solid $black;
-        padding: 24px 16px;
         width: calc(100% - 64px);
+        padding: 0;
         margin-left: 32px;
-        // margin-top: 48px;
         max-height: 100%;
         overflow-x: none;
         overflow-y: auto;
-
+        // transition: $transitionDefault;
 
         font-size: 14px;
         line-height: 24px;
+        &.__isHidden {
+            padding: 0;
+            height: 0;
+            border: 0 none transparent;
+        }
+        
+        > div {
+            padding: 24px 16px;
+        }
+
+        p {
+            margin: 0;
+
+            + p {
+                margin-top: 32px;
+            }
+        }
+
+        footer {
+            margin-top: 48px;
+            font-size: .8em;
+            color: #777;
+            // margin-bottom: 32px;
+        }
     }
 
     .perspective-buttons-container {
@@ -1013,6 +1189,7 @@ export default defineComponent({
             
             svg {
                 stroke: #fff;
+                translate: -1px -3px;
             }
             
         }
@@ -1026,20 +1203,47 @@ export default defineComponent({
         }
     }
 
-    .text-container {
-        p {
-            margin: 0;
+    .welcome-back-container {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
 
-            + p {
-                margin-top: 32px;
-            }
+        &.__isHidden {
+            display: none;
+        }
+    }
+
+    .welcome-back-box {
+        border: 1px solid $black;
+        background-color: #fff;
+        padding: 32px;
+        line-height: 1.8em;
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+
+        h1 {
+            font-size: 30px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 24px;
+        }
+        
+        .button-container {
+            margin-top: 32px;
+            width: 100%;
+            text-align: center;
         }
 
-        footer {
-            margin-top: 48px;
-            font-size: .8em;
-            color: #777;
-            // margin-bottom: 32px;
+
+        button {
+            display: inline-block;
+            min-width: 210px;
         }
     }
 }
