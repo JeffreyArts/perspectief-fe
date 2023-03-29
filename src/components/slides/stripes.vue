@@ -1,5 +1,8 @@
 <template>
-    <div class="stripes-container" ref="container" @click="moveState">
+    <div class="stripes-container" ref="container" :class="disableScroll ? '__disableScroll' : ''" @click="moveState">
+        <div class="stripes-scroll-container">
+            &nbsp;  
+        </div>
         <svg version="1.0" 
             xmlns="http://www.w3.org/2000/svg" 
             xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -40,6 +43,7 @@ export default defineComponent({
             vpWidth: 0,
             vpHeight: 0,
             done: false,
+            disableScroll: true,
             stripes: [
                 {
                     id: "stripe1",
@@ -124,11 +128,22 @@ export default defineComponent({
         }
     },
     unMounted() {
+        const container = this.$refs["container"] as HTMLElement
+
         window.removeEventListener("resize", this.resize)
+        if (container) {
+            container.removeEventListener("scroll", this.moveState)
+        }
     },
     mounted() {
         // set point attributes
         window.addEventListener("resize", this.resize)
+        const container = this.$refs["container"] as HTMLElement
+
+        if (container) {
+            container.addEventListener("scroll", this.moveState)
+        }
+        
         this.resize()
         
         _.each(this.stripes, (stripe, index) => {
@@ -149,7 +164,7 @@ export default defineComponent({
         this.gTimeline = gsap.timeline({
             onComplete: () => {
                 this.state = 1
-                // const tp = this.$el.querySelector("svg").querySelector("textPath")
+                this.disableScroll = false
             },
             onUpdate: () => {
                 // Safari bugfix for not updating the textPath
@@ -275,7 +290,7 @@ export default defineComponent({
         
                 this.gTimeline = gsap.timeline({
                     onComplete: () => {
-                        // This is being done manually as well, because the next slide should move in slightly before the animation is done
+                        // This is being done manually, because the next slide should move in slightly before the animation is done
                         // this.$emit("next", "stripes")
                         this.done = true
                     },
@@ -296,7 +311,6 @@ export default defineComponent({
                     y2: this.vpHeight + 56,
                     y1: this.vpHeight + 56,
                     duration: 1.28,
-                    delay: .48,
                     ease: "bounce.out"
                 })
                 // Manually trigger the next slide
@@ -320,9 +334,18 @@ export default defineComponent({
     position: absolute;
     left: 0;
     right: 0;
-    overflow: hidden;
+    overflow: auto;
     top: 0;
     bottom: 0;
+
+    &.__disableScroll {
+        overflow: hidden;
+    }
+
+    svg {
+        position: absolute;
+        top: 0;
+    }
 
     textpath,
     text {
@@ -362,8 +385,16 @@ export default defineComponent({
             translate: 0 8px;
         }
     }
-    
 }
+
+// This element is used to push the height of the parent container
+// so that it will be possible to scroll that container, which is desires for triggering the animation
+.stripes-scroll-container {
+    height: calc(100% + 1px);
+    width: 8px;
+    background-color: transparent;
+}
+
 .stripe {
     stroke: $black;
     fill: none;
