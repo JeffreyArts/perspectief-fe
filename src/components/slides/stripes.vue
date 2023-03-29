@@ -378,10 +378,14 @@ export default defineComponent({
             translate: 0 4px;
         }
         @media (min-width: 1200px ) {
-            font-size: 64px;
+            font-size: 58px;
             translate: 0 6px;
         }
-        @media (min-width: 1440px ) {
+        @media (min-width: 1360px ) {
+            font-size: 64px;
+            translate: 0 8px;
+        }
+        @media (min-width: 1800px ) {
             font-size: 80px;
             translate: 0 8px;
         }

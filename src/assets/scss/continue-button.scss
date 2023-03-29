@@ -7,12 +7,26 @@
     z-index: 1990;
     cursor: pointer;
     color: #333;
+    font-weight: 100;
     text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, 1px 1px 0 #fff, -1px 1px 0 #fff;
     font-family: $accentFont;
-
+    transition: $transitionDefault;
+    transform-origin: right 50%;
+    
     @media (min-width: 768px) {
         bottom: 32px;
         // right: 64px;
-        font-size: 32px;
+        font-size: 24px;
+    }
+    &:hover {
+        scale: 1.08;
+        .icon {
+            translate: 4px 0;
+        }
+    }
+    .icon {
+        display: inline-block;
+        height: 1em;
+        transition: $transitionDefault;
     }
 }

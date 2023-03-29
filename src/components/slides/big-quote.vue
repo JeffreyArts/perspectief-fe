@@ -9,10 +9,10 @@
             </div>
             <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
         </div>
-
-            
+        
+        
         <div class="continue-button">
-            Ga verder &gt;
+            Ga verder <span class="icon">&gt;</span>
         </div>
     </div>
 </template>
@@ -259,6 +259,11 @@ export default defineComponent({
     @media (min-width: 768px) {
         left: 128px;
         right: 128px;
+    }
+
+    .continue-button {
+        opacity: 0;
+        right: 0;
     }
 }
 
