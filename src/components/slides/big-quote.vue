@@ -138,6 +138,9 @@ export default defineComponent({
             return this.quote?.content.split(" ")
         }
     },
+    unMounted() {
+        this.gTimeline?.kill()
+    },
     mounted() {
         this.quote = _.sample(this.quotes) as Quote
         
@@ -250,7 +253,9 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-flow:column;
+    flex-flow: column;
+    user-select: none; 
+
     @media (min-width: 768px) {
         left: 128px;
         right: 128px;
@@ -329,21 +334,6 @@ export default defineComponent({
 
     &.__isVisible {
         opacity: 1;
-    }
-}
-
-.continue-button {
-    position: absolute;
-    bottom: 32px;
-    right: 0;
-    font-size: 20px;
-    z-index: 1990;
-    cursor: pointer;
-
-    @media (min-width: 768px) {
-        bottom: 32px;
-        // right: 64px;
-        font-size: 32px;
     }
 }
 

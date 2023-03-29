@@ -1,0 +1,18 @@
+
+.continue-button {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    font-size: 20px;
+    z-index: 1990;
+    cursor: pointer;
+    color: #333;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, 1px 1px 0 #fff, -1px 1px 0 #fff;
+    font-family: $accentFont;
+
+    @media (min-width: 768px) {
+        bottom: 32px;
+        // right: 64px;
+        font-size: 32px;
+    }
+}

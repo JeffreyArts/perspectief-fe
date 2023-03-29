@@ -287,7 +287,7 @@ export default defineComponent({
             } else if (this.gTimeline && this.state === 1) {
                 this.vpWidth = window.innerWidth
                 this.vpHeight = window.innerHeight
-        
+                this.state = 2
                 this.gTimeline = gsap.timeline({
                     onComplete: () => {
                         // This is being done manually, because the next slide should move in slightly before the animation is done
@@ -337,6 +337,7 @@ export default defineComponent({
     overflow: auto;
     top: 0;
     bottom: 0;
+    user-select: none; 
 
     &.__disableScroll {
         overflow: hidden;
