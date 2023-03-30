@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <bg />
-        <stripes @next="nextStep" v-if="step <= 2 "/>
+        <stripes @next="nextStep" v-if="step < 2 "/>
         <big-quote @next="nextStep" v-if="step == 2"/>
         <welcome-page @next="nextStep" v-if="step == 3"/>
         <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
@@ -24,7 +24,6 @@ import povPage from "@/components/slides/pov-page.vue"
 import stripes from "@/components/slides/stripes.vue"
 import conclusion from "@/components/slides/conclusion.vue"
 import bg from "@/components/bg.vue"
-import dayjs from "dayjs"
 import _ from "lodash"
 
 export default defineComponent ({ 

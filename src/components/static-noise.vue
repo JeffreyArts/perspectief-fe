@@ -22,7 +22,7 @@ export default defineComponent({
         // preload all the images
         for (let i = 1; i <= this.amount; i++) {
             const img = new Image()
-            img.src = `./images/snow/static-${i}.jpg`
+            img.src = `/images/snow/static-${i}.jpg`
         }
         
         this.changeStaticNoise()

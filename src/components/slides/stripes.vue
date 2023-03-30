@@ -338,7 +338,12 @@ export default defineComponent({
     top: 0;
     bottom: 0;
     user-select: none; 
-
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none; 
+    &::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+    }
+    
     &.__disableScroll {
         overflow: hidden;
     }

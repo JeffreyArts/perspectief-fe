@@ -1064,6 +1064,7 @@ export default defineComponent({
         border:1px solid $black;
         padding: 16px 24px 16px 32px;
         width: calc(100% - 64px);
+        max-width: 480px;
         position: absolute;
         z-index: 1;
         aspect-ratio: 16/9;
