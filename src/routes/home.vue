@@ -50,7 +50,6 @@ export default defineComponent ({
         }
     },
     mounted() {
-        console.log(this.$router)
         if (this.$router.currentRoute.value.fullPath == "/pagina/quote") {
             this.step = 2
         }

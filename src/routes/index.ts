@@ -14,6 +14,10 @@ const routes = [
         name: "Pagina",
         component: Home,
     },
+    {
+        path: "/pagina/",
+        redirect: "/",
+    },
 ]
 
 
