@@ -146,8 +146,10 @@ export default defineComponent({
     height: 100%;
     display: flex;
     flex-flow: column-reverse;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
 .welcome-page-sidebar {
     padding: 32px;
     width: 100%;

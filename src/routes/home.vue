@@ -29,6 +29,12 @@ import _ from "lodash"
 export default defineComponent ({ 
     name: "homePage",
     components: {stripes, conclusion, bigQuote, bg, welcomePage, introductionPage, povPage, sharedPerception},
+    beforeRouteUpdate(to, from, next) {
+        if (to.fullPath !== from.fullPath) {
+            this.updateStep()
+            next()
+        }
+    },
     props: [],
     setup() {
         const localDB = LocalDB()
