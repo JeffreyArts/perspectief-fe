@@ -23,6 +23,7 @@ export default defineComponent({
     data: () => {
         return {
             state: 0,
+            hasFallen: false,
             gTimeline: null as null | gsap.core.Timeline,
         }
     },
@@ -46,6 +47,10 @@ export default defineComponent({
             })
         },
         moveOn() {
+            if (this.hasFallen) {
+                return
+            }
+            this.hasFallen = true
             this.startAnimation()
             gsap.to(".perspective-button", {
                 duration: .24,
