@@ -195,7 +195,7 @@ export default defineComponent({
 .about-block {
     display: block;
     background-color: #111;
-    color: #999;
+    color: #ddd;
     font-size: 11px;
     font-weight: 100;
     line-height: 24px;
@@ -226,6 +226,8 @@ export default defineComponent({
         margin-top: 0;
         margin-left: 24px;
         display: none;
+        width: 100%;
+        text-align: left;
     }
     > h1 {
         // transition: $transitionDefault;
@@ -245,10 +247,14 @@ export default defineComponent({
         overflow: auto;
     }
 }
+
 .welcome-page-content-bg {
     padding: 32px;
     background-color: rgba(255,255,255,.8);
     opacity: 0;
+    align-items: center;
+    display: flex;
+    flex-flow: column;
 
     h1 {
         margin-left: 0;
