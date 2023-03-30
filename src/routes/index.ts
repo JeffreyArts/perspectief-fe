@@ -8,7 +8,12 @@ const routes = [
         path: "/",
         name: "Home",
         component: Home,
-    }
+    },
+    {
+        path: "/pagina/:id",
+        name: "Pagina",
+        component: Home,
+    },
 ]
 
 

@@ -43,21 +43,42 @@ export default defineComponent ({
             bgFadeOut: false,
         }
     },
-    computed: {
-        currentDate() {
-            return dayjs().format("DD-MM-YYYY")
+    mounted() {
+        console.log(this.$router)
+        if (this.$router.currentRoute.value.fullPath == "/pagina/quote") {
+            this.step = 2
         }
-    },
-    created() {
-        // this.$on("next", (data) => {
-        //     // handle the event here
-        // })
+        this.updateStep()
     },
     methods: {
         nextStep(msg: string) {
             console.log("Next step:", msg)
             this.step++
+            this.updateRoute()
         },
+        updateStep() {
+            switch (this.$router.currentRoute.value.fullPath) {
+            case "/pagina/intro":               this.step = 1;       break
+            case "/pagina/quote":               this.step = 2;       break
+            case "/pagina/welkom":              this.step = 3;       break
+            case "/pagina/introductie":         this.step = 4;       break
+            case "/pagina/perceptie":           this.step = 5;       break
+            case "/pagina/gedeelde-perceptie":  this.step = 7;       break
+            case "/pagina/conclusie":           this.step = 8;       break
+            }
+        },
+        updateRoute() {
+
+            switch (this.step) {
+            case 1: this.$router.push("/pagina/intro");                 break
+            case 2: this.$router.push("/pagina/quote");                 break
+            case 3: this.$router.push("/pagina/welkom");                break
+            case 4: this.$router.push("/pagina/introductie");           break
+            case 5: this.$router.push("/pagina/perceptie");             break
+            case 7: this.$router.push("/pagina/gedeelde-perceptie");    break
+            case 8: this.$router.push("/pagina/conclusie");             break
+            }
+        }
     }
     
 })
