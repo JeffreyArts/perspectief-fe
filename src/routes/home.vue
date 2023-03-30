@@ -29,12 +29,6 @@ import _ from "lodash"
 export default defineComponent ({ 
     name: "homePage",
     components: {stripes, conclusion, bigQuote, bg, welcomePage, introductionPage, povPage, sharedPerception},
-    beforeRouteUpdate(to, from, next) {
-        if (to.fullPath !== from.fullPath) {
-            this.updateStep()
-            next()
-        }
-    },
     props: [],
     setup() {
         const localDB = LocalDB()
@@ -50,14 +44,10 @@ export default defineComponent ({
         }
     },
     mounted() {
-        if (this.$router.currentRoute.value.fullPath == "/pagina/quote") {
-            this.step = 2
-        }
         this.updateStep()
     },
     methods: {
         nextStep(msg: string) {
-            console.log("Next step:", msg)
             this.step++
             this.updateRoute()
         },
