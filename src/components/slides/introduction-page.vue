@@ -71,7 +71,11 @@ export default defineComponent({
         if (this.$refs["intro-blocks"] instanceof Element) {
             this.$refs["intro-blocks"].addEventListener("scroll", this.handleScroll)
         }
-        // this.addBGblock()
+
+        if (document.querySelector(".pov-page-container")) {
+            gsap.set(".introduction-page-container", {opacity:0})
+        }
+        
         gsap.to(".intro-block:first-child", {
             x: 0,
             opacity: 1,
@@ -233,26 +237,33 @@ export default defineComponent({
     &:nth-child(1) {
         // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
         bottom: 100vh;
+        z-index: 100;
         // bottom: 72px;
         left: -128px;
     }
     &:nth-child(2) {
         // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
         // bottom: 48px;
+        z-index: 200;
         bottom: 100vh;
         left: 0px;
+        transform: translateZ(8px);
     }
     &:nth-child(3) {
         // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
         bottom: 100vh;
         // bottom: 72px;
         right: 64px;
+        z-index: 300;
+        transform: translateZ(16px);
     }
     &:nth-child(4) {
         bottom: 100vh;
         // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
         // bottom: 58px;
         right: -128px;
+        z-index: 400;
+        transform: translateZ(24px);
     }
 
     p {

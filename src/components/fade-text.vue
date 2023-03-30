@@ -108,7 +108,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/variables.scss";
 
 .fade-text-container {
@@ -135,6 +135,7 @@ export default defineComponent({
     max-width: 800px;
     perspective: 128px;
     .word {
+        transform: translateZ(0px);
         display: inline-block;
     }
 }
