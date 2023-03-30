@@ -31,6 +31,9 @@ const blurPlugin = {
     },
     registerRender(progress:number|string, data:any) {
         data.target.style[blurPlugin.blurProperty] = data.interp(progress)
+        window.requestAnimationFrame(() => {
+            //
+        })
     }
 }
 

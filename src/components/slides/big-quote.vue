@@ -163,13 +163,13 @@ export default defineComponent({
                 }
             })
                 .to(".character", {
-                    duration: .64,
+                    duration: .96,
                     opacity: 1,
                     y: 0,
                     blur: 0,
                     color: "#000",
                     scale: 1,
-                    stagger: 0.008,
+                    stagger: 0.016,
                     ease: "power2.out",
                 })
                 .to(authorElement, {
@@ -329,6 +329,7 @@ export default defineComponent({
     translate: 0 8px;
     transform: scale(.8);
     color: #eee;
+    will-change: filter;
     filter: blur(16px);
 }
 
