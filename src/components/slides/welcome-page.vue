@@ -60,8 +60,31 @@ export default defineComponent({
 
         if(window.innerWidth < 768) {
             const welcomePageElement = this.$el.querySelector(".welcome-page")
-            welcomePageElement.scrollTop = -welcomePageElement.scrollHeight
+            
+            setTimeout(() => {
+                welcomePageElement.scroll(0, -welcomePageElement.scrollHeight)
+            })
+
+            gsap.set(".welcome-page-content h1",{ opacity: 1, y: 0})
+            
+            gsap.set(".welcome-page-content-bg", {x: 0})
+            gsap.fromTo(".welcome-page-content-bg",{opacity: 0}, { opacity: 1, duration: 1.28, ease: "power2.out"})
+
+            gsap.set(".welcome-page-button", { opacity: 1, x: 0})
+        } else {
+            gsap.to(".welcome-page-content h1", 
+                { opacity: 1, y: 0, duration: 1.28, delay:.16, ease: "power2.out"}
+            )
+            
+            gsap.to(".welcome-page-content-bg", 
+                { opacity: 1, x: 0, duration: 1.28, delay: .72, ease: "power2.out"}
+            )
+    
+            gsap.to(".welcome-page-button", 
+                { opacity: 1, x: 0, duration: 1.28, delay: 0.96, ease: "power2.out"}
+            )
         }
+
         gsap.set(".about-block-container", { x: "-100%"})
         gsap.set(".welcome-page-sidebar", {opacity: 0, x: "-100%"})
         
@@ -74,17 +97,6 @@ export default defineComponent({
             { opacity: 1, x: 0, duration: 1.28, ease: "power2.out" }
         )
 
-        gsap.to(".welcome-page-content h1", 
-            { opacity: 1, y: 0, duration: 1.28, delay:.16, ease: "power2.out"}
-        )
-        
-        gsap.to(".welcome-page-content-bg", 
-            { opacity: 1, x: 0, duration: 1.28, delay: .72, ease: "power2.out"}
-        )
-
-        gsap.to(".welcome-page-button", 
-            { opacity: 1, x: 0, duration: 1.28, delay: 0.96, ease: "power2.out"}
-        )
     },
     methods: {
         nextPage() {
@@ -240,9 +252,9 @@ export default defineComponent({
         }
     }
     p {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 300;
-        line-height: 32px;
+        line-height: 24px;
         margin: 0;
         overflow: auto;
     }
@@ -309,6 +321,7 @@ export default defineComponent({
     .welcome-page-content {
         width: calc(100% - 240px - 48px);
         margin-left: 48px;
+
         h1 {
             display: inline-block;
         }
@@ -332,6 +345,12 @@ export default defineComponent({
         margin-bottom: 16px;
         justify-content: flex-end;
     }
+
+    @media all and (max-height: 560px) {
+        .about-block-container {
+            display: none;
+        }
+    }
 }
 
 
@@ -339,8 +358,13 @@ export default defineComponent({
     .welcome-page-sidebar {
         max-width: 320px;
     }
+
     .welcome-page-content {
         width: calc(100% - 320px - 48px);
+        p {
+            font-size: 16px;
+            line-height: 32px;
+        }
     }
 
     .introduction-block {
@@ -351,6 +375,12 @@ export default defineComponent({
     .about-block {
         font-size: 12px;
         line-height: 32px;
+    }
+
+    @media all and (max-height: 640px) {
+        .about-block-container {
+            display: none;
+        }
     }
 }
 </style>
