@@ -922,7 +922,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   position: absolute;
-  transform: translateZ(calc(100vh - 53.5vh * -1));
+  transform: translateZ(calc(100vh - 50vh - 64px));
   transform-style: preserve-3d;
 }
 
@@ -962,7 +962,7 @@ export default defineComponent({
 }
 
 @mixin carousel-cell-transform($angle) {
-  transform: rotateX($angle) translateZ(calc(100vh - 53.5vh));
+  transform: rotateX($angle) translateZ(calc(100vh - 50vh - 32px)) ;
 }
 
 @for $i from 1 through 4 {
