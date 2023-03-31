@@ -56,7 +56,7 @@ export default defineComponent({
                 Want het hebben van veel informatie staat niet gelijk aan het hebben van waardevolle informatie.
                 Wat maakt informatie immers goed of slecht?
                 Waarom vinden “we” het een belangrijker dan het ander?
-                En hoe wordt deze informatie <span class="__isDesktop"><s>gᷟeͥbᷤ</s>ruikt</span><span class="__isMobile">gebruikt</span>?`
+                En hoe wordt deze informatie <s><span class="__specialM">g</span><span class="__specialI">e</span><span class="__specialS">b</span></s>ruikt?`
             ],
             completed: false,
             scrollIndex: 0,
@@ -203,18 +203,20 @@ export default defineComponent({
 
 .introduction-page {
     height: 100vh;
-    .__isDesktop {
-        display: none;
-    }
-    @media (min-width: 1024px) {
-        
-        .__isDesktop {
-            display: inline-block;
+    .__specialI,
+    .__specialS,
+    .__specialM {
+        position: relative;
+        &:after {
+            position: absolute;
+            font-size: .5em;
+            top:-1.4em;
+            left: .5em;
         }
-        .__isMobile {
-            display: none;
-        }
     }
+    .__specialM:after {content:"m";}
+    .__specialI:after {content:"i"; left: .64em;}
+    .__specialS:after {content:"s"; top: -1.4em;}
 }
 
 .intro-blocks {
