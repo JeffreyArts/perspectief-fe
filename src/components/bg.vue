@@ -31,10 +31,10 @@
             <g class="wall" >
                 <polyline 
                     class="vertical-line" 
-                    :points="`${line.x1} 0, ${line.x1} ${line.y1}`" 
+                    :points="`${line.x2} ${line.y2}, ${line.x2} 0`" 
                     :key="index"
-                    :stroke-dashoffset="fadeInComplete ? 0 : -line.y1"
-                    :stroke-dasharray="line.y1"
+                    :stroke-dashoffset="line.y2"
+                    :stroke-dasharray="line.y2"
                     v-for="line, index in verticalLines" />
             </g>
         </svg>
@@ -65,6 +65,7 @@ export default defineComponent({
             fadeInComplete: false,
             fadeOutComplete: false,
             floorHeight: 180,
+            amountOfHorizontalLines: Math.floor(Math.random()*6) + 4,
             horizontalLines: [] as Array<{
                 x1: number,
                 y1: number,
@@ -184,11 +185,11 @@ export default defineComponent({
                 gsap.timeline({
                     defaults: {
                         duration: 1.28,
-                        ease: "ease.in"
+                        ease: "power1.out",
                     }
                 }).to(this.horizontalLines, {
                     x2: this.vpWidth,
-                    stagger: .16,
+                    stagger: 1.6 / this.horizontalLines.length,
                 })
                 setTimeout(() => {
                     _.each(this.verticalLines, (line,lineIndex) => {
@@ -199,7 +200,7 @@ export default defineComponent({
                                 }
                             }})
                             .to(line, {
-                                duration: .96,
+                                duration: 1.64,
                                 dashOffset: 0,
                                 ease: "ease.in",
                                 delay: lineIndex * .032 + (this.horizontalLines.length-1)*0.08 - .32,
@@ -211,7 +212,7 @@ export default defineComponent({
                             })
                     })
                 }, 640)
-            }, 1024)
+            }, 320)
         },
         mouseMove(e: MouseEvent) {
             let x = e.clientX 
@@ -230,7 +231,7 @@ export default defineComponent({
         },
         setHorizontalLines() {
             this.horizontalLines = []
-            const amountOfLines = 6
+            const amountOfLines = this.amountOfHorizontalLines
             for (let i = 0; i < amountOfLines; i++) {
                 var offset = this.floorHeight / amountOfLines
                 let y = i === 0 ? 0 : offset * i - (1 - i/amountOfLines) * (offset * .25)
@@ -260,21 +261,21 @@ export default defineComponent({
 
             for (let i = 0; i < amountOfLines; i++) {
                 var perc = i / amountOfLines
-                var x2 = this.vpWidth / amountOfLines * i
-                var x1 = x2 + depth * 2 * perc - depth
+                var x1 = this.vpWidth / amountOfLines * i
+                var x2 = x1 + depth * 2 * perc - depth
                 
-                let hypotenuse = Math.sqrt(Math.pow(Math.abs(x1 - x2), 2) + Math.pow(this.floorHeight, 2))
+                let hypotenuse = Math.sqrt(Math.pow(Math.abs(x2 - x1), 2) + Math.pow(this.floorHeight, 2))
                 if (this.verticalLines[i-1]) {
-                    hypotenuse = Math.sqrt(Math.pow(Math.abs(x1 - this.verticalLines[i-1].x1), 2) + Math.pow(this.floorHeight, 2))
+                    hypotenuse = Math.sqrt(Math.pow(Math.abs(x2 - this.verticalLines[i-1].x2), 2) + Math.pow(this.floorHeight, 2))
                 }
-                hypotenuse = Math.abs(hypotenuse)*1.1
+                hypotenuse = Math.ceil(Math.abs(hypotenuse)*1.1)
                 
                 this.verticalLines.push({
                     x1: x2,
                     x2: x1,
-                    y1: this.vpHeight - this.floorHeight,
-                    y2: this.vpHeight,
-                    dashOffset: -hypotenuse,
+                    y1: this.vpHeight,
+                    y2: this.vpHeight - this.floorHeight,
+                    dashOffset: hypotenuse,
                     dashArray: hypotenuse,
                 })
             }
