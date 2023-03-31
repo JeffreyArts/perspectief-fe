@@ -98,6 +98,8 @@ export default defineComponent({
                 this.typeIndex = 1
             }
         }, 3200)
+
+        // this.allowScrollBack()
         
 
         if (this.$refs["scrollContainer"] instanceof Element) {
@@ -110,6 +112,22 @@ export default defineComponent({
         }
     },
     methods: {
+
+        allowScrollBack() {                 
+            gsap.to(".pov-page", {
+                scrollTrigger: {
+                    trigger:".pov-page",
+                    start: "16px 0",
+                    end: "16px 0",
+                    id:"tv",
+                    markers: true,
+                    onEnterBack: () => {
+                        console.log("enter back")
+                        // Add code here to make it possible to scroll back up to the introduction page
+                    },
+                },
+            })
+        },
         glitchUpdate(string:string) {
             var match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
             if (match && match[1]) {

@@ -10,11 +10,9 @@
             <div class="intro-blocks" ref="intro-blocks" v-if="!completed">
                 <div class="intro-block" 
                     ref="intro-block"
+                    :id="`intro-block-${index}`"
                     v-for="(paragraph, index) in story"
                     :key="index"
-                    :class="{
-                        '__isActive': scrollIndex-1 == index,
-                    }"
                     v-html="paragraph" />
             </div>
         </div>
@@ -24,8 +22,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import gsap from "gsap"
-
 import _ from "lodash"
 
 
@@ -68,63 +66,96 @@ export default defineComponent({
     computed: {
     },
     mounted() {
-        if (this.$refs["intro-blocks"] instanceof Element) {
-            this.$refs["intro-blocks"].addEventListener("scroll", this.handleScroll)
-        }
+        gsap.registerPlugin(ScrollTrigger)
+
+        ScrollTrigger.defaults({
+            scroller: ".intro-blocks"
+        })
 
         if (document.querySelector(".pov-page-container")) {
             gsap.set(".introduction-page-container", {opacity:0})
         }
         
-        gsap.to(".intro-block:first-child", {
-            x: 0,
+        gsap.fromTo(".intro-block", {
+            opacity: 0,
+            blur: 16,
+        },
+        {
+            blur: 0,
             opacity: 1,
-            duration: .8,
+            duration: .72,
             ease: "power2.out",
         })
-    },
-    unmounted() {
-        if (this.$refs["intro-blocks"] instanceof Element) {
-            this.$refs["intro-blocks"].removeEventListener("scroll", this.handleScroll)
-        }
+        this.handleScroll()
     },
     methods: {
         handleScroll() {
-            const introBlocks = this.$refs["intro-blocks"] as HTMLElement
-            let currentBlock, nextBlock = undefined as HTMLElement | undefined
-            if (this.$refs["intro-block"] instanceof Array) {
-                currentBlock = this.$refs["intro-block"][this.scrollIndex] as HTMLElement
-                nextBlock = this.$refs["intro-block"][this.scrollIndex +1] as HTMLElement
-            }
 
-            if (this.scrollIndex >= this.story.length) {
-                this.nextPage()
-                this.completed = true
-                introBlocks.removeEventListener("scroll", this.handleScroll)
-                return
-            }
-
-            if (!currentBlock ) {
-                return
-            }
-            
-            const scrollOffset = currentBlock.offsetTop + currentBlock.scrollHeight
-            const marginTop = parseInt((window.getComputedStyle( currentBlock) as CSSStyleDeclaration)["margin-top"].replace("px"),10)
-
-            if (nextBlock) {
-                if (nextBlock.offsetTop < introBlocks.scrollTop + scrollOffset + 144) {
-                    nextBlock.classList.add("__isActive")
-                } else {
-                    nextBlock.classList.remove("__isActive")
+            _.each(this.story, (story, index) => {
+                let el = null as null | HTMLElement
+                if (this.$refs["intro-block"]) {
+                    el = this.$refs["intro-block"][index] as HTMLElement
                 }
-            }
+                
+                if (!el) {
+                    return
+                }
+                
 
-            if (introBlocks.scrollTop >  scrollOffset) {
-                this.scrollIndex++
-                this.addBGblock()
-            } else if (introBlocks.scrollTop < currentBlock.offsetTop - marginTop) {
-                this.scrollIndex--
-            }
+                const odd = (index + 1) %2
+                let x = el.clientWidth + "px"
+                if (odd) {
+                    x = "-100%"
+                } 
+
+                gsap.set(`#intro-block-${index}`,  {
+                    x: x
+                })
+
+                gsap.to(`#intro-block-${index}`,  {
+                    ease: "Linear.easeNone",
+                    scrollTrigger: {
+                        trigger:`#intro-block-${index}`,
+                        scrub: true,
+                        start: "top bottom",
+                        end: "bottom+=128 bottom",
+                        id:"block",
+                        // markers: true,
+                    },
+                    x: odd ? -1 : 1,
+                    blur: 0,
+                    scale:1,
+                    opacity: 1,
+                    backgroundColor: "#fff",
+                    color: "#111",
+                })
+
+                
+                gsap.to(`#intro-block-${index}`,  {
+                    ease: "Linear.easeNone",
+                    scrollTrigger: {
+                        trigger:`#intro-block-${index}`,
+                        scrub: true,
+                        start: "top top",
+                        end: "bottom top",
+                        id:"block",
+                        // markers: true,
+                    },
+                    onComplete: () => {
+                        this.scrollIndex = index+1
+                        console.log(index, this.story.length)
+                        this.addBGblock()
+                        if (this.scrollIndex >= this.story.length) {
+                            this.nextPage()
+                            this.completed = true
+                        }
+                    },
+                    scale:0.8,
+                    backgroundColor: "#eee",
+                    color: "#ccc",
+
+                })
+            })
         },
         addBGblock() {    
             let bottom = 0
@@ -169,6 +200,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
+
 .introduction-page {
     height: 100vh;
 }
@@ -183,31 +215,18 @@ export default defineComponent({
 
 .intro-block {
     opacity: 0;
-    transition: .72s ease filter,.72s ease opacity;
     filter:blur(16px);
-    
-    &.__isActive {
-        opacity: 1;
-        filter:blur(0);
-    }
-    
-    &:first-child {
-        filter:blur(0);
-        translate: -100% 0;
-    }
 }
 
 .intro-block,
 .intro-block-bg {
     background-color: #fff;
-    border-top: 1px solid $black;
-    border-bottom: 1px solid $black;
+    border: 1px solid $black;
     padding: 48px;
     font-size: 16px;
     line-height: 32px;
     margin: 160px 0;
     width: 100%;
-    // transition: $transitionDefault;
     
     &:last-child {
         margin-bottom: calc(100vh + 16px);
@@ -235,32 +254,24 @@ export default defineComponent({
     background-image: linear-gradient(0deg, rgba(16,16,16,.08),  transparent);
 
     &:nth-child(1) {
-        // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
         bottom: 100vh;
         z-index: 100;
-        // bottom: 72px;
         left: -128px;
     }
     &:nth-child(2) {
-        // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
-        // bottom: 48px;
         z-index: 200;
         bottom: 100vh;
         left: 0px;
         transform: translateZ(8px);
     }
     &:nth-child(3) {
-        // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
         bottom: 100vh;
-        // bottom: 72px;
         right: 64px;
         z-index: 300;
         transform: translateZ(16px);
     }
     &:nth-child(4) {
         bottom: 100vh;
-        // transform:rotate3d(2.4,0.8,0, 16deg) scale(0.5);
-        // bottom: 58px;
         right: -128px;
         z-index: 400;
         transform: translateZ(24px);
@@ -275,20 +286,16 @@ export default defineComponent({
     .intro-block,
     .intro-block-bg {
         &:nth-child(1) {
-            border-right: 1px solid $black;
             width: 75%;
         }
         &:nth-child(2) {
-            border-left: 1px solid $black;
             width: 80%;
             margin-left: 20%;
         }
         &:nth-child(3) {
-            border-right: 1px solid $black;
             width: 60%;
         }
         &:nth-child(4) {
-            border-left: 1px solid $black;
             width: 66%;
             margin-left: 34%;
         }
