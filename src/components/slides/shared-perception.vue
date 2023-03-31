@@ -834,7 +834,7 @@ export default defineComponent({
             const theta = 360 / cellCount
             const cellSize = carousel.offsetHeight
             this.radius = Math.round(( cellSize / 2) / Math.tan( Math.PI / cellCount ))
-                
+            // translateZ(calc(100vh - 50vh - 64px)
             for ( var i=0; i < cells.length; i++ ) {
                 var cell = cells[i]
                 if ( i < cellCount ) {
@@ -1036,7 +1036,6 @@ export default defineComponent({
     background-color: #fff;
     border:1px solid $black;
     width: calc(100% - 32px);
-    margin-left: 16px;
     position: absolute;
     padding: 24px 32px;
     line-height: 1.6;
@@ -1057,6 +1056,7 @@ export default defineComponent({
     &.__isSticky {
         position: fixed;
         bottom: 124px;
+        width:calc(100% - 16px);
     }
 
     // display: none;
@@ -1097,7 +1097,8 @@ export default defineComponent({
     margin: 0;
     display: flex;
     align-items: center;
-    overflow-y: scroll;
+    justify-content: center;
+    overflow-y: auto;
 
     p {
         padding: 0;
@@ -1122,6 +1123,7 @@ export default defineComponent({
     }
     .third-section {
         align-self: flex-start;
+        width: 100%;
     }
     .form {
         padding-top: calc(100vh - 80px);
