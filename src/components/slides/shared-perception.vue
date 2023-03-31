@@ -1373,7 +1373,8 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     font-size: 16px;
-
+    color: $black;
+    
     svg {
         margin-left: 8px;
         height: 32px;
