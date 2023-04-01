@@ -47,6 +47,8 @@
                         Scroll om verder te lezen
                     </span>
                 </div>
+                <div class="side side-right"></div>
+                <div class="side side-left"></div>
             </div>
         </div>
 
@@ -171,7 +173,7 @@
                     Wanneer iedereen vanuit eenzelfde perspectief naar een zelfde onderwerp kijkt
                 </div>
                 <div class="ball __isSmall" id="ball-2">
-                    zal iedereen tot een zelfde conclusiekomen
+                    zal iedereen tot een zelfde conclusie komen
                 </div>
                 <div class="ball" id="ball-3">
                     De opkomst van het internet en de digitale media
@@ -257,7 +259,12 @@ export default defineComponent({
     },
     computed: {
     },
+    unMounted() {
+        window.removeEventListener("resize", this.positionCarouselSide)
+    },
     mounted() {
+        window.addEventListener("resize", this.positionCarouselSide)
+        this.positionCarouselSide()
         gsap.registerPlugin(MorphSVGPlugin)
         gsap.registerPlugin(ScrollToPlugin)
         gsap.registerPlugin(ScrollTrigger)
@@ -293,6 +300,13 @@ export default defineComponent({
                 })
 
     
+        },
+        positionCarouselSide() {
+            if (this.$el.querySelector(".carousel-cell")) {
+                gsap.set(".side-right", {
+                    translateX: this.$el.querySelector(".carousel-cell").clientWidth - 3,
+                })
+            }
         },
         submitForm() {
 
@@ -782,7 +796,7 @@ export default defineComponent({
             container.scrollTo(0, 0)
         
             this.changeCarousel()
-            gsap.fromTo(".carousel-cell", {
+            gsap.fromTo(".carousel-cell, .side", {
                 blur: 32,
                 opacity: 0,
             },
@@ -793,8 +807,10 @@ export default defineComponent({
                 duration: 1.6
             })
         
+            if (window.innerWidth < 768) {
+                container.addEventListener("scroll", this.scrollStart)
+            }
 
-            container.addEventListener("scroll", this.scrollStart)
 
         },
         scrollStart() {
@@ -804,26 +820,15 @@ export default defineComponent({
             }
             this.hasScrolled = true
             
-            gsap.set("#slide-1 .card", {
-                opacity: 0,
-                y: "-100vh"
-            })
-            gsap.to(".shared-perception-container", {
-                opacity: 1,
-                duration: .8,
-                scrollTo: { 
-                    y: "#slide-1"
-                },
-            })
-            gsap.timeline()
-                .to("#slide-1 .card", {
+            if (window.innerWidth < 768)  {
+                gsap.to(".shared-perception-container", {
                     opacity: 1,
-                    delay: .32,
-                    y: 0,
-                    duration: 1.6,
-                    ease: "bounce.out",
+                    duration: .8,
+                    scrollTo: { 
+                        y: "#slide-1"
+                    },
                 })
-
+            } 
             container.removeEventListener("scroll", this.scrollStart)
         },
         changeCarousel() {
@@ -881,6 +886,17 @@ export default defineComponent({
             
             if (this.selectedIndex >= cells.length-1) {
                 this.allowScroll = true
+                if (window.innerWidth > 768) {
+                    gsap.to(".carousel", {
+                        xPercent: -105,
+                        duration: .8,
+                    })
+                    gsap.to("#slide-1", {
+                        marginTop: "-100vh",
+                        delay:.32,
+                        duration: .8,
+                    })
+                }
             }
 
             if (this.selectedIndex >= cells.length) {
@@ -910,20 +926,30 @@ export default defineComponent({
     }
 }
 .scene {
-//   outline: 10px solid purple;
-  position: relative;
-  width: calc(100% - 64px);
-  height: calc(100% - 64px);
-  margin: 32px auto;
-  perspective: 100vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: calc(100% - 64px);
+    height: calc(100% - 64px);
+    margin: 32px auto;
+    perspective: 100vh;
 }
 
 .carousel {
   width: 100%;
   height: 100%;
   position: absolute;
-  transform: translateZ(calc(100vh - 50vh - 64px));
+  transform: translateZ(calc(50vh - 64px));
   transform-style: preserve-3d;
+  
+  .side {
+      width: calc(100vh - 64px);
+      height: calc(100vh - 64px);
+      background-color: #fff;
+      position: absolute;
+      transform: rotateY(90deg) ;//translateZ(calc(50vh - 64px));
+      left:calc(-50vh + 32px);
+  }
 }
 
 .carousel-cell {
@@ -987,7 +1013,7 @@ export default defineComponent({
     line-height: 2;
     font-size: 14px;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         font-size: 16px;
     }
 }
@@ -1052,6 +1078,7 @@ export default defineComponent({
     z-index: 1;
     width: 100%;
     pointer-events: none;
+    max-width: 512px;
     
     &.__isSticky {
         position: fixed;
@@ -1337,9 +1364,13 @@ export default defineComponent({
     overflow: auto;
     z-index: -1;
     
-    @media all and (min-width: 480px) and (min-height: 768px){
+    @media all and (min-width: 480px) {
         display: flex;
         flex-flow: column nowrap;
+    }
+
+    @media all and (min-width: 768px) {
+        text-align: center;
     }
 
     p {
@@ -1353,6 +1384,8 @@ export default defineComponent({
 .slot-stuk-content-button-container {
     width: 100%;
     display: flex;
+    left: 0;
+    right: 0;
     justify-content: center;
     // align-items: center;
     padding: 0 32px;
@@ -1380,5 +1413,38 @@ export default defineComponent({
         height: 32px;
     }
 }
+
+
+
+// Desktop version
+
+@media all and (min-width: 768px) {
+    .scene {
+
+    }
+    .carousel {
+        width: 30%;
+    }
+
+    #slide-1 {
+        z-index: 2;
+        position: relative;
+        justify-content: flex-end;
+    }
+    #slide-1 .card {
+        width: calc(70% - 96px);
+        // margin-top: -100vh;
+    }
+
+    #slide-2 {
+        margin-top: 128px;
+    }
+
+    .shared-perception-container {
+        &.__allowScroll {
+        }
+    }
+}
+
 
 </style>
