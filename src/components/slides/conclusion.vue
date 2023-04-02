@@ -8,7 +8,7 @@
         </div>
 
         <div class="box-container" v-if="step == 1">
-            <div class="box __isRight" id="box-1">
+            <div class="box" id="box-1">
                 <p>
                     Je standpunt beïnvloed de wijze waarop je informatie tot je neemt. 
                     Informatie waarmee jouw beeld van de werkelijkheid wordt gevormd. 
@@ -43,7 +43,7 @@
                 denkkader komt te ontstaan
                 </p>
             </div>
-            <div class="box __isRight" id="box-3" @click="openBox3">
+            <div class="box" id="box-3" @click="openBox3">
                 <p>
                     Dit wil ik je graag laten zien door hetzelfde onderwerp (de sociale-media bubbel) vanuit 3 verschillende standpunten te beschrijven.
                     Met daaropvolgend 3 verschillende spectra waarop het <glitch 
@@ -284,23 +284,25 @@ export default defineComponent({
             this.initializeThreeJS()
         }, 2400)
 
+        const box1 = document.getElementById("box-1")
+        const box3 = document.getElementById("box-3")
 
+        if (!box1 || !box3) {
+            return
+        }
 
         gsap.set(".page-title", {
             x: " -100%",
         })
         gsap.set("#box-1", {
-            x: " 100%",
+            x: document.body.clientWidth + box1.clientWidth,
         })
         gsap.set("#box-2", {
             xPercent: -100,
         })
         gsap.set("#box-3", {
-            x: " 100%",
+            x: document.body.clientWidth + box3.clientWidth,
         })
-        // gsap.set(".cuboid-container", {
-        //     xPercent: -100,
-        // })
 
         gsap.set(".continue-button", {
             blur: 24,
@@ -311,7 +313,7 @@ export default defineComponent({
             x: 0,
             duration: 1.024,
         }).to("#box-1", {
-            x: 0,
+            x:  document.body.clientWidth / 2 - box1.clientWidth / 2,
             duration: 1.024,
             onComplete: () => {
                 gsap.timeline().to("#box-2",{
@@ -348,10 +350,16 @@ export default defineComponent({
 
             // Stop the pulse animation
             gsap.killTweensOf("#box-2")
+            const box2 = document.querySelector("#box-2")
+            if (!box2) {
+                return
+            }
 
             // Animate box-2 sliding in from the left
+
             gsap.to("#box-2", {
                 xPercent: 0,
+                x: document.body.clientWidth / 2 - box2.clientWidth / 2 - this.getMargin(),
                 duration: 1.024,
                 ease: "power2.inOut",
                 onComplete: () => {
@@ -364,16 +372,16 @@ export default defineComponent({
                     const parentWidth = box3.parentElement.clientWidth
 
                     gsap.to("#box-3", {
-                        x: parentWidth - 32 - 64,
+                        x: parentWidth - 32,
                         delay: this.pulseDelay,
                         ease: "power2.inOut",
                         duration: 2.4,
                         onComplete: () => {
                             gsap.fromTo("#box-3",{
-                                x:parentWidth - 32 - 64,
+                                x:parentWidth - 32,
                                 
                             }, {
-                                x:parentWidth - 16 - 64,
+                                x:parentWidth - 16 ,
                                 duration: 1,
                                 repeat: -1,
                                 yoyo: true,
@@ -400,9 +408,14 @@ export default defineComponent({
 
             // Stop the pulse animation
             gsap.killTweensOf("#box-3")
+            const box3 = document.querySelector("#box-3")
+           
+            if (!box3) {
+                return
+            }
 
             gsap.to("#box-3", {
-                x: 0,
+                x: document.body.clientWidth / 2 - box3.clientWidth / 2 + this.getMargin(),
                 duration: 1.024,
                 ease: "power2.inOut",
                 onComplete: () => {
@@ -464,10 +477,6 @@ export default defineComponent({
                 opacity: 0,
                 duration: 1.024,
                 ease: "power2.inOut",
-                onComplete: () => {
-                    // delete this.$el.querySelector(".continue-button").style.pointerEvents
-                    // this.changePageTitle()
-                }
             })
             
             gsap.to(".text-container", {
@@ -475,6 +484,27 @@ export default defineComponent({
                 opacity: 0,
                 duration: 1.28,
                 ease:"power2.inOut",
+                onComplete: () => {
+
+                    gsap.to(".perspective-container", {
+                        padding: 0,
+                        duration: 0.8,
+                        ease:"power2.inOut",
+                    })
+                    gsap.to(".text-container", {
+                        width: 0,
+                        duration: 0.8,
+                        ease:"power2.inOut",
+                    })
+                    gsap.to(".cuboid-container", {
+                        width: document.body.clientWidth,
+                        margin: 0,
+                        padding: 0,
+                        duration: 0.8,
+                        ease:"power2.inOut",
+                    })
+
+                }
             })
             
             gsap.to(".perspective-button", {
@@ -521,6 +551,22 @@ export default defineComponent({
                 }
             })
         },
+        getMargin() {
+            let margin = 16
+            if (window.innerWidth > 640) {
+                margin = 24
+            }
+            if (window.innerWidth > 800) {
+                margin = 32
+            }
+            if (window.innerWidth > 1024) {
+                margin = 48
+            }
+            if (window.innerWidth > 1200) {
+                margin = 64
+            }
+            return margin
+        },
         toSocialMediaBubbles() {
             gsap.to(".continue-button", {
                 blur: 24,
@@ -533,18 +579,30 @@ export default defineComponent({
                 }
             })
             
+
+            const box1 = document.getElementById("box-1")
+            const box2 = document.getElementById("box-2")
+            const box3 = document.getElementById("box-3")
+
+            if (!box1 || !box2 || !box3) {
+                return
+            }
+
+            
             gsap.to("#box-1", {
-                x: " 100%",
+                x: document.body.clientWidth + box1.clientWidth,
                 scale: .9,
+                opacity: 0,
                 blur: 16,
                 backgroundColor: "#aaa",
                 color: "#999",
                 duration: 1.024,
                 ease: "power2.inOut",
             })
-
+            
             gsap.to("#box-2", {
-                xPercent: -100,
+                x: 0 - box2.clientWidth,
+                opacity: 0,
                 scale: .9,
                 blur: 16,
                 backgroundColor: "#aaa",
@@ -553,8 +611,9 @@ export default defineComponent({
                 ease: "power2.inOut",
             })
             gsap.to("#box-3", {
-                x: " 100%",
+                x: document.body.clientWidth + box3.clientWidth,
                 scale: .9,
+                opacity: 0,
                 blur: 16,
                 backgroundColor: "#aaa",
                 color: "#999",
@@ -671,11 +730,16 @@ export default defineComponent({
         setPage(index: 0 | 1 | 2) {       
             if (_.isNull(this.page)) {
                 const cuboidElement = this.$refs["cuboid"] as HTMLElement
-                if (!cuboidElement) {
+                const perspectiveContainer = this.$el.querySelector(".perspective-container") as HTMLElement
+                if (!cuboidElement || !perspectiveContainer) {
                     return
                 }
 
                 let newTextContainerHeight =  window.innerHeight - cuboidElement.clientHeight - 256
+                if (window.innerWidth > 768) {
+                    newTextContainerHeight =  perspectiveContainer.clientHeight
+                }
+                console.log(newTextContainerHeight)
                 gsap.fromTo(".text-container", {
                     height:0,
                 }, {
@@ -815,7 +879,6 @@ export default defineComponent({
             newCuboid.material.opacity = 0
             newCuboid.visible = false
             three.scene.add(newCuboid)
-            // this.cuboidLines = Cuboid.generateCuboidLines(cubeDimensions, this.sensitivity, this.seed + id)
 
             _.each(newCuboid.children, lineObject => {
                 this.interactionManager.add(lineObject)
@@ -831,13 +894,9 @@ export default defineComponent({
                     if (!this.activeCuboid || cuboid.name != this.activeCuboid.name) {
                         this.moveToCuboid(cuboid)
                     }
-                    //  else {
-                    //     this.moveToSide(event.target.data.side)
-                    // }
                 })
             })
             
-            // three.controls.target.set((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
             three.camera.lookAt((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
             return newCuboid
         },
@@ -910,45 +969,10 @@ export default defineComponent({
                                 }
                             },
                         })
-                        
-                        // gsap.to(three.controls.target, {
-                        //     duration: this.transitionDuration / 1000,
-                        //     x: centerPoint.x,
-                        //     y: centerPoint.y,
-                        //     z: centerPoint.z,
-                        //     ease: "bounce.out",
-                        //     onComplete: () => {
-                        //         three.controls.update()
-                        //         resolve()
-                        //     },
-                        // })
                     }
                 }, 0)
             })
         },
-        // moveToSide(side : "bottom" | "top" | "front" | "back" | "left" | "right") {
-        //     if (side == "bottom" || side == "top") {
-        //         return
-        //     }
-        //     let cameraPoint = this.activeCuboid.position.clone()
-        //     cameraPoint.y = 2.5
-
-        //     let centerPoint = this.activeCuboid.position.clone()
-        //     if (this.sensitivity == "open") {
-        //         centerPoint.y = 3.5
-        //     } else {   
-        //         centerPoint.y = 2.5 
-        //     }
-            
-        //     switch (side) {
-        //     case "front": cameraPoint.z += 16; break
-        //     case "back": cameraPoint.z -= 16; break
-        //     case "left": cameraPoint.x -= 16; break
-        //     case "right": cameraPoint.x += 16; break
-        //     }
-            
-        //     return this.moveToPoint(cameraPoint, centerPoint)
-        // },
         moveToCuboid(cuboid: THREE.Mesh) {
             const center = cuboid.position.clone().setY(2.5)
             const destination = cuboid.position.clone().setY(cuboid.position.y + 130)
@@ -1053,8 +1077,12 @@ export default defineComponent({
     
     .box-container {
         position: relative;
-        margin: 64px 0 0;
+        margin: 32px 0 0;
         height: calc(100vh - 128px);
+        @media (min-width: 768px) {
+            margin: 64px 0 0;
+            height: calc(100vh - 150px);
+        }
     }
 
     .box {
@@ -1070,10 +1098,6 @@ export default defineComponent({
         aspect-ratio: 16/9;
         display: flex;
         align-items: center;
-
-        &.__isRight {
-            margin-left: 64px;
-        }
     }
 
     #box-2 {
@@ -1098,10 +1122,16 @@ export default defineComponent({
         max-width: calc(100vh - 172px);
         margin: 0 32px 0;
         padding: 0 48px;
+        display: flex;
+        justify-content: center;
 
         canvas {
             max-width:100%;
             aspect-ratio: 1/1;
+        }
+        @media (min-width: 768px) {
+            width: calc(50% - 64px);
+            padding: 0 0;
         }
     }
 
@@ -1111,6 +1141,12 @@ export default defineComponent({
         justify-content: center;
         height: calc(100vh - 240px);
         padding-bottom: 32px;
+
+        @media all and (min-width: 768px) {
+            flex-flow: row;
+            padding-right: 64px;
+            padding-top: 32px;
+        }
     }
 
     .text-container {
@@ -1122,7 +1158,6 @@ export default defineComponent({
         max-height: 100%;
         overflow-x: none;
         overflow-y: auto;
-        // transition: $transitionDefault;
 
         font-size: 14px;
         line-height: 24px;
@@ -1148,7 +1183,6 @@ export default defineComponent({
             margin-top: 48px;
             font-size: .8em;
             color: #777;
-            // margin-bottom: 32px;
         }
     }
 
