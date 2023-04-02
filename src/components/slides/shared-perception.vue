@@ -1166,6 +1166,7 @@ export default defineComponent({
             color: $white;
             width: calc(100% - 96px);
             padding-bottom: 4px;
+            border-radius: 0;
 
             &:focus {
                 outline: none;
