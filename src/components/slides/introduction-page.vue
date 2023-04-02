@@ -143,7 +143,6 @@ export default defineComponent({
                     },
                     onComplete: () => {
                         this.scrollIndex = index+1
-                        console.log(index, this.story.length)
                         this.addBGblock()
                         if (this.scrollIndex >= this.story.length) {
                             this.nextPage()
@@ -221,7 +220,8 @@ export default defineComponent({
 
 .intro-blocks {
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: block;
     position: relative;
     z-index: 1;

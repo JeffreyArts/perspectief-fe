@@ -190,31 +190,33 @@
                 Ga verder &gt;
             </div>
 
-            <div class="slot-stuk-content">
-                <div>
-                    <p>
-                        Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
-                        Dit leidt tot een groei van diversiteit in collectieve standpunten. 
-                        Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
-                        Waarbij de informatie die het verspreid, vanuit een nog kleiner aantal standpunten wordt gedeeld. 
-                        Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media.
-                        Maar met het internet heeft nu iedere collectieve waarheid de mogelijkheid om vanuit het standpunt hun perceptie op de wereld te delen.
-                    </p>
-                    <p>
-                        De websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
-                        Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
-                        Bieden ze nog altijd de ruimte voor een diverser spectrum aan standpunten dan dat de eerdere media dit (konden) aanbieden.
-                    </p>
-                </div>
-                
-                <div class="slot-stuk-content-button-container">
-                    <button class="slot-stuk-content-button" @click="closeSharedPerception">
-                        Volgende stap
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path id="perception-chevron" d="M24.3819 1.37294C26.2245 -0.457646 29.2119 -0.457646 31.0545 1.37294L80 50L31.0545 98.6271C29.2119 100.458 26.2245 100.458 24.3819 98.6271C22.5394 96.7965 22.5394 93.8285 24.3819 91.9979L66.6549 50L24.3819 8.00206C22.5394 6.17148 22.5394 3.20352 24.3819 1.37294Z" fill="black"/>
-                            <rect id="perception-square" width="100" height="100"/>
-                        </svg>
-                    </button>
+            <div class="slot-stuk-content-container">
+                <div class="slot-stuk-content">
+                    <div>
+                        <p>
+                            Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
+                            Dit leidt tot een groei van diversiteit in collectieve standpunten. 
+                            Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
+                            Waarbij de informatie die het verspreid, vanuit een nog kleiner aantal standpunten wordt gedeeld. 
+                            Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media.
+                            Maar met het internet heeft nu iedere collectieve waarheid de mogelijkheid om vanuit het standpunt hun perceptie op de wereld te delen.
+                        </p>
+                        <p>
+                            De websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
+                            Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
+                            Bieden ze nog altijd de ruimte voor een diverser spectrum aan standpunten dan dat de eerdere media dit (konden) aanbieden.
+                        </p>
+                    </div>
+                    
+                    <div class="slot-stuk-content-button-container">
+                        <button class="slot-stuk-content-button" @click="closeSharedPerception">
+                            Volgende stap
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path id="perception-chevron" d="M24.3819 1.37294C26.2245 -0.457646 29.2119 -0.457646 31.0545 1.37294L80 50L31.0545 98.6271C29.2119 100.458 26.2245 100.458 24.3819 98.6271C22.5394 96.7965 22.5394 93.8285 24.3819 91.9979L66.6549 50L24.3819 8.00206C22.5394 6.17148 22.5394 3.20352 24.3819 1.37294Z" fill="black"/>
+                                <rect id="perception-square" width="100" height="100"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -389,7 +391,7 @@ export default defineComponent({
                 duration: .8,
                 ease: "rough({ strength: 1, points: 10, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
             })
-            gsap.to(".slot-stuk-content", {
+            gsap.to(".slot-stuk-content-container", {
                 color: "#fff",
                 duration: 0.8,
                 ease: "rough({ strength: 1, points: 32, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
@@ -401,7 +403,7 @@ export default defineComponent({
                 }
             })
 
-            gsap.to(".slot-stuk-content", {
+            gsap.to(".slot-stuk-content-container", {
                 height: 0,
                 delay: 0.96,
                 top: "50%",
@@ -414,7 +416,7 @@ export default defineComponent({
             })
         },
         slotstukEnter() {
-            const content = this.$el.querySelector(".slot-stuk-content") as HTMLElement
+            const content = this.$el.querySelector(".slot-stuk-content-container") as HTMLElement
             const handle = this.$el.querySelector(".slot-stuk-handle") as HTMLElement
             const ease = "back.inOut(2.56)"
 
@@ -429,13 +431,20 @@ export default defineComponent({
                 width: 0,
                 // ease:"",
             })
-            gsap.to(".slot-stuk-content", {
+            gsap.to(".slot-stuk-content-container", {
                 duration: 1.28,
                 ease: ease,
                 x: -content.offsetLeft + 32
             })
 
-
+            gsap.timeline().to(".television-container", {
+                height: window.innerHeight - 256,
+                ease: ease,
+                duration: 1.28,
+                onComplete: () => {
+                    gsap.to(".television-container", {opacity: 0, duration: .32})
+                }
+            })
         },
       
         tvSlide() {
@@ -675,7 +684,8 @@ export default defineComponent({
                 }
             })
 
-            gsap.timeline().to(".television-container", {
+
+            gsap.to(".television-container", {
                 height: window.innerHeight - (128 + 32),
                 scrollTrigger: {
                     id: "4.2",
@@ -1321,6 +1331,7 @@ export default defineComponent({
         transition: $transitionDefault;
         pointer-events: auto;
     }
+    
 }
 
 .slot-stuk-handle {
@@ -1348,17 +1359,14 @@ export default defineComponent({
     }
 }
 
-.slot-stuk-content {
-    background-color: #fff;
-    border:1px solid $black;
-    font-size: 14px;
-    line-height: 1.8;
+.slot-stuk-content-container {
     justify-content: center;
     align-items: center;
-    padding: 16px 32px;
+    display: flex;
     width: calc(100vw - 64px);
+    background-color: #fff;
+    border:1px solid $black;
     position: absolute;
-    display: block;
     left: 100vw;
     top: 32px;
     bottom: 32px;
@@ -1369,16 +1377,34 @@ export default defineComponent({
         display: flex;
         flex-flow: column nowrap;
     }
-
+    
     @media all and (min-width: 768px) {
-        text-align: center;
+        background-color: transparent;
+        border:0 none transparent;
     }
-
+    
+}
+.slot-stuk-content {
+    font-size: 14px;
+    line-height: 1.8;
+    padding: 16px 32px;
+    width: 100%;
+    position: absolute;
+    top: 0;
     p {
         margin: 0;
         + p {
             margin-top: 16px;
         }
+    }
+    
+    @media all and (min-width: 768px) {
+        width: auto;
+        aspect-ratio: 1/1;
+        max-height: 80vh;
+        background-color: #fff;
+        border:1px solid $black;
+        position: relative;
     }
 }
 

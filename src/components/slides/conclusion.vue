@@ -13,7 +13,7 @@
                     Je standpunt beïnvloed de wijze waarop je informatie tot je neemt. 
                     Informatie waarmee jouw beeld van de werkelijkheid wordt gevormd. 
                     Dit standpunt is dynamisch en kan zowel via externe invloeden (media) als interne invloeden (humeur) wijzigen. 
-                    Wanneer een groep mensen een gedeeld standpunt hebben, dan delen zij eenzelfde waargenomen waarheid/realiteit.
+                    Wanneer een groep mensen een gedeeld standpunt hebben, dan delen zij eenzelfde waargenomen waarheid / realiteit.
                 </p>
             </div>
             <div class="box __isLeft" id="box-2" @click="openBox2">
@@ -506,6 +506,15 @@ export default defineComponent({
 
                 }
             })
+
+            gsap.to(".text-container", {
+                scrollTo: 0,
+                duration: 1.024,
+                ease: "bounce.out",
+                onComplete: () => {
+                    this.ignoreScroll = false
+                }
+            })
             
             gsap.to(".perspective-button", {
                 opacity: 0,
@@ -739,7 +748,7 @@ export default defineComponent({
                 if (window.innerWidth > 768) {
                     newTextContainerHeight =  perspectiveContainer.clientHeight
                 }
-                console.log(newTextContainerHeight)
+                
                 gsap.fromTo(".text-container", {
                     height:0,
                 }, {
@@ -1208,6 +1217,8 @@ export default defineComponent({
         background-color: #fff;
         border-radius: 100%;
         cursor: pointer;
+        padding: 0;
+        margin: 0;
         transition: $transitionDefault;
 
         &:nth-child(2) {
