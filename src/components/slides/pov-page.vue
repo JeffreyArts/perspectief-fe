@@ -199,6 +199,10 @@ export default defineComponent({
         // font-size: 1.08em;
     }
 
+    &.__disableScroll {
+        overflow: hidden;
+    }
+
     @media (min-width: 768px) {
         font-size: 16px;
         line-height: 32px;

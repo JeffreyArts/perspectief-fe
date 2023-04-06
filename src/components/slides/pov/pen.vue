@@ -1,5 +1,5 @@
 <template>
-    <section class="pov-content pen-container" ref="content" :class="disableScroll ? '__disableScroll' : ''">
+    <section class="pov-content pen-container" ref="content">
         <div class="container">
             <div class="container pen" ref="container">
                 <div class="pen-intro-container">
@@ -7,7 +7,7 @@
                         <split-characters id="intro-1" class="pen-intro-section">
                             De informatie omtrent een pen bestaat uit vele verschillende data
                         </split-characters>
-                        <split-characters class="pen-intro-section" id="intro-2">, van visueel zichtbare datapunten , zoals de kleur van de pen</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-2">, van visueel zichtbare datapunten zoals de kleur van de pen</split-characters>
                         <split-characters class="pen-intro-section" id="intro-3">, of de pen voor links- of rechtshandigen gemaakt is</split-characters>
                         <split-characters class="pen-intro-section" id="intro-4">, of wat voor type pen het is</split-characters>
                         <split-characters class="pen-intro-section" id="intro-5">. Maar ook minder expliciet zichtbare dingen behoren tot de (meta-)informatie omtrent een pen. Zo is er bijvoorbeeld een verband met papier, heeft de pen wellicht emotionele waarde, of gebruik je het voor een speciaal ritueel.</split-characters>
@@ -124,8 +124,8 @@ export default defineComponent({
             gsap.set(".pen-intro-section .character", {opacity: 0})
             gsap.set(".svg-pen", {x: -1244})
             gsap.set(".pen-line", {strokeDashoffset: 1244, stroke: "#555",})
-            gsap.set(".pen-text-container p", {opacity: 0})
-            gsap.set(".pen-text-footer", {opacity: 0})
+            gsap.set(".pen-text-container p", {opacity: 0, y: -32})
+            gsap.set(".pen-text-footer", {opacity: 0, y: 16})
             ScrollTrigger.defaults({
                 scroller: ".pov-page",
             })
@@ -141,7 +141,7 @@ export default defineComponent({
                     trigger: ".pen-intro-container", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
                     id:"intro",
-                    start: this.isMobile.v ? "top 20%" : "top 50%",
+                    start: this.isMobile.v ? "top 80%" : "top 66%",
                 }})
                 .to(this.$el.querySelectorAll(".svg-pen"), {
                     x: 0,
@@ -158,6 +158,9 @@ export default defineComponent({
                             scrollTo: target.offsetTop + marginTop,
                             duration: .8,
                             ease: "linear",
+                            onComplete: () => {
+                                container.classList.add("__disableScroll")
+                            }
                         })
                     },
                     duration: 1.024,
@@ -230,9 +233,14 @@ export default defineComponent({
                     morphSVG: {shape: ".balpen"}, 
                     onComplete: () => {
                         this.disableScroll = false
+
+                        const container = document.querySelector(".pov-page") as HTMLElement
+                        if (container) {
+                            container.classList.remove("__disableScroll")
+                        }
                     },
                     duration: 1.6,
-                    ease: "bounce.out",
+                    ease: "power1.inOut",
                 })
                 .to(this.$el.querySelectorAll("#intro-5 .character"), {
                     opacity: 1,
@@ -244,18 +252,18 @@ export default defineComponent({
                 })
                 .to(this.$el.querySelectorAll(".pen-text-container p"), {
                     opacity: 1,
-                    stagger: .64,
+                    duration: 0.96,
+                    y: 0,
+                    ease: "power2.out",
+                    stagger: .16,
                 })
-            
-            gsap.to(".pen-text-footer", {
-                scrollTrigger:{
-                    trigger: ".pen-text-footer", // start the animation when ".box" enters the viewport (once)
-                    // markers: true,
-                    id:"footer",
-                    start: "top 80%",
-                },
-                opacity: 1,
-            })
+                .to(".pen-text-footer", {
+                    ease: "power2.out",
+                    duration: 1.44,
+                    delay: -0.64,
+                    y: 0,
+                    opacity: 1,
+                })
         }
     }
 
@@ -265,17 +273,6 @@ export default defineComponent({
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
 .pen-container {
-    &.__disableScroll {
-        &:after {
-            position: fixed;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            content:'';
-            z-index: 999;
-        }
-    }
 }
 
 .pen-intro-container {
