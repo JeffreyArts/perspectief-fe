@@ -192,7 +192,7 @@
 
             <div class="slot-stuk-content-container">
                 <div class="slot-stuk-content">
-                    <div>
+                    <div class="slot-stuk-content-center">
                         <p>
                             Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
                             Dit leidt tot een groei van diversiteit in collectieve standpunten. 
@@ -242,10 +242,8 @@ export default defineComponent({
     },
     data: () => {
         return {
-            state: 0,
             gTimeline: null as null | gsap.core.Timeline,
             selectedIndex: 0,
-            theta: 0,
             radius: 1,
             hasClicked: false,
             hasScrolled: false, 
@@ -280,7 +278,6 @@ export default defineComponent({
         this.slide3()
         this.slide4()
         this.tvSlide()
-
     },
     methods: {
         getMessages() {
@@ -855,7 +852,7 @@ export default defineComponent({
                 if ( i < cellCount ) {
                     // visible cell
                     cell.style.opacity = "1"
-                    var cellAngle = this.theta * i
+                    var cellAngle = theta * i
                     cell.style.transform = `rotateX(${cellAngle}deg) translateZ(${this.radius}vh)"`
                 } else {
                     // hidden cell
@@ -902,9 +899,11 @@ export default defineComponent({
                         duration: .8,
                     })
                     gsap.to("#slide-1", {
-                        marginTop: "-100vh",
+                        y: "-100vh",
                         delay:.32,
                         duration: .8,
+                        onComplete: () => {
+                        }
                     })
                 }
             }
@@ -1390,7 +1389,9 @@ export default defineComponent({
     padding: 16px 32px;
     width: 100%;
     position: absolute;
+    display: flex;
     top: 0;
+    flex-flow: column;
     p {
         margin: 0;
         + p {
@@ -1400,12 +1401,18 @@ export default defineComponent({
     
     @media all and (min-width: 768px) {
         width: auto;
+        justify-content: center;
         aspect-ratio: 1/1;
         max-height: 80vh;
         background-color: #fff;
         border:1px solid $black;
         position: relative;
     }
+}
+.slot-stuk-content-center {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
 }
 
 .slot-stuk-content-button-container {

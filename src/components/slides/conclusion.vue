@@ -1122,6 +1122,7 @@ export default defineComponent({
         right: 32px;
         font-size: 20px;
         z-index: 1990;
+        opacity: 0;
         cursor: pointer;
         pointer-events: none;
     }
