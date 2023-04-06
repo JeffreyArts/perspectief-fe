@@ -1149,12 +1149,14 @@ export default defineComponent({
         display: flex;
         flex-flow: column;
         justify-content: center;
-        height: calc(100vh - 240px);
+        align-items: center;
+        height: calc(100vh - 320px);
         padding-bottom: 32px;
-
+        
         @media all and (min-width: 768px) {
             flex-flow: row;
             padding-right: 64px;
+            height: calc(100vh - 240px);
             padding-top: 32px;
         }
     }
@@ -1253,12 +1255,21 @@ export default defineComponent({
     .welcome-back-container {
         position: absolute;
         top: 0;
-        width: 100vw;
-        height: 100vh;
+        bottom: 0;
+        right: 0;
+        left: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
+        
+        .container {
+            height: 100%;
+
+            @media (min-width: 480px) {
+                height: auto;
+            }
+        }
 
         &.__isHidden {
             display: none;
@@ -1270,7 +1281,7 @@ export default defineComponent({
         background-color: #fff;
         padding: 32px;
         line-height: 1.8em;
-        max-height: calc(100vh - 64px);
+        max-height: calc(100% - 64px);
         overflow-y: auto;
 
         h1 {
