@@ -1,18 +1,15 @@
 <template>
-    <div class="big-quote-container" ref="container" @click="moveState">
-        <div class="big-quote" v-if="quote"
-            :class="[quote.content.length > 180 ? '__isLong' : '']">
-            <div class="big-quote-content" ref="content">
-                <span class="word" v-for="word, i in content" :key="i">
-                    <span class="character" v-for="c, ii in word" :key="ii">{{ c }}</span>
-                &nbsp;</span>    
+    <div class="big-quote-container" ref="container" :class="disableScroll ? '__disableScroll' : ''" @click="moveState">
+        <div class="big-quote-wrapper" v-if="quote">
+            <div class="big-quote" 
+                :class="[quote.content.length > 180 ? '__isLong' : '']">
+                <div class="big-quote-content" ref="content">
+                    <span class="word" v-for="word, i in content" :key="i">
+                        <span class="character" v-for="c, ii in word" :key="ii">{{ c }}</span>
+                    &nbsp;</span>    
+                </div>
+                <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
             </div>
-            <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
-        </div>
-        
-        
-        <div class="continue-button">
-            Ga verder <span class="icon">&gt;</span>
         </div>
     </div>
 </template>
@@ -30,6 +27,7 @@ export default defineComponent({
     data: () => {
         return {
             state: 0,
+            disableScroll: true,
             gTimeline: null as null | gsap.core.Timeline,
             quotes: [
                 {
@@ -130,7 +128,6 @@ export default defineComponent({
                 }
             ] as Array<Quote>,
             quote: null as Quote | null,
-            continueButton: 0
         }
     },
     computed: {
@@ -140,14 +137,20 @@ export default defineComponent({
     },
     unMounted() {
         this.gTimeline?.kill()
+
+
+        const container = this.$refs["container"] as HTMLElement
+        if (container) {
+            container.removeEventListener("scroll", this.moveState)
+        }
     },
     mounted() {
         this.quote = _.sample(this.quotes) as Quote
-        
-        gsap.set(".continue-button", {
-            blur: 24,
-            opacity: 0,
-        })
+
+        const container = this.$refs["container"] as HTMLElement
+        if (container) {
+            container.addEventListener("scroll", this.moveState)
+        }
 
         setTimeout(() => {
             if (!this.$refs.author) {
@@ -178,6 +181,9 @@ export default defineComponent({
                     delay: .48,
                     x: 0,
                     ease: "power2.inOut",
+                    onComplete: () => {
+                        this.disableScroll = false
+                    }
                 })
         })
 
@@ -250,27 +256,35 @@ export default defineComponent({
     right: 48px;
     top: 0;
     bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: column;
+    overflow: auto;
     user-select: none; 
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none; 
+    &::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+    }
+
+    &.__disableScroll {
+        overflow: hidden;
+    }
+
 
     @media (min-width: 768px) {
         left: 128px;
         right: 128px;
     }
-
-    .continue-button {
-        opacity: 0;
-        right: 0;
-    }
+}
+.big-quote-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    height: calc(100% + 1px);
 }
 
 .big-quote {
     display: flex;
     flex-flow: column;
-    // font-size: 32px;
 
     &.__isLong {
         .big-quote-content {
