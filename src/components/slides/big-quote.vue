@@ -256,7 +256,6 @@ export default defineComponent({
     right: 48px;
     top: 0;
     bottom: 0;
-    overflow: auto;
     user-select: none; 
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none; 
