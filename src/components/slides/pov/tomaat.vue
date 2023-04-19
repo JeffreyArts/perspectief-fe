@@ -1,5 +1,5 @@
 <template>
-    <section class="pov-content" ref="content">
+    <section class="pov-content tomato-container" ref="content">
         <div class="container">
             <div class="container tomato" ref="container">
                 <!-- <h1 class="tomato-title">
@@ -29,21 +29,17 @@
                         :glitch-offset="8" />. Deze informatie lijkt op het eerste oog vrij objectief.</p>
                 </div>
 
-                <div class="tomato-illustration">
-                    <svg class="svg-tomato" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 645 742" style="enable-background:new 0 0 645 742;" xml:space="preserve" overflow="visible">
-                        <rect id="rectangle" x="64" y="117.2" width="517" height="516.3"/>
-                        <circle id="circle" cx="322.5" cy="375.3" r="258.1"/>
-                        <path id="body" :fill="tomatoColor" d="M285.4,632.9c62.2,2.2,115.9-11.2,147.7-26.8s72-30.9,106.1-69.8c34-38.9,46.1-128.4,26.4-193.7 c-19.7-65.3-58.6-125.3-138.3-156.6c-79.7-31.3-187-22.4-244.8,11.6c-57.7,34-105.2,83.7-114.6,170.5 c-9.4,86.8,2.7,149.4,51.5,202.7C168.1,624,223.2,630.7,285.4,632.9z"/>
-                        <path id="crown" :fill="crownColor" d="M379.3,201.8c-14.5-2-23.8-1-37.7-9.6c-13.9-8.6-34.9-23.5-45.6-55c-10.8-31.5-0.2-99.7,3.5-114.6 c3.7-14.9,5.5-26.3,7.8-19c2.3,7.2-9.3,47.4,4,96.4c13.3,49,36.4,60.9,36.4,60.9s10.2-49.5,15.7-64.2c5.5-14.7,22.8-35.6,23.3-50.9 c0.5-15.3,6.8-32,8.7-21.1c1.8,10.9,0.9,28.4-5.6,49c-6.5,20.5-30.1,59.2-15.1,95.8c2.2,19.3,22.5-13.5,30.8-30.4 c8.4-16.9,32.2-36.1,43.6-40.2c11.3-4.1,6.9,4.3,0.2,7.8c-6.8,3.5-23.5,13.6-32.1,38.1s-6.4,40.4-6.4,40.4s20.9-23.8,65.6-37.4 c44.7-13.6,73.4-13.9,81.4-12.1c8,1.8,9.6,2.5-2,5C544,143.2,517,137,495.2,156s-22.2,35.4-35.9,40.4c-13.7,5-25.8,25.2-37.6,19.9 C409.8,210.9,390.8,203.4,379.3,201.8z"/>
-                    </svg>
                     
-                    <div class="tomato-slide" id="tomato1">
+                <div class="tomato-slide" id="tomato1">
+                    <div class="tomato-slide-wrapper">
                         <span class="tomato-cta">
                             Zo heeft een tomaat bijvoorbeeld een groen kroontje bovenop.
                         </span>
                     </div>
-
-                    <div class="tomato-slide" id="tomato2">
+                </div>
+                
+                <div class="tomato-slide" id="tomato2">
+                    <div class="tomato-slide-wrapper">
                         <span class="tomato-cta">
                             Moeten zowel de tomaat als het kroontje de “juiste” kleur hebben
                         </span>
@@ -57,47 +53,53 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="tomato-slide" id="tomato3">
-                        <span class="tomato-cta">
-                            Als ook de juiste vorm
-                        </span>
+                <div class="tomato-slide" id="tomato3">
+                    <span class="tomato-cta">
+                        Als ook de juiste vorm
+                    </span>
+                </div>
+
+                <div class="tomato-slide" id="tomato4">
+                    <div class="circle-content">
+                        Maar al deze ogenschijnlijke objectiviteit is vooral afhankelijk van jouw standpunt. 
+                        Want hoewel we in Nederland tomaten vooral kennen zoals hiervoor beschreven, 
+                        bestaan ze in vele verschillende kleuren, vormen & smaken.
                     </div>
+                </div>
 
-
-                    <div class="tomato-slide" id="tomato4">
-                        <div class="circle-content">
-                            Maar al deze ogenschijnlijke objectiviteit is vooral afhankelijk van jouw standpunt. 
-                            Want hoewel we in Nederland tomaten vooral kennen zoals hiervoor beschreven, 
-                            bestaan ze in vele verschillende kleuren, vormen & smaken.
-                        </div>
+                <div class="tomato-slide" id="tomato5">
+                    <div class="square-content">
+                        <span class="square-content-row __isRed __isActive">Zo heb je bijvoorbeeld </span>
+                        <span class="square-content-row __isGreen">Groene</span>
+                        <span class="square-content-row __isOrange">Oranje</span>
+                        <span class="square-content-row __isYellow">Gele</span>
+                        <span class="square-content-row __isBlack">Of bijna zwarte tomaten</span>
                     </div>
+                </div>
 
-
-                    <div class="tomato-slide" id="tomato5">
-                        <div class="square-content">
-                            <span class="square-content-row __isRed __isActive">Zo heb je bijvoorbeeld </span>
-                            <span class="square-content-row __isGreen">Groene</span>
-                            <span class="square-content-row __isOrange">Oranje</span>
-                            <span class="square-content-row __isYellow">Gele</span>
-                            <span class="square-content-row __isBlack">Of bijna zwarte tomaten</span>
-                        </div>
+                <div class="tomato-slide" id="tomato6">
+                    <div class="square-content">
+                        <p class="square-content-row">
+                            In een minstens zo gevarieerd aanbod van smaken en vormen. 
+                            Hoe breder jouw kennis over deze verschillende variaties, contexten en andere informatie over tomaten. 
+                            Hoe breder jouw perceptie. Maar de totstandkoming van deze informatie beïnvloed tegelijkertijd ook je standpunt. 
+                            Denk hierbij aan de cultuur waar je in opgroeit bijvoorbeeld, maar ook wat je simpelweg lekker eten vind. 
+                            De ervaringen die jij in je leven hebt doorleeft. 
+                            Ze beïnvloeden allemaal jouw standpunt in relatie tot het onderwerp (een tomaat in dit voorbeeld).
+                        </p>
                     </div>
-
-
-                    <div class="tomato-slide" id="tomato6">
-
-                        <div class="square-content">
-                            <p class="square-content-row">
-                                In een minstens zo gevarieerd aanbod van smaken en vormen. 
-                                Hoe breder jouw kennis over deze verschillende variaties, contexten en andere informatie over tomaten. 
-                                Hoe breder jouw perceptie. Maar de totstandkoming van deze informatie beïnvloed tegelijkertijd ook je standpunt. 
-                                Denk hierbij aan de cultuur waar je in opgroeit bijvoorbeeld, maar ook wat je simpelweg lekker eten vind. 
-                                De ervaringen die jij in je leven hebt doorleeft. 
-                                Ze beïnvloeden allemaal jouw standpunt in relatie tot het onderwerp (een tomaat in dit voorbeeld).
-                            </p>
-                        </div>
-                    </div>
+                </div>
+            
+                
+                <div class="tomato-illustration">
+                    <svg class="svg-tomato" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 645 742" style="enable-background:new 0 0 645 742;" xml:space="preserve" overflow="visible">
+                        <rect id="rectangle" x="64" y="117.2" width="517" height="516.3"/>
+                        <circle id="circle" cx="322.5" cy="375.3" r="258.1"/>
+                        <path id="body" :fill="tomatoColor" d="M285.4,632.9c62.2,2.2,115.9-11.2,147.7-26.8s72-30.9,106.1-69.8c34-38.9,46.1-128.4,26.4-193.7 c-19.7-65.3-58.6-125.3-138.3-156.6c-79.7-31.3-187-22.4-244.8,11.6c-57.7,34-105.2,83.7-114.6,170.5 c-9.4,86.8,2.7,149.4,51.5,202.7C168.1,624,223.2,630.7,285.4,632.9z"/>
+                        <path id="crown" :fill="crownColor" d="M379.3,201.8c-14.5-2-23.8-1-37.7-9.6c-13.9-8.6-34.9-23.5-45.6-55c-10.8-31.5-0.2-99.7,3.5-114.6 c3.7-14.9,5.5-26.3,7.8-19c2.3,7.2-9.3,47.4,4,96.4c13.3,49,36.4,60.9,36.4,60.9s10.2-49.5,15.7-64.2c5.5-14.7,22.8-35.6,23.3-50.9 c0.5-15.3,6.8-32,8.7-21.1c1.8,10.9,0.9,28.4-5.6,49c-6.5,20.5-30.1,59.2-15.1,95.8c2.2,19.3,22.5-13.5,30.8-30.4 c8.4-16.9,32.2-36.1,43.6-40.2c11.3-4.1,6.9,4.3,0.2,7.8c-6.8,3.5-23.5,13.6-32.1,38.1s-6.4,40.4-6.4,40.4s20.9-23.8,65.6-37.4 c44.7-13.6,73.4-13.9,81.4-12.1c8,1.8,9.6,2.5-2,5C544,143.2,517,137,495.2,156s-22.2,35.4-35.9,40.4c-13.7,5-25.8,25.2-37.6,19.9 C409.8,210.9,390.8,203.4,379.3,201.8z"/>
+                    </svg>
                 </div>
             </div>
         </div>
@@ -116,6 +118,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import isMobiel from "@/stores/is-mobile"
 import gsap from "gsap"
 import Glitch from "@/components/glitch.vue"
 import FadeText from "@/components/fade-text.vue"
@@ -130,14 +133,17 @@ gsap.registerPlugin(ScrollTrigger)
 export default defineComponent({
     name: "pov-tomaat",
     components: { Glitch, TomatoSlider,FadeText },
+    setup() {
+        const isMobile = isMobiel()
+        return { isMobile }
+    },
     data: () => {
         return {
             wordList1:["keuken","groenteboer","tuinkas"],
             wordList2:["bouwplaats","appelflap","duikplank"],
             tomatoColor: "#fc2c0d",
             crownColor: "#309528",
-            isMobile: true,
-            animations: []
+            animations: [] as Array<gsap.core.Tween | gsap.core.Timeline>,
         }
     },
     computed: {
@@ -152,83 +158,156 @@ export default defineComponent({
         ScrollTrigger.defaults({
             scroller: ".pov-page",
         })
-
+        
         setTimeout(() => {
-            window.dispatchEvent(new Event("resize"))
             this.initialiseAnimation()
+            gsap.set(".tomato-illustration", {opacity:1})
+            window.dispatchEvent(new Event("resize"))
         })
     },
     unmounted() {
+        console.log("unmounted")
+        for (const animation of this.animations) {
+            animation.kill()
+        }
         window.removeEventListener("resize", this.setSquareContent)
     },
     methods: {
         initialiseAnimation() {
-            // gsap.to("#body", {morphSVG: {shape: "#circle"}, duration: 1.28, ease: "bounce.out"})
-            // PIN TOMATO Illustration FOR 10 PAGE SLIDES
-            gsap.to(".svg-tomato", {
+
+
+            gsap.set("#body", {
+                morphSVG: {shape: "#circle"}, 
+            })
+
+            const animation1 = gsap.to("#body", {
+                morphSVG: {shape: "#body"}, 
+                duration: 5, 
                 scrollTrigger:{
-                    trigger: ".svg-tomato", // start the animation when ".box" enters the viewport (once)
-                    // markers: true,
-                    id:"Tomato",
-                    pin: true,
-                    end: "+=600%",
-                    onLeave: () => {
-                        gsap.to("#tomato6 .square-content", {
-                            opacity: 0,
-                            duration: 0.32,
-                        })
-                    },
-                    onEnterBack: () => {
-                        gsap.to("#tomato6 .square-content", {
-                            opacity: 1,
-                            duration: 0.32,
-                        })
-                    },
+                    trigger: ".container.tomato", // start the animation when ".box" enters the viewport (once)
                 },
-                rotate: 0,
-                duration: 2.24,
-                ease: "elastic.out(1, 0.3)"
+                ease: "easeInOut",
             })
 
 
-            //
-            // Crown animation
-            //
-            gsap.to("#crown",{
+            // Center the tomato in the center of the screen
+            // This code makes the tomato stop at the bottom of .container.tomato
+            const height = window.innerHeight
+            const animation2 = gsap.to(".svg-tomato", {
+                scrollTrigger:{
+                    trigger: ".container.tomato", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    id:"end",
+                    scrub: true,
+                    start: "bottom bottom",
+                    end: `bottom+=${height} bottom`,
+                },
+                y: -height,
+                duration: 2.24,
+                ease: "linear"
+            })
+            
+            // This code makes the tomato start at the top of .container.tomato
+            gsap.set(".svg-tomato", {y: height})
+            const animation3 = gsap.to(".svg-tomato", {
+                scrollTrigger:{
+                    trigger: ".container.tomato", // start the animation when ".box" enters the viewport (once)
+                    // markers: true,
+                    id:"end",
+                    scrub: true,
+                    start: `${height*.5} bottom`,
+                    end: `${height*.5+height} bottom`,
+                },
+                y: 0,
+                duration: 2.24,
+                ease: "linear"
+            })
+
+            this.autoScroll()
+            this.tomato1Animation()
+            this.tomato2Animation()
+            this.tomato3Animation()
+            this.tomato4Animation()
+            this.tomato5Animation()
+            this.tomato6Animation()
+
+            this.animations.push(animation1, animation2, animation3)
+
+        },
+        setSquareContent() {
+            let targetElement = this.$el.querySelector(".square-content")
+            if (window.innerWidth >= 768) {
+                this.isMobile = false
+            } else {
+                this.isMobile = true
+            }
+            let sourceElement = this.$el.querySelector(".svg-tomato")
+            // set targetElement width and height to sourceElement width and height
+            targetElement.style.width = (sourceElement.parentElement.offsetWidth * .8) + "px"
+        },
+        autoScroll() {
+            const animation = gsap.to(".tomato-intro-container", {
+                scrollTrigger:{
+                    trigger: ".tomato-intro-container", // start the animation when ".box" enters the viewport (once)
+                    markers: true,
+                    id:"auto-scroll",
+                    start: this.isMobile.v ? "top 80%" : "top 66%",
+                },
+                onStart: () => {
+                    const container = document.querySelector(".pov-page") as HTMLElement
+                    const target = document.querySelector(".pov-content.tomato-container") as HTMLElement
+                    container.classList.add("__disableScroll")
+                    if (!container || !target) {
+                        return
+                    }
+                    const computedStyle = window.getComputedStyle(target)
+                    const marginTop = parseInt(computedStyle.getPropertyValue("padding-top").replace("px", ""), 10)
+                    gsap.to(container, {
+                        scrollTo: target.offsetTop + marginTop,
+                        duration: .8,
+                        ease: "linear",
+                        onComplete: () => {
+                            container.classList.remove("__disableScroll")
+                        }
+                    })
+                },
+            })
+
+            this.animations.push(animation)
+        },
+        tomato1Animation() {
+            const animation1 = gsap.to("#crown",{
                 scrollTrigger:{
                     trigger: "#tomato1  ", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
                     start: "20% top",
                     end: "bottom 20%",
-                // scrub: true,
+                    // scrub: true,
                 },
                 rotate: 0,
                 duration: 2.24,
                 ease: "elastic.out(1, 0.3)"
             })
 
-            gsap.to("#tomato1",{
+            const animation2 = gsap.to("#tomato1 .tomato-slide-wrapper",{
                 scrollTrigger:{
                     trigger: "#tomato1", // start the animation when ".box" enters the viewport (once)
                     start: "top top",
                     end: "bottom 20%",
                     // markers: true,
-                    // scrub: true,
                     pin: true,
+                    pinType: "fixed",
                 },
+                scrub: true,
                 opacity: 1,
                 duration: 2.44,
                 ease: "power4.out"
             })
-            //
-            // Crown animation END
-            //
 
-
-            //
-            // Color slides START
-            //
-            gsap.to("#tomato2 .tomato-cta",{
+            this.animations.push(animation1, animation2)
+        },
+        tomato2Animation() {
+            const animation1 = gsap.to("#tomato2 .tomato-cta",{
                 scrollTrigger:{
                     trigger: "#tomato2", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
@@ -236,13 +315,14 @@ export default defineComponent({
                     end: "bottom 20%",
                     id:"Slide2",
                     pin: true,
+                    pinType: "fixed",
                 },
                 opacity: 1,
                 duration: 1.28,
                 ease: "power4.out"
             })
         
-            gsap.to("#tomato2 .tomato-sliders-container",{
+            const animation2 = gsap.to("#tomato2 .tomato-sliders-container",{
                 scrollTrigger:{
                     trigger: "#tomato2", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
@@ -258,13 +338,9 @@ export default defineComponent({
                 ease: "power4.out"
             })
 
-            //
-            // Color slides END
-            //
-
-            //
-            // Shape shift START
-            //
+            this.animations.push(animation1, animation2)
+        },
+        tomato3Animation() {
             const tlShapeShift = gsap.timeline( {
                 scrollTrigger:{
                     trigger: "#tomato3", // start the animation when ".box" enters the viewport (once)
@@ -297,16 +373,10 @@ export default defineComponent({
                 duration: 1.28,
                 ease: "power4.out",
             })
-
-            //
-            // Shape shift END
-            //
-
-
-            //
-            // TOMATO 4 START
-            //
-            gsap.to("#body",{
+            this.animations.push(tlShapeShift)
+        },
+        tomato4Animation() {
+            const animation1 = gsap.to("#body",{
                 scrollTrigger:{
                     trigger: "#tomato4", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
@@ -333,20 +403,15 @@ export default defineComponent({
                 duration: 1.28,
                 ease: "power4.out"
             })
-
-            //
-            // TOMATO 4 END
-            //
-        
-            //
-            // Square START
-            //
+            this.animations.push(animation1)
+        },
+        tomato5Animation() {
             let elRed = this.$el.querySelector("#tomato5 .__isRed")
             let elGreen = this.$el.querySelector("#tomato5 .__isGreen")
             let elOrange = this.$el.querySelector("#tomato5 .__isOrange")
             let elYellow = this.$el.querySelector("#tomato5 .__isYellow")
             let elBlack = this.$el.querySelector("#tomato5 .__isBlack")
-            gsap.to(".square-content",{
+            const animation1 = gsap.to(".square-content",{
                 scrollTrigger:{
                     trigger: "#tomato5", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
@@ -417,8 +482,10 @@ export default defineComponent({
                 ease: "power4.out"
             })
 
-
-            gsap.to("#tomato6 .square-content",{
+            this.animations.push(animation1)
+        },
+        tomato6Animation() {
+            const animation1 = gsap.to("#tomato6 .square-content",{
                 scrollTrigger:{
                     trigger: "#tomato6", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
@@ -427,17 +494,8 @@ export default defineComponent({
                     pin:true,
                 }
             })
-        },
-        setSquareContent() {
-            let targetElement = this.$el.querySelector(".square-content")
-            if (window.innerWidth >= 768) {
-                this.isMobile = false
-            } else {
-                this.isMobile = true
-            }
-            let sourceElement = this.$el.querySelector(".svg-tomato")
-            // set targetElement width and height to sourceElement width and height
-            targetElement.style.width = (sourceElement.parentElement.offsetWidth * .8) + "px"
+            
+            this.animations.push(animation1)
         },
         isCompleted() {
             this.$emit("completed")
@@ -453,7 +511,8 @@ export default defineComponent({
 .tomato {
     text-align: center;
     font-size: 14px;
-
+    position: relative;
+    
     &.container {
         max-width: 800px;
     }
@@ -463,11 +522,13 @@ export default defineComponent({
         font-size: 16px;
     }
 }
+.pov-content.tomato-container {
+    overflow: hidden;
+}
     
 .svg-tomato {
     max-width: 100%;
     max-height: 100vh;
-    padding-top: 64px;
     margin: auto;
     position: relative;
     z-index: 1;
@@ -504,13 +565,25 @@ export default defineComponent({
 }
 
 .tomato-illustration {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    bottom: 0;
+    opacity: 0;
+    display: flex;
 }
 
 .tomato-slide {
     height: 100vh;
     display: block;
+    outline: 1px solid red;
     position: relative;
+}
+
+.container.tomato {
+    overflow: hidden;
 }
 
 .tomato-cta {
@@ -528,20 +601,21 @@ export default defineComponent({
 }
 
 #tomato1 {
-    margin-top: -700vh;
-    width: 70%;
-    height: 50vh;
-    text-align: start;
-    opacity: 0;
-    z-index: 16;
+    .tomato-slide-wrapper {
+        width: 70%;
+        height: 50vh;
+        text-align: start;
+        opacity: 0;
+        z-index: 16;
+    }
 
     .tomato-cta {
-        margin-top: 128px;
+        margin-top: 64px;
     }
 }
 
+
 #tomato2 {
-    height: 100vh;
     z-index: 16;
 
     .tomato-cta {
@@ -733,6 +807,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     height: 100vh;
+    margin-top: 32px;
 
     p {
         display: block;
@@ -742,6 +817,11 @@ export default defineComponent({
         text-align: center;
     }
     
+}
+
+// DEV STYLES
+.pin-spacer {
+    pointer-events: none;
 }
 </style>
 
