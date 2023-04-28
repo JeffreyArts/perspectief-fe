@@ -88,9 +88,9 @@ export default {
             let y = 0
             let clientY = 0
             
-            if (e instanceof TouchEvent) {
+            if (typeof TouchEvent !== "undefined" && e instanceof TouchEvent) {
                 clientY = e.touches[0].clientY
-            } else {
+            } else if (e instanceof MouseEvent) {
                 clientY = e.clientY 
             }
             if (clientY > offsetTop) {
@@ -113,9 +113,9 @@ export default {
             let x = 0
             let clientX = 0
             
-            if (e instanceof TouchEvent) {
+            if (typeof TouchEvent !== "undefined" && e instanceof TouchEvent) {
                 clientX = e.touches[0].clientX
-            } else {
+            } else if (e instanceof MouseEvent) {
                 clientX = e.clientX 
             }
 
@@ -137,7 +137,7 @@ export default {
             this.mousedown = true
             this.updateSlider(e)
             
-            if (e instanceof TouchEvent) {
+            if (typeof TouchEvent !== "undefined" && e instanceof TouchEvent) {
                 window.addEventListener("touchmove", this.updateSlider)
                 window.addEventListener("touchend", this.deactivateSlider)
             } else {
@@ -148,7 +148,7 @@ export default {
         deactivateSlider(e: TouchEvent | MouseEvent) {
             this.mousedown = false
 
-            if (e instanceof TouchEvent) {
+            if (typeof TouchEvent !== "undefined" && e instanceof TouchEvent) {
                 window.removeEventListener("touchmove", this.updateSlider)
                 window.removeEventListener("touchend", this.deactivateSlider)
             } else {

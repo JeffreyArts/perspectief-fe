@@ -46,10 +46,10 @@
 
                         <div class="tomato-sliders-container">
                             <div class="tomato-slider">
-                                <tomato-slider v-model="tomatoColor" :color-range="['#f00','#f78a29','#3cbe28']" />
+                                <tomato-slider v-model="tomatoColor" :color-range="['#9416ff','#f00','#f78a29','#3cbe28', '#e7ff42']" />
                             </div>
                             <div class="crown-slider">
-                                <tomato-slider v-model="crownColor" :color-range="['#32492f','#309428','#24fc08']" />
+                                <tomato-slider v-model="crownColor" :color-range="['#131e09','#309428','#24fc08', '#b6d2a3']" />
                             </div>
                         </div>
                     </div>
@@ -161,12 +161,10 @@ export default defineComponent({
         const height = window.innerHeight
         setTimeout(() => {
             this.initialiseAnimation()
-            gsap.set(".tomato-illustration", {opacity:1})
             window.dispatchEvent(new Event("resize"))
         })
     },
     unmounted() {
-        console.log("unmounted")
         for (const animation of this.animations) {
             animation.kill()
         }
@@ -192,7 +190,7 @@ export default defineComponent({
             gsap.set(".svg-tomato", {y: height})
             
             // This code makes the tomato start at the top of .container.tomato
-            const animation3 = gsap.to(".svg-tomato", {
+            const animation2 = gsap.to(".svg-tomato", {
                 scrollTrigger:{
                     trigger: ".container.tomato", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
@@ -200,6 +198,9 @@ export default defineComponent({
                     scrub: true,
                     start: `${height*.5} ${height}`,
                     end: `${height*.5+height} bottom`,
+                    onEnter: () => {
+                        this.animations.push(gsap.set(".tomato-illustration", {opacity:1}))
+                    },
                     onLeave: () => {
                         const animation2 = gsap.to(".svg-tomato", {
                             scrollTrigger:{
@@ -213,12 +214,14 @@ export default defineComponent({
                             y: -height,
                             ease: "linear",
                         })
+                        this.animations.push(animation2)
                     },
                 },
                 y: 0,
                 ease: "linear"
             })
-
+            
+            this.animations.push(animation1, animation2)
 
             
 
@@ -416,32 +419,6 @@ export default defineComponent({
             let elOrange = this.$el.querySelector("#tomato5 .__isOrange")
             let elYellow = this.$el.querySelector("#tomato5 .__isYellow")
             let elBlack = this.$el.querySelector("#tomato5 .__isBlack")
-            // const animation1 = gsap.timeline( {
-            //     scrollTrigger:{
-            //         trigger: "#tomato5", // start the animation when ".box" enters the viewport (once)
-            //         // markers: true,
-            //         start: "top top",
-            //         end: "bottom top",
-            //         id:"5",
-            //         scrub:true,
-            //         pin: true
-            //     },
-            // }).to("#body",{
-            //     morphSVG: {shape: "#rectangle"}, 
-            //     ease: "power4.out",
-            // }).to("#tomato5 .__isRed", {
-            //     height: "100%",
-            // }).to("#tomato5 .__isGreen", {
-            //     height: "100%",
-            // }).to("#tomato5 .__isOrange", {
-            //     height: "100%",
-            // }).to("#tomato5 .__isYellow", {
-            //     height: "100%",
-            // }).to("#tomato5 .__isBlack", {
-            //     height: "100%",
-            // })
-            // const animation3 = gsap.to(".square-content",{
-            // })
             const animation1 = gsap.to(".square-content",{
                 scrollTrigger:{
                     trigger: "#tomato5", // start the animation when ".box" enters the viewport (once)
@@ -461,6 +438,7 @@ export default defineComponent({
                         if(progress > 0 && elRed.classList.contains("__isActive") == false){
                             elRed.classList.add("__isActive")
                         }
+
                         if(progress > 0.1 && elGreen.classList.contains("__isActive") == false){
                             elGreen.classList.add("__isActive")
                         }
@@ -510,17 +488,11 @@ export default defineComponent({
                             }
                         })
                     },
-                    // onEnterBack: function() {
-                    //     gsap.to("#tomato6", {
-                    //         duration: .28,
-                    //         opacity: 0,
-                    //         ease: "power4.out"
-                    //     })
-                    // },
-                    pin:true,
+                    pin: true,
                 },
                 duration: 1.28,
                 opacity: 1,
+                width: "100%",
                 ease: "power4.out"
             })
 
@@ -538,19 +510,19 @@ export default defineComponent({
             //     },
             // })
 
-            const animation2 = gsap.to("#tomato6",{
+            const animation1 = gsap.to("#tomato6",{
                 scrollTrigger:{
                     trigger: "#tomato6", // start the animation when ".box" enters the viewport (once)
-                    markers: true,
+                    // markers: true,
                     start: "top top",
                     end: "10% top",
                     id:"6",
-                    pin:true,
+                    // pin:true,
                 },
                 opacity: 1
             })
             
-            // this.animations.push(animation1)
+            this.animations.push(animation1)
         },
         isCompleted() {
             this.$emit("completed")
@@ -570,6 +542,7 @@ export default defineComponent({
     
     &.container {
         max-width: 800px;
+        padding: 0;
     }
 
 
@@ -634,6 +607,8 @@ export default defineComponent({
     height: 100vh;
     display: block;
     position: relative;
+    z-index: 1;
+    width: 100%;
     // outline: 1px solid red;
 }
 
@@ -782,8 +757,16 @@ export default defineComponent({
     justify-content: flex-end;
     color: #fff;
     align-items: center;
-    max-width: 564.5px;
-    max-height: 564.5px;
+    translate: 7px 0;
+    @media (orientation: landscape) {
+        max-width: 69.85vh;
+        max-height: 69.85vh;
+    }
+    @media (orientation: portrait) {
+        max-width: 80.333vw;
+        max-height: 80.333vw;
+        translate: 0 0;
+    }
 }
 
 .square-content-row {
@@ -826,18 +809,17 @@ export default defineComponent({
     height: 100vh;
     justify-content: center;
     opacity: 0;
-    
     .square-content {
         margin: auto;
-        color: #2B0E38;
+        color: #fff;
         width: calc(100% + 32px);
     }
     
     p {
         margin: 0;
-        font-size: 16px;
-        line-height: 28px;
-        padding: 0;
+        font-size: 11px;
+        line-height: 20px;
+        padding: 8px;
     }
     
     .square-content-row {
@@ -856,6 +838,8 @@ export default defineComponent({
         
         p {
             padding: 32px;
+            font-size: 16px;
+            line-height: 28px;
         }
     }
 }
