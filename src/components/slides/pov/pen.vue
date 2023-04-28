@@ -103,6 +103,10 @@ export default defineComponent({
         gsap.registerPlugin(MorphSVGPlugin)
         gsap.registerPlugin(ScrollToPlugin)
         gsap.registerPlugin(MotionPathPlugin)
+
+        ScrollTrigger.getAll().forEach(instance => {
+            instance.kill() // destroy the ScrollTrigger instance
+        })
         
         setTimeout(() => {
             // GSDevTools.create()

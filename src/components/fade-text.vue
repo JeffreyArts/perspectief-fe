@@ -50,8 +50,24 @@ export default defineComponent({
             if (this.hasFallen) {
                 return
             }
+
             this.hasFallen = true
-            this.startAnimation()
+            let delay = 2048
+            
+            const povPage = document.querySelector(".pov-page")
+            if (povPage) {
+                gsap.to(povPage, {
+                    scrollTop: povPage.scrollHeight,
+                    duration: 1.28,
+                    onComplete: () => {
+                        povPage.classList.add("__disableScroll")
+                        this.startAnimation()
+                    }
+                })
+                delay+= 1280
+            } else {
+                this.startAnimation()
+            }
             gsap.to(".perspective-button", {
                 duration: .24,
                 ease: "power4.out",
@@ -61,7 +77,7 @@ export default defineComponent({
                 onComplete: () => {
                     setTimeout(() => {
                         this.$emit("animation-complete")
-                    }, 2048)
+                    }, delay)
                 }
             })
         },

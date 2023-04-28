@@ -254,13 +254,15 @@ export default defineComponent({
             formInput: "",
             buttonHover: null as null | gsap.core.Tween,
             messages: [] as Array<{message: string, date: string}>,
-            formSubmitted: false
+            formSubmitted: false,
+            animations: [] as Array<gsap.core.Tween | gsap.core.Timeline>,
         }
     },
     computed: {
     },
-    unMounted() {
+    unmounted() {
         window.removeEventListener("resize", this.positionCarouselSide)
+        this.cancelAnimations()
     },
     mounted() {
         window.addEventListener("resize", this.positionCarouselSide)
@@ -274,10 +276,7 @@ export default defineComponent({
         })
         this.getMessages()
         this.carouselInitialisation()
-        this.slide2()
-        this.slide3()
-        this.slide4()
-        this.tvSlide()
+        this.setupAnimations()
     },
     methods: {
         getMessages() {
@@ -319,7 +318,7 @@ export default defineComponent({
             document.querySelector(".pov-page-container")?.classList.add("__isHidden")
             
             if (this.formInput)  {
-                fetch(`${import.meta.env.VITE_REST_API}/messages`, {
+                fetch(`${import.meta.env.VITE_REST_API}/perception-messages`, {
                     method: "POST",
                     headers: {
                         authorization: `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
@@ -372,23 +371,26 @@ export default defineComponent({
             }, 1600)
         },
         closeSharedPerception() {
-            gsap.to("#perception-chevron", {
+            const animation1 = gsap.to("#perception-chevron", {
                 morphSVG: {shape: "#perception-square"}, 
                 duration: .72,
                 opacity: 0,
                 ease: "bounce.out",
             })
-            gsap.to("#slide-3", {
+
+            const animation2 = gsap.to("#slide-3", {
                 duration: .32,
                 opacity: 0,
                 ease: "power4.inOut",
             })
-            gsap.to(".slot-stuk-content-button", {
+
+            const animation3 = gsap.to(".slot-stuk-content-button", {
                 opacity: 0,
                 duration: .8,
                 ease: "rough({ strength: 1, points: 10, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
             })
-            gsap.to(".slot-stuk-content-container", {
+
+            const animation4 = gsap.to(".slot-stuk-content-container", {
                 color: "#fff",
                 duration: 0.8,
                 ease: "rough({ strength: 1, points: 32, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
@@ -400,7 +402,7 @@ export default defineComponent({
                 }
             })
 
-            gsap.to(".slot-stuk-content-container", {
+            const animation5 = gsap.to(".slot-stuk-content-container", {
                 height: 0,
                 delay: 0.96,
                 top: "50%",
@@ -411,30 +413,34 @@ export default defineComponent({
                     this.$emit("next", "shared-perception")
                 }
             })
+
+            this.animations.push(animation1, animation2, animation3, animation4, animation5)
         },
         slotstukEnter() {
             const content = this.$el.querySelector(".slot-stuk-content-container") as HTMLElement
             const handle = this.$el.querySelector(".slot-stuk-handle") as HTMLElement
             const ease = "back.inOut(2.56)"
 
-            gsap.to(".slot-stuk-handle", {
+            const animation1 = gsap.to(".slot-stuk-handle", {
                 duration: 1.28,
                 ease: ease,
                 x: -content.offsetLeft + 32,
             })
-            gsap.to(".slot-stuk-handle", {
+
+            const animation2 = gsap.to(".slot-stuk-handle", {
                 duration: .64,
                 delay:.64,
                 width: 0,
                 // ease:"",
             })
-            gsap.to(".slot-stuk-content-container", {
+
+            const animation3 = gsap.to(".slot-stuk-content-container", {
                 duration: 1.28,
                 ease: ease,
                 x: -content.offsetLeft + 32
             })
 
-            gsap.timeline().to(".television-container", {
+            const animation4 = gsap.timeline().to(".television-container", {
                 height: window.innerHeight - 256,
                 ease: ease,
                 duration: 1.28,
@@ -442,28 +448,12 @@ export default defineComponent({
                     gsap.to(".television-container", {opacity: 0, duration: .32})
                 }
             })
+
+            this.animations.push(animation1, animation2, animation3, animation4)
         },
-      
         tvSlide() {
             gsap.set(".television-screen-bg", {
                 opacity: 0,
-            })
-            gsap.to(".television-slide",  {
-                ease: "Linear.easeNone",
-                scrollTrigger: {
-                    trigger:".cross-shaft",
-                    scrub: true,
-                    start: "bottom bottom-=124px",
-                    end: "bottom bottom-=124px",
-                    id:"tv",
-                    // markers: true,
-                },
-                onComplete: () => {
-                    this.tvSticky = true
-                },
-                onReverseComplete: () => {
-                    this.tvSticky = false
-                },
             })
 
             const animation1 = gsap.to(".television-screen-content", {
@@ -489,6 +479,7 @@ export default defineComponent({
                     // markers: true,
                 },
             })
+
             const animation3 = gsap.to(".television-screen-content", {
                 opacity: 0.9,
                 backgroundColor: "#111",
@@ -514,8 +505,26 @@ export default defineComponent({
                 },
             })
 
+            const animation4 = gsap.to(".television-slide",  {
+                ease: "Linear.easeNone",
+                scrollTrigger: {
+                    trigger:".cross-shaft",
+                    scrub: true,
+                    start: "bottom bottom-=124px",
+                    end: "bottom bottom-=124px",
+                    id:"tv",
+                    // markers: true,
+                },
+                onComplete: () => {
+                    this.tvSticky = true
+                },
+                onReverseComplete: () => {
+                    this.tvSticky = false
+                },
+            })
 
 
+            this.animations.push(animation1, animation2, animation3, animation4)
         },
         slide4() {
             const balls = this.$el.querySelector(".balls")
@@ -555,7 +564,7 @@ export default defineComponent({
                 blur: 128
             })
             
-            gsap.timeline().to("#ball-1",  {
+            const animation1 = gsap.timeline().to("#ball-1",  {
                 x: 32,
                 y: `-=${slideInPixels}`,
                 scale: 1,
@@ -586,7 +595,7 @@ export default defineComponent({
                 }
             })
 
-            gsap.timeline().to("#ball-2",  {
+            const animation2 = gsap.timeline().to("#ball-2",  {
                 x: parent.width - 32 - ball2.clientWidth,
                 scale: 1,
                 y: `-=${slideInPixels}`,
@@ -617,7 +626,7 @@ export default defineComponent({
             })
 
 
-            gsap.timeline().to("#ball-3",  {
+            const animation3 = gsap.timeline().to("#ball-3",  {
                 x: 32,
                 y: `-=${slideInPixels}`,
                 scale: 1,
@@ -650,7 +659,7 @@ export default defineComponent({
             })
 
 
-            gsap.timeline().to("#ball-4",  {
+            const animation4 = gsap.timeline().to("#ball-4",  {
                 x: parent.width - 32 - ball4.clientWidth,
                 y: `-=${slideInPixels}`,
                 scale: 1,
@@ -682,7 +691,7 @@ export default defineComponent({
             })
 
 
-            gsap.to(".television-container", {
+            const animation5 = gsap.to(".television-container", {
                 height: window.innerHeight - (128 + 32),
                 scrollTrigger: {
                     id: "4.2",
@@ -707,6 +716,7 @@ export default defineComponent({
                 }
             })
 
+            this.animations.push(animation1, animation2, animation3, animation4, animation5)
         },
         slide3() {
             const shaft = this.$el.querySelector(".cross-shaft") as HTMLElement
@@ -717,7 +727,7 @@ export default defineComponent({
                 y: "256 + 100vh",
             })
             
-            gsap.to(crossText,  {
+            const animation1 = gsap.to(crossText,  {
                 y: 256,
                 duration: 1.44,
                 ease: "power4.out",
@@ -729,6 +739,8 @@ export default defineComponent({
                     // markers: true,
                 }
             })
+
+            this.animations.push(animation1)
 
         },
         slide2() {
@@ -742,19 +754,22 @@ export default defineComponent({
                 x: "-100vw",
             })
             const square3 = this.$el.querySelector("#square-3") as HTMLElement
-
-            gsap.to("#square-1",  {
+            
+            const animation1 = gsap.to("#square-1",  {
                 x: 0,
                 duration: 1.44,
                 ease: "power4.out",
                 scrollTrigger: {
+                    scroller: ".shared-perception-container",
                     trigger: "#square-1",
                     start: "top 75%",
+                    scrub: true,
                     // markers: true,
                 }
             })
+            console.log("asdf", this.animations.length)
             
-            gsap.to("#square-2",  {
+            const animation2 = gsap.to("#square-2",  {
                 x: 0,
                 duration: 1.44,
                 ease: "power4.out",
@@ -766,7 +781,7 @@ export default defineComponent({
                 }
             })
 
-            gsap.to("#square-3",  {
+            const animation3 = gsap.to("#square-3",  {
                 x: 0,
                 duration: 1.44,
                 ease: "power4.out",
@@ -790,9 +805,7 @@ export default defineComponent({
                 }
             })
 
-
-
-            
+            this.animations.push(animation1, animation2, animation3)
         },
         carouselInitialisation() {
             
@@ -903,6 +916,10 @@ export default defineComponent({
                         delay:.32,
                         duration: .8,
                         onComplete: () => {
+                            this.cancelAnimations()
+                            setTimeout(() => {
+                                this.setupAnimations()
+                            })
                         }
                     })
                 }
@@ -913,6 +930,19 @@ export default defineComponent({
             }
             
             this.changeCarousel()
+        },
+        cancelAnimations() {
+            console.log("cancel Animations")
+            this.animations.forEach((animation) => {
+                animation.kill()
+            })
+            this.animations.length = 0
+        },
+        setupAnimations() {
+            this.slide2()
+            this.slide3()
+            this.slide4()
+            this.tvSlide()
         }
     }
 })
@@ -1469,9 +1499,9 @@ export default defineComponent({
         width: calc(70% - 96px);
         // margin-top: -100vh;
     }
-
+    
     #slide-2 {
-        margin-top: 128px;
+        margin-top:calc( -100vh + 64px);
     }
 
     .shared-perception-container {

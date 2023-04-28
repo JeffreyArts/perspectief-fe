@@ -96,7 +96,18 @@ export default defineComponent({
             { opacity: 0}, 
             { opacity: 1, x: 0, duration: 1.28, ease: "power2.out" }
         )
-
+        
+        gsap.timeline({
+            defaults: {
+                duration: 0.96,
+                stagger: .04,
+                ease: "power1.in",
+            }
+        }).fromTo(".introduction-block span", {
+            opacity: 0,
+        },{
+            opacity:1,
+        })
     },
     methods: {
         nextPage() {

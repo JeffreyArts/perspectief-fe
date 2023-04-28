@@ -158,6 +158,10 @@ export default defineComponent({
         ScrollTrigger.defaults({
             scroller: ".pov-page",
         })
+
+        ScrollTrigger.getAll().forEach(instance => {
+            instance.kill() // destroy the ScrollTrigger instance
+        })
         
         const height = window.innerHeight
         setTimeout(() => {
@@ -166,12 +170,6 @@ export default defineComponent({
         })
     },
     beforeUnmount() {
-
-        ScrollTrigger.getAll().forEach(instance => {
-            instance.kill() // destroy the ScrollTrigger instance
-        })
-    },
-    unmounted() {
         for (const animation of this.animations) {
             animation.kill()
         }
@@ -509,6 +507,7 @@ export default defineComponent({
             this.animations.push(animation1)
         },
         isCompleted() {
+          
             this.$emit("completed")
         }
     }
