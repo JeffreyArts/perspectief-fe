@@ -46,10 +46,10 @@
 
                         <div class="tomato-sliders-container">
                             <div class="tomato-slider">
-                                <tomato-slider v-model="tomatoColor" :color-range="['#9416ff','#f00','#f78a29','#3cbe28', '#e7ff42']" />
+                                <tomato-slider v-model="tomatoColor" :startPos="20" :color-range="['#9416ff','#f00','#f78a29','#3cbe28', '#e7ff42']" />
                             </div>
                             <div class="crown-slider">
-                                <tomato-slider v-model="crownColor" :color-range="['#131e09','#309428','#24fc08', '#b6d2a3']" />
+                                <tomato-slider v-model="crownColor" :startPos="30" :color-range="['#131e09','#309428','#24fc08', '#b6d2a3']" />
                             </div>
                         </div>
                     </div>
@@ -164,26 +164,14 @@ export default defineComponent({
             this.initialiseAnimation()
             window.dispatchEvent(new Event("resize"))
         })
-
-        // Unclear why, but sometimes a magical extra tomato-illustration appears
-        // if (document.querySelectorAll(".tomato-illustration").length == 2) {
-        //     document.querySelectorAll(".tomato-illustration")[1].remove()
-        // }
-        // console.log(document.querySelectorAll(".tomato-illustration"))
     },
     beforeUnmount() {
 
         ScrollTrigger.getAll().forEach(instance => {
             instance.kill() // destroy the ScrollTrigger instance
         })
-        console.log("unmounted",this.$el.querySelectorAll(".pin-spacer"))
-        this.$el.querySelectorAll(".pin-spacer").forEach((el) => el.remove())
-        // for (const animation of this.animations) {
-        //     animation.kill()
-        // }
     },
     unmounted() {
-        console.log("unmounted",this.$el.querySelectorAll(".pin-spacer"))
         for (const animation of this.animations) {
             animation.kill()
         }
@@ -242,9 +230,7 @@ export default defineComponent({
             
             this.animations.push(animation1, animation2)
 
-            
-
-
+        
             
             this.autoScroll()
             this.tomato1Animation()
@@ -324,7 +310,6 @@ export default defineComponent({
                     // markers: true,
                     start: "top 50%",
                     end: "75% top",
-                    // pinType: "fixed",
                     scrub: true,
                 },
                 opacity: 1,
@@ -507,23 +492,13 @@ export default defineComponent({
             // this.animations.push(animation1, animation2)
         },
         tomato6Animation() {
-            // const animation1 = gsap.to("#tomato6",{
-            //     scrollTrigger:{
-            //         trigger: "#tomato6", // start the animation when ".box" enters the viewport (once)
-            //         markers: true,
-            //         start: "top top",
-            //         end: "90% top",
-            //         id:"6",
-            //         pin:true,
-            //     },
-            // })
 
             const animation1 = gsap.to("#tomato6",{
                 scrollTrigger:{
                     trigger: "#tomato6 ", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
                     start: "top top",
-                    end: "+=128",
+                    end: "+=320",
                     id:"6",
                     scrub:true,
                     pin:true,
@@ -818,10 +793,9 @@ export default defineComponent({
     height: 100vh;
     justify-content: center;
     align-items: flex-start;
-    // opacity: 0;
+    opacity: 0;
 
     .square-content {
-        background-color: rgba(0,255,2,.4);
         margin: auto;
         color: #fff;
         width: calc(100% + 32px);

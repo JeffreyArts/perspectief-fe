@@ -25,6 +25,11 @@ export default {
             type: Array as () => Array<string>,
             required: true
         },
+        startPos: {
+            type: Number,
+            required: false,
+            default: 0
+        }
     },
     data() {
         return {
@@ -34,12 +39,6 @@ export default {
         }
     },
     computed: {
-        sliderPosition() {
-            return {
-                left: this.modelValue[0] + "px",
-                top: this.modelValue[1] + "px"
-            }
-        },
         offset() {
             if (this.mobile) {
                 return `left: ${this.perc}%`
@@ -63,6 +62,8 @@ export default {
         }
     },
     mounted() {
+        this.perc = this.startPos
+
         window.addEventListener("resize", this.setMobile)
     },
     beforeUnmount() {
