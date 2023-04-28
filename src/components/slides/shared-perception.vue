@@ -915,12 +915,6 @@ export default defineComponent({
                         y: "-100vh",
                         delay:.32,
                         duration: .8,
-                        onComplete: () => {
-                            this.cancelAnimations()
-                            setTimeout(() => {
-                                this.setupAnimations()
-                            })
-                        }
                     })
                 }
             }
@@ -932,10 +926,15 @@ export default defineComponent({
             this.changeCarousel()
         },
         cancelAnimations() {
-            console.log("cancel Animations")
+
             this.animations.forEach((animation) => {
                 animation.kill()
             })
+            ScrollTrigger.getAll().forEach(instance => {
+                instance.kill() // destroy the ScrollTrigger instance
+            })
+            
+            console.log("KILL")
             this.animations.length = 0
         },
         setupAnimations() {
@@ -943,6 +942,7 @@ export default defineComponent({
             this.slide3()
             this.slide4()
             this.tvSlide()
+            console.log("SETUP")
         }
     }
 })

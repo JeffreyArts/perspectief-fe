@@ -85,19 +85,23 @@ export default defineComponent({
             this.$refs["scrollContainer"].scrollTop = 0
         }
 
-        this.interval = setInterval(() => {
-            if (this.selectedType) {
-                clearInterval(this.interval)
-                this.typeIndex = 0
-                return
-            }
+        console.log(this.$router.currentRoute)
 
-            if (this.typeIndex) {
-                this.typeIndex = 0
-            } else {
-                this.typeIndex = 1
-            }
-        }, 3200)
+        if (!this.$router.currentRoute.value.fullPath.includes("gedeelde-perceptie")) {
+            this.interval = setInterval(() => {
+                if (this.selectedType) {
+                    clearInterval(this.interval)
+                    this.typeIndex = 0
+                    return
+                }
+
+                if (this.typeIndex) {
+                    this.typeIndex = 0
+                } else {
+                    this.typeIndex = 1
+                }
+            }, 3200 + 480) // Same as glitch
+        }
 
         // this.allowScrollBack()
         
@@ -131,7 +135,7 @@ export default defineComponent({
         glitchUpdate(string:string) {
             var match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
             if (match && match[1]) {
-                this.typeIndex = this.types.indexOf(match[1])
+                // this.typeIndex = this.types.indexOf(match[1])
             }
         },
         handleScroll(event: Event) {
