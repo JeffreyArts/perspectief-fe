@@ -158,13 +158,32 @@ export default defineComponent({
         ScrollTrigger.defaults({
             scroller: ".pov-page",
         })
+        
         const height = window.innerHeight
         setTimeout(() => {
             this.initialiseAnimation()
             window.dispatchEvent(new Event("resize"))
         })
+
+        // Unclear why, but sometimes a magical extra tomato-illustration appears
+        // if (document.querySelectorAll(".tomato-illustration").length == 2) {
+        //     document.querySelectorAll(".tomato-illustration")[1].remove()
+        // }
+        // console.log(document.querySelectorAll(".tomato-illustration"))
+    },
+    beforeUnmount() {
+
+        ScrollTrigger.getAll().forEach(instance => {
+            instance.kill() // destroy the ScrollTrigger instance
+        })
+        console.log("unmounted",this.$el.querySelectorAll(".pin-spacer"))
+        this.$el.querySelectorAll(".pin-spacer").forEach((el) => el.remove())
+        // for (const animation of this.animations) {
+        //     animation.kill()
+        // }
     },
     unmounted() {
+        console.log("unmounted",this.$el.querySelectorAll(".pin-spacer"))
         for (const animation of this.animations) {
             animation.kill()
         }
@@ -226,13 +245,7 @@ export default defineComponent({
             
 
 
-            // Deze code hieronder zit nog niet helemaal lekker.....
-
-
-
-            // Center the tomato in the center of the screen
-            // This code makes the tomato stop at the bottom of .container.tomato
-
+            
             this.autoScroll()
             this.tomato1Animation()
             this.tomato2Animation()
@@ -427,11 +440,12 @@ export default defineComponent({
                     end: "bottom bottom",
                     id:"square",
                     scrub: true,
-                    onEnter: ({progress, direction, isActive}) => {
+                    onEnter: () => {
+                        console.log("tomatoColor",this.tomatoColor, this.$data.tomatoColor)
                         gsap.to(this.$data, { duration: 2, tomatoColor: "#f00" })
                     },
                     onUpdate: ({progress, direction, isActive}) => {
-                        if (this.$el.querySelector(".square-content").getBoundingClientRect().top <= 0) {
+                        if (this.$el.querySelector(".square-content")?.getBoundingClientRect().top <= 0) {
                             return
                         }
                         console.log("progress", progress)
@@ -462,26 +476,20 @@ export default defineComponent({
                         if(progress > 0.99 ){
                             // elBlack.style.transition = "none"
                             elBlack.classList.remove("__isActive")
-                            gsap.to("#body", {
-                                fill: "#2B0E38",
-                                duration: 1.28,
-                                onUpdate(){
-                                // this.tomatoColor = test.tc
-                                }
-                            })
                         }
                     },
-                    // onLeave: function() {
-                    //     gsap.to("#tomato6", {
-                    //         delay: 0.96,
-                    //         duration: 1.28,
-                    //         opacity: 1,
-                    //         ease: "power4.out"
-                    //     })
-                    // },
-                    onLeaveBack: function() {
-                        gsap.to("#body", {
-                            fill: "red",
+                    onLeave: () => {
+                        gsap.to(this.$data, {
+                            tomatoColor: "#2B0E38",
+                            duration: 1.28,
+                            onUpdate(){
+                                // this.tomatoColor = test.tc
+                            }
+                        })
+                    },
+                    onEnterBack: () => {
+                        gsap.to(this.$data, {
+                            tomatoColor: "tomato",
                             duration: 1.28,
                             onUpdate(){
                                 // this.tomatoColor = test.tc
@@ -512,12 +520,13 @@ export default defineComponent({
 
             const animation1 = gsap.to("#tomato6",{
                 scrollTrigger:{
-                    trigger: "#tomato6", // start the animation when ".box" enters the viewport (once)
+                    trigger: "#tomato6 ", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
                     start: "top top",
-                    end: "10% top",
+                    end: "+=128",
                     id:"6",
-                    // pin:true,
+                    scrub:true,
+                    pin:true,
                 },
                 opacity: 1
             })
@@ -808,8 +817,11 @@ export default defineComponent({
     display: flex;
     height: 100vh;
     justify-content: center;
-    opacity: 0;
+    align-items: flex-start;
+    // opacity: 0;
+
     .square-content {
+        background-color: rgba(0,255,2,.4);
         margin: auto;
         color: #fff;
         width: calc(100% + 32px);
@@ -829,9 +841,9 @@ export default defineComponent({
     
     @media all and (min-width: 768px) {
         .square-content {
-            width: 100%;
-            max-width: 564.5px;
-            transform: translateY(36px);
+            // width: 100%;
+            // max-width: 564.5px;
+            // transform: translateY(36px);
             color: #fff;
             aspect-ratio: 1/1;
         }
@@ -840,6 +852,23 @@ export default defineComponent({
             padding: 32px;
             font-size: 16px;
             line-height: 28px;
+        }
+    }
+    @media all and (max-height: 640px) {
+        p {
+            font-size: 14px;
+            line-height: 24px;
+        }
+    }
+
+    @media (orientation: landscape) {
+        .square-content {
+            max-width: 69.85vh;
+        }
+    }
+    @media (orientation: portrait) {
+        .square-content {
+            max-width: 80.333vw;
         }
     }
 }
