@@ -36,27 +36,26 @@ export default defineComponent({
         return {
             story: [
                 `In een wereld waarin er meer informatie wordt verspreid per minuut dan dat je in een leven tot je kunt nemen.
-                Is het niet verwonderlijk dat niet alle informatie even waardevol is. 
+                Is het niet verwonderlijk dat niet alle informatie even waardevol is.
                 Ja, ik kan je vertellen dat wombats de enige dieren ter wereld zijn die vierkante drollen poepen.
                 Of dat de afstand van onze planeet tot de maan minder dan 10x de omtrek van de aarde is.
                 Maar de kans is groot dat geen van deze informatie voor jou van grote waarde is.`
                 ,
-                `Als mens ben ik geïnteresseerd geraakt in wat het is dat iets waardevol maakt.
-                Binnen dit werk wil ik het daarbij hebben over een specifiek onderwerp: <strong>informatie</strong>.
-                Informatie — dan wel kennis — is iets waar we sinds de opkomst van digitale technologie een overschot aan hebben.
-                Het internet vormt daarbij de marktplaats voor het uitwisselen van deze (digitale) informatie.
-                De vraag komt voort uit de wens om bepaalde dingen te willen weten, en het aanbod vormt de informatie die we via websites en andere digitale media tot ons nemen.`
+                `Als persoon ben ik geïnteresseerd geraakt in wat het is dat iets waardevol maakt. 
+                Daarbij wil ik het hebben over een specifiek onderwerp:  <strong>informatie</strong>.
+                Informatie is iets waar we sinds de opkomst van digitale technologie een overschot aan lijken te hebben. 
+                Het internet vormt daarbij de marktplaats voor het uitwisselen van deze (digitale) informatie. 
+                De vraag komt voort uit de wens om bepaalde dingen te willen weten, 
+                en het aanbod vormt de informatie die we via haar websites en andere digitale producten tot ons nemen`
                 ,
-                `Er zijn vele partijen die in deze markt opereren, 
-                en er is een nog groter aanbod van individuen die bij deze partijen een rol vervullen. 
-                Ieder bericht dat je op een sociaal medium deelt, draagt bij aan de databank van dit platform.
+                `Er zijn vele partijen die in deze markt opereren, en er is een nog groter aanbod van individuen die bij deze partijen een rol vervullen. 
+                Ieder bericht dat je via een partij als een social media platform deelt, draagt bij aan de databank van dit platform. 
                 Hoe groter de hoeveelheid informatie die deze partij bezit, hoe waardevoller deze partij wordt.`
                 ,
-                `De komende 15 minuten wil ik je graag meenemen op een ontdekkingsreis naar de waardebepaling van deze informatie. 
-                Want het hebben van veel informatie staat niet gelijk aan het hebben van waardevolle informatie.
-                Wat maakt informatie immers goed of slecht?
-                Waarom vinden “we” het een belangrijker dan het ander?
-                En hoe wordt deze informatie <s><span class="__specialM">g</span><span class="__specialI">e</span><span class="__specialS">b</span></s>ruikt?`
+                `De komende 20 minuten wil ik je graag meenemen op een ontdekkingsreis door de waardebepaling van deze informatie. 
+                Want het hebben van veel informatie staat niet gelijk aan het hebben van waardevolle informatie. 
+                Wat maakt informatie immers goed of slecht? Waarom vinden “we” het een belangrijker dan het ander? 
+                En hoe wordt deze stroom van kennis <s><span class="__specialM">g</span><span class="__specialI">e</span><span class="__specialS">b</span></s>ruikt?`
             ],
             completed: false,
             scrollIndex: 0,

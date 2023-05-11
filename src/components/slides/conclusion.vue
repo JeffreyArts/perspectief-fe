@@ -10,61 +10,40 @@
         <div class="box-container" v-if="step == 1">
             <div class="box" id="box-1">
                 <p>
-                    Je standpunt beïnvloed de wijze waarop je informatie tot je neemt. 
-                    Informatie waarmee jouw beeld van de werkelijkheid wordt gevormd. 
-                    Dit standpunt is dynamisch en kan zowel via externe invloeden (media) als interne invloeden (humeur) wijzigen. 
-                    Wanneer een groep mensen een gedeeld standpunt hebben, dan delen zij eenzelfde waargenomen waarheid / realiteit.
+                    Je standpunt beïnvloed welke selectie van informatie je tot je neemt. 
+                    Met deze kennis wordt jouw beeld van de werkelijkheid gevormd. 
+                    Dit standpunt is dynamisch en kan door externe invloeden als <glitch 
+                            :duration="640" 
+                            :delay="2000" 
+                            :repeat="99999" 
+                            :opacity-duration="144" 
+                            :position-jumps="5" 
+                            :inputs="['media','cultuur','kunst']"
+                            :glitch-jumps="7" 
+                            :glitch-offset="3" /> worden beïnvloed. 
+                    Wanneer een groep mensen een gedeeld standpunt hebben, dan zullen zij eenzelfde waargenomen 
+                    <glitch 
+                            :duration="480" 
+                            :delay="2400" 
+                            :repeat="99999" 
+                            :opacity-duration="128" 
+                            :position-jumps="7" 
+                            :inputs="['waarheid','realiteit']"
+                            :glitch-jumps="6" 
+                            :glitch-offset="5" /> delen.
                 </p>
             </div>
             <div class="box __isLeft" id="box-2" @click="openBox2">
                 <p>
-                    Tot dusver heb ik het alleen nog maar gehad over wat perceptie is, 
-                    hoe het gevormd en beïnvloed kan worden en dat het invloed heeft op je waargenomen realiteit. 
-                    Maar ik heb het nog niet gehad waarom perceptie op zichzelf belangrijk is. 
-                    Dat wil ik graag uitleggen middels een ander abstract concept. 
-                    Het spectrum waaruit het <glitch 
-                            :duration="512" 
-                            :delay="2400" 
-                            :repeat="99999" 
-                            :opacity-duration="144" 
-                            :position-jumps="6" 
-                            :inputs="['goed','positief','zwart','links']"
-                            :glitch-jumps="4" 
-                            :glitch-offset="8" />
-                            / <glitch 
-                            :duration="512" 
-                            :delay="2400" 
-                            :repeat="99999" 
-                            :opacity-duration="144" 
-                            :position-jumps="8" 
-                            :inputs="['slecht','negatief','wit','rechts']"
-                            :glitch-jumps="8" 
-                            :glitch-offset="4" />
-                denkkader komt te ontstaan
+                    Tot dusver heb ik het alleen nog maar gehad over wat perceptie is, en hoe dat invloed heeft op je waargenomen realiteit. 
+                    Maar ik heb het nog niet gehad over de waarde van perceptie zelf.
                 </p>
             </div>
             <div class="box" id="box-3" @click="openBox3">
                 <p>
-                    Dit wil ik je graag laten zien door hetzelfde onderwerp (de sociale-media bubbel) vanuit 3 verschillende standpunten te beschrijven.
-                    Met daaropvolgend 3 verschillende spectra waarop het <glitch 
-                            :duration="512" 
-                            :delay="2400" 
-                            :repeat="99999" 
-                            :opacity-duration="144" 
-                            :position-jumps="6" 
-                            :inputs="['goed','positief','zwart','links']"
-                            :glitch-jumps="4" 
-                            :glitch-offset="8" />
-                            / <glitch 
-                            :duration="512" 
-                            :delay="2400" 
-                            :repeat="99999" 
-                            :opacity-duration="144" 
-                            :position-jumps="8" 
-                            :inputs="['slecht','negatief','wit','rechts']"
-                            :glitch-jumps="8" 
-                            :glitch-offset="4" /> kader komt te ontstaan. 
-                    Neem deze alle 3 even tot je op, daarna wil ik je uit leggen welke waarde er zit in het bepalen van deze denkkaders
+                    Dit wil ik je graag laten zien door middel van eenzelfde onderwerp te belichten vanuit steeds een ander standpunt. 
+                    Neem deze 3 verschillende standpunten even tot je op. 
+                    Daarna wil ik hem graag met je afsluiten en je uitnodigen om jouw standpunt over de waarde van perceptie te delen.
                 </p>
             </div>
         </div>
@@ -182,18 +161,36 @@
             <div class="container">
                 <div class="welcome-back-box">
                     <h1>Welkom terug</h1>
-                    <p>De reden waarom ik je dit heb willen laten zien, is omdat alle drie de standpunten een eigen spectrum creëren van goed/slecht. 
-                        Wat vanuit het ene standpunt goed lijkt te zijn, kan slecht worden wanneer je ander standpunt inneemt. 
-                        Wanneer je niet wisselt tussen verschillende perspectieven en je niet actief bezig bent om je eigen waarneming te betwisten, 
-                        maak je niet alleen je eigen perspectief smaller het maakt het ook moeilijker om de waargenomen realiteit van de ander te begrijpen. 
-                        Het internet biedt als medium de mogelijkheid om mensen met  afwijkende standpunten met elkaar te verbinden, 
-                        maar de platformen die op dit moment het internet domineren, verzaken hierin. Dat is mijn motivatie om deze tool te ontwikkelen. 
-                        Niet alleen om je te laten zien dat perceptie waardevol is door te laten zien hoe het je waargenomen realiteit beïnvloed, 
-                        maar ook om je de mogelijkheid te geven om jouw standpunt te delen en je perceptie te verbreden, om zo tot nieuwe collectieve waarheden te komen.
+                    <p>
+                        Ik hoop dat ik je met dit verhaal heb kunnen meenemen in mijn persoonlijke standpunt over perceptie en de wijze waarop ik mijn waargenomen realiteit cureer. 
+                        Niet alleen door je te vertellen over hoe ik naar de vorming van kennis kijk, 
+                        maar ook door je te laten zien hoe perceptie je opinie kan beïnvloeden, 
+                        en daarmee het spectrum waarop je voor- of tegenstander bent over een bepaald onderwerp bepaalt. 
+                        Misschien vond je mijn hele verhaal een huis met enkelt open deuren, 
+                        maar hopelijk heeft het je een nieuwe blik gegeven op de manier waarop jij je eigen realiteit kunt vormgeven. 
+                    </p>
+                    <p>
+                        Ik ben in ieder geval blij om te zien dat je dit alles je voldoende geboeid heeft om tot dit einde te komen, 
+                        en zou dan ook graag jouw perceptie over dit onderwerp willen horen.
+                    </p>
+                    <p class="welcome-back-greetings">
+                        <glitch 
+                            :duration="720" 
+                            :delay="3200" 
+                            :repeat="99999" 
+                            :opacity-duration="128" 
+                            :position-jumps="7" 
+                            :inputs="['Veel liefs',' Muchos gracias','  Merci beaucoup',' Bedankt & tot ziens']"
+                            :glitch-jumps="6" 
+                            :glitch-offset="8" />
+                            <span class="welcome-back-writing">
+                                <img src="/images/jeffrey-arts-signature.png" alt="Jeffrey Arts">
+                            </span>
                     </p>
 
+
                     <div class="button-container">
-                        <button class="button" @click="finishPage">Start exploratie</button>
+                        <button class="button small" @click="finishPage">Deel jouw perspectief</button>
                     </div>
                 </div>
             </div>
@@ -1293,15 +1290,50 @@ export default defineComponent({
         }
         
         .button-container {
-            margin-top: 32px;
+            margin-top: 24px;
+            margin-bottom: 16px;
             width: 100%;
             text-align: center;
+            .small {
+                font-size: 12px;
+                background-color: #fff;
+                color: $black;
+                &:hover,
+                &:focus {
+                    background-color: $black;
+                    color: #fff;
+                }
+            }
         }
 
 
         button {
             display: inline-block;
             min-width: 210px;
+        }
+    }
+
+    .welcome-back-greetings {
+        margin-top: 32px;
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        font-family: $accentFont;
+        span {
+            font-size: 28px;
+            @media all and (min-width: 480px) {
+                font-size: 32px;
+            }
+        }
+        @media all and (min-width: 720px) {
+            align-items: flex-end;
+        }
+        img {
+            margin-top: 24px;
+            width: 128px;
         }
     }
 }
