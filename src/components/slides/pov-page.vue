@@ -32,8 +32,8 @@
             </h1>
 
             <div ref="content">
-                <tomaat v-if="typeIndex == 1" @completed="nextPage" />
-                <pen v-if="typeIndex == 0" @completed="nextPage" />
+                <tomaat v-if="typeIndex == 0" @completed="nextPage" />
+                <pen v-if="typeIndex == 1" @completed="nextPage" />
             </div>
         </div>
     </div>

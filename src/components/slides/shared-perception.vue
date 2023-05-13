@@ -289,7 +289,7 @@ export default defineComponent({
     methods: {
         getMessages() {
             const limit = 64
-            fetch(`${import.meta.env.VITE_REST_API}/messages?_limit=64`, {
+            fetch(`${import.meta.env.VITE_REST_API}/perceptie-messages?_limit=64`, {
                 method: "GET",
                 headers: {
                     authorization: `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
@@ -326,10 +326,11 @@ export default defineComponent({
             document.querySelector(".pov-page-container")?.classList.add("__isHidden")
             
             if (this.formInput)  {
-                fetch(`${import.meta.env.VITE_REST_API}/perception-messages`, {
+                fetch(`${import.meta.env.VITE_REST_API}/perceptie-messages`, {
                     method: "POST",
                     headers: {
-                        authorization: `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
+                        "Authorization": `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         data: {
@@ -775,7 +776,6 @@ export default defineComponent({
                     // markers: true,
                 }
             })
-            console.log("asdf", this.animations.length)
             
             const animation2 = gsap.to("#square-2",  {
                 x: 0,

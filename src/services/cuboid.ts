@@ -3,7 +3,7 @@ import * as THREE from "three"
 import Line from "@/services/line"
 import {PolylineAlgorithm} from "visual-pattern-generator"
 import gsap from "gsap"
-import { VPGSymbol, VPGConfig, VPGCord, VPGMask, CubeDimensions} from "@/../types"
+import { VPGSymbol, VPGConfig, VPGCord, vpgLine,  VPGMask, CubeDimensions} from "@/../types/vpg"
 
 
 /* cuboidProps = object {
@@ -55,34 +55,31 @@ const algorithmConfig = {
 } as VPGConfig
 
 const Cuboid  = {
-    create: (cubeDimensions = {width: 0, height:0, depth:0}, cuboidProps = {maxLines: 1024, name: "cuboid", color: "#000000"}) => {
+    create: (cubeDimensions = {width: 0, height:0, depth:0} as CubeDimensions, cuboidProps = {maxLines: 1024, name: "cuboid", color: "#000000"} as {maxLines?: number | undefined, name: string, color?:string}) => {
         
         if (cubeDimensions.width == 0 && cubeDimensions.height == 0 && cubeDimensions.depth == 0){
             console.error("Missing required 1st parameter 'cubeDimensions'")
             return
         }
-        if (cuboidProps.maxLines <= 0 || !cuboidProps.maxLines){
+        if (!cuboidProps.maxLines || cuboidProps.maxLines <= 0){
             console.error("Missing required property 'maxLines' for 2nd paramater 'cuboidProps'")
             return
         }   
         
         const cuboid = new THREE.Group()
-        cuboid.material = new THREE.MeshLambertMaterial({color: cuboidProps.color, wireframe: false})
+        const material = new THREE.MeshLambertMaterial({color: cuboidProps.color, wireframe: false})
+
         cuboid.name = cuboidProps.name
         
-        const lineData = Line.getLineDataObject()
+        const lineData = Line.getLineDataObject() as vpgLine
         let line = null
         
         for (let index = 0; index < cuboidProps.maxLines; index++) {
-            line = Line.create(lineData, {
-                width: cubeDimensions.width, 
-                height: cubeDimensions.height, 
-                depth: cubeDimensions.depth
-            })
+            line = Line.create(lineData, cubeDimensions) as any
             line.rotation.setFromVector3( line.data.rotation )
             line.position.copy( line.data.position )
             line.scale.copy( line.data.scale )
-            line.material = cuboid.material
+            line.material = material
             cuboid.add(line)
         }
 
@@ -151,7 +148,7 @@ const Cuboid  = {
         }
         return helperCube
     },   
-    get: (nameOrId : string, scene : THREE.scene) => {
+    get: (nameOrId : string | number, scene : THREE.Scene) => {
         let cuboid = _.find(scene.children, {name: nameOrId})
 
         if (!cuboid) {
@@ -165,16 +162,17 @@ const Cuboid  = {
         type:"abstract" | "non-identity" | "identity" | "open", 
         seed:string
     ) => {
-        const cuboidLines = []         
+        const cuboidLines = [] as Array<vpgLine>         
         const lineData = {
             color:"#ffffff",
             thickness: 0.25,
             length: 0,
             polyline: [],
-            scale: {},
-            rotation: {},
-            position: {}
-        }
+            scale: THREE.Vector3,
+            rotation: THREE.Vector3,
+            position: THREE.Vector3
+        } as any
+
         let query
         const queryPlaceholder = {
             left: null,
@@ -183,7 +181,7 @@ const Cuboid  = {
             bottom: null,
             back: null,
             front: null,
-        }
+        } as any
 
 
 
@@ -377,7 +375,7 @@ const Cuboid  = {
 
             // Add Side
             _.each(polylines, polyline => {
-                const line = Line.update(lineData, {polyline: polyline, side: side, thickness: lineData.lineThickness}, cubeDimensions)
+                const line = Line.update(lineData, {polyline: polyline, side: side, thickness: lineData.thickness}, cubeDimensions as CubeDimensions) as any
 
                 line.position.x -= (cubeDimensions.width - 1 ) /2
                 line.position.z -= (cubeDimensions.depth - 1 ) /2
@@ -386,13 +384,13 @@ const Cuboid  = {
         })
         
         // Remove duplicates
-        return _.uniqBy(cuboidLines, (cl) => {
+        return _.uniqBy(cuboidLines, (cl: any) => {
             return `${cl.position.x}, ${cl.position.y}, ${cl.position.z}, ${cl.data.length}`
         })
     },
-    update: (cuboid: THREE.Mesh, props = {
+    update: (cuboid: any, props = {
         delay: 0, 
-        cuboidLines: [], 
+        cuboidLines: [] as Array<any>, 
         transition: "linear" as string, 
         duration: 0
     }) => {
@@ -418,7 +416,7 @@ const Cuboid  = {
             }
             
             // Update data property
-            cuboid.children[lineIndex].data = props.cuboidLines[lineIndex].data
+            cuboid.children[lineIndex].data = props.cuboidLines[lineIndex].data as any
 
             setTimeout(() => {
                 gsap.to(cuboid.children[lineIndex].scale, {
@@ -452,7 +450,7 @@ const Cuboid  = {
         })
             
     },
-    remove: (cuboid) => {
+    remove: (cuboid: any) => {
         for (let i = cuboid.children.length - 1; i >= 0; i--) {
             if(cuboid.children[i].type === "Mesh") {
                 cuboid.children[i].geometry.dispose()

@@ -275,6 +275,13 @@ export default defineComponent({
 <style lang="scss">
 @import "@/assets/scss/variables.scss";
 .pen-container {
+    a {
+        color: #2278EB;
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
 }
 
 .pen-intro-container {

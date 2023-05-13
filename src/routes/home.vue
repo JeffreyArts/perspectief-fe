@@ -15,7 +15,6 @@
 <script lang="ts">
 import {defineComponent} from "vue"
 import LocalDB from "@/stores/localdb"
-import SocketIO from "@/stores/socketio"
 import bigQuote from "@/components/slides/big-quote.vue"
 import welcomePage from "@/components/slides/welcome-page.vue"
 import introductionPage from "@/components/slides/introduction-page.vue"
@@ -32,9 +31,8 @@ export default defineComponent ({
     props: [],
     setup() {
         const localDB = LocalDB()
-        const socketIO = SocketIO()
 
-        return { localDB, socketIO }
+        return { localDB }
     },
     data() {
         return {

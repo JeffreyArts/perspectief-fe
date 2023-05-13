@@ -1,6 +1,7 @@
 import _ from "lodash"
 import * as THREE from "three"
 import degreesToRadians from "@/services/degrees-to-radians.js"
+import { vpgLine, CubeDimensions } from "@/../types/vpg"
 
 /* lineObject = object {
     start: {
@@ -21,7 +22,7 @@ import degreesToRadians from "@/services/degrees-to-radians.js"
 */
 
 const Line  = {
-    create: (line, cube) => {
+    create: (line: vpgLine, cube: CubeDimensions) => {
         if (!line.color) {
             line.color = "#ffffff"
         }
@@ -30,7 +31,7 @@ const Line  = {
         }
 
         const geometry = new THREE.BoxGeometry(1,1,1)
-        const lineObject = new THREE.Mesh(geometry)
+        const lineObject = new THREE.Mesh(geometry) as any
         lineObject.data = line
         lineObject.data.length = Line.getLength(lineObject)
         lineObject.data.position = Line.getPosition(lineObject, cube)
@@ -39,14 +40,14 @@ const Line  = {
         // lineObject.visible = false;
         return lineObject
     },
-    update: (lineData, props, cube) => {
+    update: (lineData: vpgLine, props: any, cube: CubeDimensions) => {
         const line = Line.create(_.merge({}, lineData, props), cube)
         line.rotation.setFromVector3( line.data.rotation )
         line.position.copy( line.data.position )
         line.scale.copy( line.data.scale )
         return line
     },
-    updateFromPolyline: (line) => {
+    updateFromPolyline: (line: any) => {
         line.data.start = {
             x: line.data.polyline[0].x,
             y: line.data.polyline[0].y
@@ -58,7 +59,7 @@ const Line  = {
         }
         delete line.data.polyline
     },
-    getLength: (line) => {
+    getLength: (line: any) => {
         if (line.data.polyline) {
             Line.updateFromPolyline(line)
         }
@@ -69,12 +70,12 @@ const Line  = {
         }
         return length
     },
-    getScale: (line) => {
+    getScale: (line: any) => {
         const result = new THREE.Vector3(line.data.thickness,line.data.thickness,line.data.thickness)
         result.x = (line.data.length + line.data.thickness) * (1/line.data.thickness) * line.data.thickness
         return result
     },
-    getRotation: (line) => {
+    getRotation: (line: any) => {
         if (line.data.polyline) {
             Line.updateFromPolyline(line)
         }
@@ -119,30 +120,7 @@ const Line  = {
         }
         return result
     },
-    getOrientation: (line) => {
-        const orientation = {
-            x: null,
-            y: null,
-            z: null
-        }
-        // orientation = true 
-        // when the direction of the line is in line with the axis
-        if (line.data.side == "front" || line.data.side == "back") {
-            orientation.x = line.data.start.x == line.data.end.x
-            orientation.y = line.data.start.y == line.data.end.y
-            orientation.z = false
-        } else if (line.data.side == "left" || line.data.side == "right") {
-            orientation.x = false
-            orientation.y = line.data.start.y == line.data.end.y
-            orientation.z = line.data.start.x == line.data.end.x
-        } else if (line.data.side == "bottom" || line.data.side == "top") {
-            orientation.x = line.data.start.x == line.data.end.x
-            orientation.y = false
-            orientation.z = line.data.start.y == line.data.end.y
-        }
-        return orientation
-    },
-    getPosition: (line, cube) => {
+    getPosition: (line: any, cube:CubeDimensions) => {
         if (line.data.polyline) {
             Line.updateFromPolyline(line)
         }
@@ -163,7 +141,7 @@ const Line  = {
                 result.y = line.data.start.y
             }
         }  else if (line.data.side == "back") {
-            var startX = cube.width -1
+            const startX = cube.width - 1
             result.z = 0
             if (line.data.start.y > line.data.end.y) {
                 result.x = startX - line.data.start.x
@@ -194,7 +172,7 @@ const Line  = {
                 result.y = line.data.start.y
             }
         } else if (line.data.side == "right") {
-            var startX = cube.depth -1
+            const startX = cube.depth -1
             result.x = cube.width - 1 
             if (line.data.start.y > line.data.end.y) {
                 result.z = startX - line.data.start.x

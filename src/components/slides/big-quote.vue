@@ -186,31 +186,9 @@ export default defineComponent({
                     }
                 })
         })
-
-        this.continueButton = setTimeout(()=> {
-            gsap.to(".continue-button", {
-                blur: 0,
-                opacity: 1,
-                duration: 3.2,
-                ease: "power2.inOut",
-            })
-        }, 6400)
     },
     methods: {
         moveState() {
-            clearTimeout(this.continueButton)
-            
-            // Cancel continue-button animation
-            gsap.killTweensOf(".continue-button")
-            
-            // Fade continue button out
-            gsap.to(".continue-button", {
-                blur: 0,
-                opacity: 0,
-                duration: 1.024,
-                ease: "power2.inOut",
-            })
-
             if (this.gTimeline && this.state === 0) {
                 this.gTimeline.kill()
                 this.gTimeline.pause()

@@ -16,8 +16,16 @@
     "suppressImplicitAnyIndexErrors": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "noEmitOnError": false
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/assets/gsap/MorphSVGPlugin.js"],
+  "include": [
+    "src/**/*.ts", 
+    "src/**/*.d.ts", 
+    "src/types/three-env.d.ts", 
+    "src/**/*.tsx", 
+    "src/**/*.vue", 
+    "src/assets/gsap/MorphSVGPlugin.js"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

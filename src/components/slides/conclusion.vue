@@ -207,12 +207,11 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import { gsap } from "gsap"
+import { Vector3 } from "three"
 import * as THREE from "three"
-import { OrbitControls } from "@/../node_modules/three/examples/jsm/controls/OrbitControls.js"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 import Cuboid from "@/services/cuboid.js"
 import view from "@/services/3d-view.js"
-import degreesToRadians from "@/services/degrees-to-radians.js"
 import { InteractionManager } from "three.interactive"
 
 import Glitch from "@/components/glitch.vue"
@@ -241,12 +240,12 @@ export default defineComponent({
                 three.camera,
                 three.renderer.domElement
             ),
-            allCuboids: [],
+            allCuboids: [] as Array<any>,
             clickTimeout: 0,
             ignoreScroll: false,
             mouseDown: false,
             seed: Math.floor(Math.random()*9000+1000).toString(),
-            sensitivity: "abstract",
+            sensitivity: "abstract" as "abstract" | "non-identity" | "identity" | "open",
             sensitivityScales: ["abstract","non-identity","identity","open"],
             activeCuboid: null as null | THREE.Mesh,
             initialised: false,
@@ -532,7 +531,9 @@ export default defineComponent({
 
             // Cuboid animation
             setTimeout(() => {
-                this.moveToCuboid(this.activeCuboid)
+                if (!_.isNull(this.activeCuboid)) {
+                    this.moveToCuboid(this.activeCuboid)
+                }
             }, 1200)
 
             gsap.to(".cuboid-container", {
@@ -757,11 +758,11 @@ export default defineComponent({
 
             this.page = index
             if (index === 0) {
-                this.moveToPoint( {x:225,y:225,z:0}, {x:0,y:2.5,z:0})
+                this.moveToPoint( {x:225,y:225,z:0} as Vector3, {x:0,y:2.5,z:0} as Vector3)
             } else if (index === 1) {
-                this.moveToPoint( {x:0,y:90,z:270}, {x:0,y:2.5,z:0})
+                this.moveToPoint( {x:0,y:90,z:270} as Vector3, {x:0,y:2.5,z:0} as Vector3)
             } else if (index === 2) {
-                this.moveToPoint( {x:220,y:0,z:220}, {x:0,y:2.5,z:0})
+                this.moveToPoint( {x:220,y:0,z:220} as Vector3, {x:0,y:2.5,z:0} as Vector3)
             }
 
             this.ignoreScroll = true
@@ -778,7 +779,7 @@ export default defineComponent({
 
             // Rendering scene
             var that = this
-            function animate(index) {
+            function animate() {
                 if (!that.animation) {
                     return
                 }
@@ -867,7 +868,7 @@ export default defineComponent({
             three.camera.top = height
             three.camera.left = -width
             three.camera.right = width
-            three.camera.zoom = cuboidElement.offsetWidth/6
+            three.camera.zoom = cuboidElement.offsetWidth/4
 
             three.camera.updateProjectionMatrix()
         },
@@ -877,9 +878,9 @@ export default defineComponent({
                 x:5,
                 y:5,
                 z:5,
-            }
-   
-            let newCuboid = Cuboid.create(cubeDimensions, {name: `cuboid-${id}`, maxLines: 320})
+            } as any
+    
+            let newCuboid = Cuboid.create(cubeDimensions, {name: `cuboid-${id}`,color: "#000000", maxLines: 320}) as any
             newCuboid.material.color = "#000000"
             newCuboid.material.transparent = true
             newCuboid.material.opacity = 0
@@ -888,9 +889,12 @@ export default defineComponent({
 
             _.each(newCuboid.children, lineObject => {
                 this.interactionManager.add(lineObject)
-                lineObject.addEventListener("mousedown", (event) => {
+                lineObject.addEventListener("mousedown", (event: any) => {
                     clearTimeout(this.clickTimeout)
                     event.stopPropagation()
+                    if (!event.target || !event.target.parent) {
+                        return
+                    }
 
                     var cuboid = event.target.parent
                     if (!cuboid.visible) {
@@ -906,13 +910,13 @@ export default defineComponent({
             three.camera.lookAt((cubeDimensions.width-1)/2, (cubeDimensions.height-1)/2, (cubeDimensions.depth-1)/2)
             return newCuboid
         },
-        updateMap(firstLoad) {
+        updateMap(firstLoad:boolean) {
             this.seed = Math.floor(Math.random() * 9000 + 1000).toString()
             let faceDimensions = {
                 x: this.sensitivity == "open" ? 7 : 5,
                 y: this.sensitivity == "open" ? 7 : 5,
                 z: this.sensitivity == "open" ? 7 : 5,
-            }
+            } as any
             const offset = faceDimensions.x/2
             let totalCuboids = 0
             let update = false
@@ -921,13 +925,13 @@ export default defineComponent({
             for (let x = 0; x < this.map.length; x++) {
                 for (let z = 0; z < this.map[x].length; z++) {
                     if (this.map[x][z] == 1) {
-                        let currentCuboid = this.allCuboids[totalCuboids]
+                        let currentCuboid = this.allCuboids[totalCuboids] as any
 
                         if (currentCuboid) {
                             currentCuboid.cuboidLines = Cuboid.generateCuboidLines(faceDimensions, this.sensitivity, this.seed + totalCuboids)
                             update = true
                         } else {
-                            currentCuboid = this.createCuboid(`${x}-${z}`, this.sensitivity)
+                            currentCuboid = this.createCuboid(`${x}-${z}`)
                             currentCuboid.position.set(x * offset, 0, z * offset)
                             currentCuboid.cuboidLines = Cuboid.generateCuboidLines(faceDimensions, this.sensitivity, this.seed + totalCuboids)
 
@@ -958,7 +962,7 @@ export default defineComponent({
                 this.initialised = true
             })
         }, 
-        moveToPoint(cameraPosition, centerPoint) {
+        moveToPoint(cameraPosition: THREE.Vector3, centerPoint: THREE.Vector3) {
             return new Promise((resolve) => {
                 this.clickTimeout = setTimeout(() => {
                     if (!this.mouseDown) {

@@ -1,5 +1,4 @@
 import * as THREE from "three"
-import { OrbitControls } from "@/../node_modules/three/examples/jsm/controls/OrbitControls.js"
 
 
 const view3D  = {
@@ -15,7 +14,7 @@ const view3D  = {
             powerPreference: "low-power",
             antialias: true
         })
-        const scene             = new THREE.Scene()
+        const scene = new THREE.Scene() as any
 
         renderer.setSize( window.innerWidth*.8, window.innerHeight*.8 )
         // renderer.physicallyCorrectLights = true;
