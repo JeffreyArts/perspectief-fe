@@ -15,6 +15,17 @@ $ yarn dev
 
 Note: This project uses Greensock plugins that are not publicly available. In order to install this project completely, you will need to add `gsap-bonus.tgz` into the root of your project. This file can be obtained via https://greensock.com with a valid Club membership. In order to respect their license, this file is not included in this repo. More info can be found on how to get and install this file can be found [here](https://youtu.be/5nxNuVJxBaM?t=195).
 
+## Configuration
+
+Create a .env file with the following variables:
+```
+VITE_REST_API=
+VITE_REST_AUTH_TOKEN=
+```
+This project communicates with the [jeff-api](https://github.com/JeffreyArts/jeffapi) backend. The `VITE_REST_API` variable should refer to the Strapi server endpoint. The `VITE_REST_AUTH_TOKEN` should contain the value of an API Token that you can create in the admin panel of jeff-api back-end. Create an API Token over here that has only access to the `find`, `findOne` & `create` for the **Perceptie message** content type, and set the token duration to unlimited.
+
+
+
 To build the project for production, run the following command:
 ```
 $ npm run build 
