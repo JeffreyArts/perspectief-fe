@@ -18,7 +18,7 @@
                 </div>
                 <div class="carousel-cell card" ref="cell">
                     <p>
-                        Een gedeeld standpunt van een (waargenomen) waarheid of realiteit.
+                        Een gedeeld standpunt van een waargenomen waarheid, dan wel realiteit.
                     </p>
                 </div>
                 <div class="carousel-cell card" ref="cell">
@@ -31,7 +31,7 @@
                         :position-jumps="4" 
                         :inputs="['pen', 'tomaat']"
                         :glitch-jumps="6" 
-                        :glitch-offset="8" /> definieert. 
+                        :glitch-offset="8" /> definieert.
                         Ontstaat er een collectieve perceptie, en daaropvolgend een collectieve definitie van waarde voor een <glitch 
                         :duration="480" 
                         :delay="3200" 
@@ -56,8 +56,8 @@
         <div class="slide" id="slide-1">
             <p class="card">
                 Deze waarnemingen vormen onze waargenomen realiteit. 
-                In ons hoofd zijn we echter niet in staat om een onderscheid te maken tussen onze waargenomen realiteit, 
-                en de echte realiteit. De realiteit komt via onze <glitch 
+                In ons bewuste brein zijn we echter niet in staat om onderscheid te maken tussen onze waargenomen realiteit, en de echte realiteit. 
+                De echte realiteit komt via onze <glitch 
                         :duration="480" 
                         :delay="3200" 
                         :repeat="777" 
@@ -66,8 +66,9 @@
                         :inputs="['zintuigen', 'sensoren']"
                         :glitch-jumps="6" 
                         :glitch-offset="8" /> binnen, waarop onze hersenen deze datastroom vervolgens verwerken. 
-                Dit is veelal een passief proces. We kunnen weliswaar onze waarnemingen betwisten, maar met de overvloed aan informatie waar we mee 
-                geconfronteerd worden iedere dag, is het onleefbaar om iedere waarneming actief te betwisten.
+                Dit is veelal een passief proces. 
+                We kunnen weliswaar onze waarnemingen betwisten, maar met de overvloed aan informatie waar we iedere dag mee geconfronteerd worden, 
+                is het onleefbaar om iedere individuele waarneming actief te betwisten. 
             </p>
         </div>
 
@@ -92,7 +93,7 @@
             <div class="square" id="square-3">
                 <div class="card">
                     <p>
-                        Een standpunt kan immers verschuiven.
+                        Een standpunt staat immers niet vast, en kan verschuiven.
                     </p>
                 </div>
             </div>
@@ -113,7 +114,7 @@
 
                             <div class="first-section"  :class="[tvSection == 1 ? '__isVisible' : '']">
                                 <p>
-                                    in de 20e eeuw namen massa-media zoals radio & televisie deze rol gestaag over
+                                    In de 20e eeuw namen massa-media zoals radio &amp; televisie deze rol gestaag over
                                 </p>
                             </div>
                             
@@ -173,7 +174,7 @@
                     Wanneer iedereen vanuit eenzelfde perspectief naar een zelfde onderwerp kijkt
                 </div>
                 <div class="ball __isSmall" id="ball-2">
-                    zal iedereen tot een zelfde conclusie komen
+                    Zal iedereen tot een zelfde realiteit uitkomen
                 </div>
                 <div class="ball" id="ball-3">
                     De opkomst van het internet en de digitale media
@@ -194,17 +195,24 @@
                 <div class="slot-stuk-content">
                     <div class="slot-stuk-content-center">
                         <p>
-                            Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
-                            Dit leidt tot een groei van diversiteit in collectieve standpunten. 
-                            Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
-                            Waarbij de informatie die het verspreid, vanuit een nog kleiner aantal standpunten wordt gedeeld. 
-                            Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media.
-                            Maar met het internet heeft nu iedere collectieve waarheid de mogelijkheid om vanuit het standpunt hun perceptie op de wereld te delen.
+                            Het wereldwijde web heeft namelijk een eigenschap waarmee het zichzelf fundamenteel onderscheid van de eerder genoemde media. 
+                            Het biedt namelijk de mogelijkheid voor twee-richting verkeer van informatie. 
+                            De ontvanger van informatie kan via dit medium namelijk ook als de zender van informatie fungeren. 
+                            In het begin van het internet moest de zender veel technologische kennis hebben om dit te kunnen doen. 
+                            Maar naarmate het web zich verder ontwikkelde, zijn de drempels zo laag geworden dat praktisch iedereen die informatie kan ontvangen via dit netwerk, dit ook verzenden. 
                         </p>
                         <p>
-                            De websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
-                            Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
-                            Bieden ze nog altijd de ruimte voor een diverser spectrum aan standpunten dan dat de eerdere media dit (konden) aanbieden.
+                            Doordat deze drempel zo laag is geworden is de groei van deelnemers aan dit netwerk sterk toegenomen, 
+                            en daarmee ook de diversiteit in <glitch 
+                            :duration="480" 
+                            :delay="3200" 
+                            :repeat="777" 
+                            :opacity-duration="144" 
+                            :position-jumps="4" 
+                            :inputs="['verschillende', 'afwijkende']"
+                            :glitch-jumps="6" 
+                            :glitch-offset="8" /> standpunten. 
+                            Hiermee ontstaan er meer collectieve waarheden dan dat dit in het begin van de 20e eeuw het geval was.
                         </p>
                     </div>
                     
@@ -915,12 +923,6 @@ export default defineComponent({
                         y: "-100vh",
                         delay:.32,
                         duration: .8,
-                        onComplete: () => {
-                            this.cancelAnimations()
-                            setTimeout(() => {
-                                this.setupAnimations()
-                            })
-                        }
                     })
                 }
             }
@@ -932,10 +934,15 @@ export default defineComponent({
             this.changeCarousel()
         },
         cancelAnimations() {
-            console.log("cancel Animations")
+
             this.animations.forEach((animation) => {
                 animation.kill()
             })
+            ScrollTrigger.getAll().forEach(instance => {
+                instance.kill() // destroy the ScrollTrigger instance
+            })
+            
+            console.log("KILL")
             this.animations.length = 0
         },
         setupAnimations() {
@@ -943,6 +950,7 @@ export default defineComponent({
             this.slide3()
             this.slide4()
             this.tvSlide()
+            console.log("SETUP")
         }
     }
 })

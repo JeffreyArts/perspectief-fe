@@ -5,11 +5,11 @@
                 <div class="pen-intro-container">
                     <p class="pen-intro">
                         <split-characters id="intro-1" class="pen-intro-section">
-                            De informatie omtrent een pen bestaat uit vele verschillende data
+                            De informatie omtrent een pen bestaat uit vele verschillende datapunten
                         </split-characters>
-                        <split-characters class="pen-intro-section" id="intro-2">, van visueel zichtbare datapunten zoals de kleur van de pen</split-characters>
-                        <split-characters class="pen-intro-section" id="intro-3">, of de pen voor links- of rechtshandigen gemaakt is</split-characters>
-                        <split-characters class="pen-intro-section" id="intro-4">, of wat voor type pen het is</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-2">, van visueel zichtbare eigenschappen zoals de kleur van de pen</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-3">, wat voor type pen het is</split-characters>
+                        <split-characters class="pen-intro-section" id="intro-4">, of dat de pen voor links- of rechtshandigen is gemaakt</split-characters>
                         <split-characters class="pen-intro-section" id="intro-5">. Maar ook minder expliciet zichtbare dingen behoren tot de (meta-)informatie omtrent een pen. Zo is er bijvoorbeeld een verband met papier, heeft de pen wellicht emotionele waarde, of gebruik je het voor een speciaal ritueel.</split-characters>
                     </p>
 
@@ -30,27 +30,25 @@
                     <div class="pen-text-container">
                         <p>
                             Jouw standpunt is daarom relevant bij de kennisvorming over een pen. 
-                            Misschien vind jij de kleur zeer belangrijk, of vind je het idee van een pen met emotionele waarde onnozele onzin. 
+                            Misschien vind jij de kleur zeer belangrijk, of vind je het idee van een pen met emotionele waarde onnozele onzin.
                             Het standpunt in relatie tot de pen is dan ook voor de ene persoon anders dan de ander.
                         </p>
                         <p>
-                            Zo ontstaat bij mij tijdens het schrijven van deze tekst over een pen, 
-                            de correlatie met de film: the Wolf of Wallstreet. 
-                            Deze film sluit af met een presentatie van de hoofdrolspeler Jordan Belfort, 
-                            waarin hij de vraag: “kun je mij deze pen verkopen?” stelt aan zijn publiek.
+                            Zo ontstaat bij mij tijdens het schrijven van deze tekst over een pen, de correlatie met de film: the Wolf of Wallstreet.
+                            Deze film wordt afgesloten met een presentatie van de hoofdrolspeler waarin hij de vraag: “kun je mij deze pen verkopen?” stelt aan een publiek.
                         </p>
                         <p>
                             In de film komt er geen antwoord op deze vraag, 
-                            maar in een interview legt hij uit dat het erom gaat dat je als verkoper wilt weten 
-                            wat de potentiële klant belangrijk vind, waar hecht deze waarde aan. 
-                            Met andere woorden, wat is zijn of haar standpunt?
+                            maar in <a href="https://www.youtube.com/watch?v=vbQPxhIcFaQ" target="_blank">diverse online video's</a>, 
+                            legt Jordan Belfort uit dat het erom gaat dat je als verkoper wilt weten wat je potentiële klant belangrijk vind, 
+                            waar hecht deze waarde aan. Met andere woorden, wat is zijn of haar standpunt?
                         </p>
                     </div>
 
                     <div class="pen-text-footer">
                         <p>
-                            Dit standpunt wordt gevormd door allerlei verschillende (meta-)informatie, 
-                            maar het is vooral belangrijk om even uit te zoomen en je te realiseren dat wat een pen voor jou waard is, 
+                            Je standpunt wordt dus gevormd door allerlei verschillende (meta-)informatie, 
+                            dus het is belangrijk om even uit te zoomen en je te realiseren dat wat een pen voor jou waard is, 
                             niets te maken heeft met de waarde van de pen zelf.
                         </p>
                     </div>
@@ -215,6 +213,10 @@ export default defineComponent({
                     opacity: 1,
                     stagger: 0.016,
                 })
+                .to(this.$el.querySelectorAll("#intro-4 .character"), {
+                    opacity: 1,
+                    stagger: 0.016,
+                })
                 .fromTo(this.$el.querySelectorAll(".svg-pen"),{
                     rotation: 24,
                 },{ 
@@ -228,10 +230,6 @@ export default defineComponent({
                     duration: 0.96,
                     x: 128,
                     ease: "circ.out"
-                })
-                .to(this.$el.querySelectorAll("#intro-4 .character"), {
-                    opacity: 1,
-                    stagger: 0.016,
                 })
                 .to(this.$el.querySelectorAll(".__isActive"), {
                     morphSVG: {shape: ".balpen"}, 

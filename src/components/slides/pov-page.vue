@@ -2,7 +2,7 @@
     <div class="pov-page-container" ref="container">
         <div class="pov-page" ref="scrollContainer">
             <div class="pov-intro-block" ref="intro-block">
-                <p>Wanneer informatie een verzameling van kennis is welk betrekking heeft tot een onderwerp. 
+                <p>Wanneer kennis de verzameling van informatie is welk betrekking heeft tot een onderwerp. 
                     Dan bepaalt jouw standpunt het perspectief waar vanuit je deze informatie tot je neemt. 
                     Dat klinkt een beetje vaag misschien. 
                     Dus laten we als voorbeeld een  <glitch 
@@ -15,8 +15,8 @@
                         :inputs="displayTypes"
                         :glitch-jumps="6" 
                         :glitch-offset="8" /> als onderwerp nemen, 
-                    en aan de hand van een praktisch voorbeeld kijken hoe jouw standpunt/perceptie van invloed is op 
-                    jouw waarneming van informatie, oftewel jouw vorming van kennis.</p>
+                        en aan de hand van een praktisch voorbeeld kijken hoe jouw standpunt/perceptie van invloed is op jouw waarneming van informatie, 
+                        oftewel jouw vorming van kennis.</p>
             </div>
             <h1 class="pov-title">
                 <glitch 
@@ -85,19 +85,23 @@ export default defineComponent({
             this.$refs["scrollContainer"].scrollTop = 0
         }
 
-        this.interval = setInterval(() => {
-            if (this.selectedType) {
-                clearInterval(this.interval)
-                this.typeIndex = 0
-                return
-            }
+        console.log(this.$router.currentRoute)
 
-            if (this.typeIndex) {
-                this.typeIndex = 0
-            } else {
-                this.typeIndex = 1
-            }
-        }, 3200)
+        if (!this.$router.currentRoute.value.fullPath.includes("gedeelde-perceptie")) {
+            this.interval = setInterval(() => {
+                if (this.selectedType) {
+                    clearInterval(this.interval)
+                    this.typeIndex = 0
+                    return
+                }
+
+                if (this.typeIndex) {
+                    this.typeIndex = 0
+                } else {
+                    this.typeIndex = 1
+                }
+            }, 3200 + 480) // Same as glitch
+        }
 
         // this.allowScrollBack()
         
@@ -131,7 +135,7 @@ export default defineComponent({
         glitchUpdate(string:string) {
             var match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
             if (match && match[1]) {
-                this.typeIndex = this.types.indexOf(match[1])
+                // this.typeIndex = this.types.indexOf(match[1])
             }
         },
         handleScroll(event: Event) {
