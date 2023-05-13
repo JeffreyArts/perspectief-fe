@@ -19,7 +19,6 @@
     "pinia": "^2.0.28",
     "pouchdb-browser": "^8.0.0",
     "sass": "^1.56.2",
-    "socket.io-client": "^4.5.4",
     "three": "^0.150.1",
     "three.interactive": "^1.6.1",
     "visual-pattern-generator": "^1.2.7",
