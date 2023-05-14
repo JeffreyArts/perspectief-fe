@@ -255,13 +255,7 @@ export default defineComponent({
             cameraPositionX: three.camera.position.x,
             cameraPositions: [],
             map: [
-                [1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1],
-                [1,1,1,1,1,1,1],
+                [1],
             ],
             transitionDuration: 1280,
             transitionType: "power2.inOut",
@@ -818,12 +812,8 @@ export default defineComponent({
             
             three.scene.add(three.camera)
             
-            three.camera.zoom = cuboidElement.offsetWidth/6
             three.camera.updateProjectionMatrix()
 
-
-            // Set orbit controls
-            // three.controls = new OrbitControls( three.camera, three.renderer.domElement )
             this.updateMap(three.scene.initialised)
 
             
@@ -868,7 +858,7 @@ export default defineComponent({
             three.camera.top = height
             three.camera.left = -width
             three.camera.right = width
-            three.camera.zoom = cuboidElement.offsetWidth/4
+            three.camera.zoom = cuboidElement.offsetWidth/4.8
 
             three.camera.updateProjectionMatrix()
         },
@@ -881,9 +871,10 @@ export default defineComponent({
             } as any
     
             let newCuboid = Cuboid.create(cubeDimensions, {name: `cuboid-${id}`,color: "#000000", maxLines: 320}) as any
-            newCuboid.material.color = "#000000"
-            newCuboid.material.transparent = true
-            newCuboid.material.opacity = 0
+            console.log("newCuboid", newCuboid)
+            // newCuboid.material.color = "#000000"
+            // newCuboid.material.transparent = true
+            // newCuboid.material.opacity = 0
             newCuboid.visible = false
             three.scene.add(newCuboid)
 
@@ -1007,22 +998,22 @@ export default defineComponent({
             )
 
             cuboid.visible = true
-            gsap.to(cuboid.material, {
-                duration: 0.8,
-                opacity: 1,
-                ease: "power4.out",
-            })
+            // gsap.to(cuboid.material, {
+            //     duration: 0.8,
+            //     opacity: 1,
+            //     ease: "power4.out",
+            // })
             
-            if (oldCuboid) {
-                gsap.to(oldCuboid.material, {
-                    duration: this.transitionDuration / 1000,
-                    opacity: 0,
-                    ease: "back.out(1.7)",
-                    onComplete: () => {
-                        cuboid.visible = false
-                    },
-                })
-            }
+            // if (oldCuboid) {
+            //     gsap.to(oldCuboid.material, {
+            //         duration: this.transitionDuration / 1000,
+            //         opacity: 0,
+            //         ease: "back.out(1.7)",
+            //         onComplete: () => {
+            //             cuboid.visible = false
+            //         },
+            //     })
+            // }
 
             return this.moveToPoint(destination, center)
         },
@@ -1132,7 +1123,7 @@ export default defineComponent({
         width: calc(100% - 64px);
         max-width: calc(100vh - 172px);
         margin: 0 32px 0;
-        padding: 0 48px;
+        padding: 0 48px 12px;
         display: flex;
         justify-content: center;
 
@@ -1146,12 +1137,12 @@ export default defineComponent({
         }
     }
 
-    .perspective-container {
+    .perspective-container { 
         display: flex;
         flex-flow: column;
         justify-content: center;
         align-items: center;
-        height: calc(100vh - 320px);
+        height: calc(100vh - 200px);
         padding-bottom: 32px;
         
         @media all and (min-width: 768px) {
