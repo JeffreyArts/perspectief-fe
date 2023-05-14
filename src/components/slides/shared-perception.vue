@@ -289,7 +289,7 @@ export default defineComponent({
     methods: {
         getMessages() {
             const limit = 64
-            fetch(`${import.meta.env.VITE_REST_API}/perceptie-messages?_limit=64`, {
+            fetch(`${import.meta.env.VITE_REST_API}/perceptie-messages?_limit=${limit}`, {
                 method: "GET",
                 headers: {
                     authorization: `Bearer ${import.meta.env.VITE_REST_AUTH_TOKEN}`,
@@ -772,8 +772,9 @@ export default defineComponent({
                     scroller: ".shared-perception-container",
                     trigger: "#square-1",
                     start: "top 75%",
+                    end: "bottom 75%",
                     scrub: true,
-                    // markers: true,
+                    markers: false,
                 }
             })
             
@@ -781,9 +782,11 @@ export default defineComponent({
                 x: 0,
                 duration: 1.44,
                 ease: "power4.out",
+                scrub: true,
                 scrollTrigger: {
                     trigger: "#square-2",
                     start: "top 75%",
+                    end: "bottom 75%",
                     id: "square-2",
                     // markers: true,
                 }
@@ -796,7 +799,7 @@ export default defineComponent({
                 scrollTrigger: {
                     trigger: "#square-3",
                     start: "top 75%",
-                    end: "top 60%",
+                    end: "bottom 75%",
                     id: "square-3.1",
                     // markers: true,
                 },

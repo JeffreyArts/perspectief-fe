@@ -75,15 +75,19 @@ export default defineComponent({
             gsap.set(".introduction-page-container", {opacity:0})
         }
         
-        gsap.fromTo(".intro-block", {
-            opacity: 0,
-            blur: 16,
-        },
-        {
-            blur: 0,
+        gsap.to(".intro-block", {
             opacity: 1,
             duration: .72,
             ease: "power2.out",
+            stagger: .32,
+            delay: .64
+        })
+        gsap.to(".intro-block", {
+            blur: 0,
+            duration: .96,
+            ease: "power2.out",
+            stagger: .32,
+            delay: .64
         })
         this.handleScroll()
     },
@@ -124,7 +128,6 @@ export default defineComponent({
                     x: odd ? -1 : 1,
                     blur: 0,
                     scale:1,
-                    opacity: 1,
                     backgroundColor: "#fff",
                     color: "#111",
                 })
