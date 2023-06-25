@@ -101,23 +101,6 @@ export default defineComponent({
         this.setVerticalLines()
 
         document.addEventListener("mousemove", this.mouseMove)
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener("deviceorientation", (event: DeviceOrientationEvent) => {
-                const beta = event.beta ? event.beta : 0
-                const gamma = event.gamma ? event.gamma : 0
-                this.tilt([beta, gamma])
-            }, true)
-        } else if (window.DeviceMotionEvent) {
-            window.addEventListener("devicemotion", (event: DeviceMotionEvent) => {
-                if (!event.acceleration) {
-                    return
-                }
-
-                const x = event.acceleration.x ? event.acceleration.x : 0
-                const y = event.acceleration.y ? event.acceleration.y : 0
-                this.tilt([x * 2, y * 2])
-            }, true)
-        }
     },
     methods: {
         resize() {
