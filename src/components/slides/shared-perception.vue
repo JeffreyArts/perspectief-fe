@@ -782,12 +782,12 @@ export default defineComponent({
                 x: 0,
                 duration: 1.44,
                 ease: "power4.out",
-                scrub: true,
                 scrollTrigger: {
                     trigger: "#square-2",
                     start: "top 75%",
                     end: "bottom 75%",
                     id: "square-2",
+                    scrub: true,
                     // markers: true,
                 }
             })
@@ -801,11 +801,16 @@ export default defineComponent({
                     start: "top 75%",
                     end: "bottom 75%",
                     id: "square-3.1",
+                    scrub: true,
                     // markers: true,
                 },
                 onComplete: () => {
+                    let offset = 144*2 
+                    if (window.innerWidth < 768) {
+                        offset = 64
+                    }
                     gsap.to("#square-3",  {
-                        x: this.$el.clientWidth - square3.clientWidth - 64, // 64 is the margin-left (32px) + margin-right (32px)
+                        x: this.$el.clientWidth - square3.clientWidth - offset, // 64 is the margin-left (32px) + margin-right (32px)
                         duration: .64,
                         ease: "Linear.easeNone",
                         yoyo: true, // yoyo back and forth
@@ -1513,6 +1518,11 @@ export default defineComponent({
     
     #slide-2 {
         margin-top:calc( -100vh + 64px);
+    }
+
+    .square {
+        margin-left: 144px;
+        margin-right: 144px;
     }
 
     .shared-perception-container {
