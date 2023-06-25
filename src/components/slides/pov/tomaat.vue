@@ -162,6 +162,8 @@ export default defineComponent({
         ScrollTrigger.getAll().forEach(instance => {
             instance.kill() // destroy the ScrollTrigger instance
         })
+
+        window.addEventListener("resize",this.resizeEvent)
         
         setTimeout(() => {
             this.initialiseAnimation()
@@ -173,10 +175,23 @@ export default defineComponent({
             animation.kill()
         }
     },
+    unmounted() {
+        window.removeEventListener("resize",this.resizeEvent)
+    },
     methods: {
+        resizeEvent() {
+            // set .square-content to same width as tomato-illustration
+            let width = document.querySelector(".tomato-illustration svg")?.clientWidth
+            if (!width) {
+                return
+            }
+
+            width = width * .8
+            gsap.set(".square-content", {width: width, height: width})
+
+        },
+        
         initialiseAnimation() {
-
-
             gsap.set("#body", {
                 morphSVG: {shape: "#circle"}, 
             })
@@ -399,7 +414,7 @@ export default defineComponent({
                 scrollTrigger:{
                     trigger: "#tomato5", // start the animation when ".box" enters the viewport (once)
                     // markers: true,
-                    start: "top top",
+                    start: "center bottom",
                     end: "top+=128 top",
                     id:"5-squared",
                     scrub: true
@@ -482,7 +497,7 @@ export default defineComponent({
                 },
                 duration: 1.28,
                 opacity: 1,
-                width: "100%",
+                // width: "100%",
                 ease: "power4.out"
             })
 
@@ -734,8 +749,8 @@ export default defineComponent({
 }
 
 .square-content {
-    margin-top: calc(-100vh + 10px);
-    opacity: 0;
+    margin-top: calc(-100vh + 12px);
+    margin-left: -14px;
     display: flex;
     flex-flow: column;
     width: 100%;
@@ -744,15 +759,25 @@ export default defineComponent({
     color: #fff;
     align-items: center;
     translate: 7px 0;
-    @media (orientation: landscape) {
-        max-width: 69.85vh;
-        max-height: 69.85vh;
-    }
-    @media (orientation: portrait) {
-        max-width: 80.333vw;
-        max-height: 80.333vw;
-        translate: 0 0;
-    }
+    // width: calc(80vw + 1px);
+    // height: calc(80vw + 1px);
+
+    // @media (min-width: 720px) {
+    //     // width: 628px;
+    //     // height: 628px;
+    //     // margin-left: 1px;
+    // }
+
+    // @media (min-width: 1280px) and (orientation: portrait) {
+    //     width: 628px;
+    //     height: 628px;
+    //     margin-left: 1px;
+    // }
+    // @media (orientation: portrait) {
+    //     // max-width: 80.333vw;
+    //     // max-height: 80.333vw;
+    //     translate: 0 0;
+    // }
 }
 
 .square-content-row {
@@ -800,14 +825,14 @@ export default defineComponent({
     .square-content {
         margin: auto;
         color: #fff;
-        width: calc(100% + 32px);
+        // width: calc(100% + 32px);
     }
     
     p {
         margin: 0;
         font-size: 11px;
-        line-height: 20px;
-        padding: 8px;
+        line-height: 18px;
+        padding: 0 16px;
     }
     
     .square-content-row {
@@ -815,17 +840,24 @@ export default defineComponent({
         height: 100%;
     }
     
-    @media all and (min-width: 768px) {
+    @media all and (min-width: 440px) {
+        p {
+            line-height: 20px;
+            padding: 0 48px;
+        }
+    }
+
+    @media all and (min-width: 640px) {
         .square-content {
             // width: 100%;
             // max-width: 564.5px;
             // transform: translateY(36px);
             color: #fff;
-            aspect-ratio: 1/1;
+            // aspect-ratio: 1/1;
         }
         
         p {
-            padding: 32px;
+            padding: 64px;
             font-size: 16px;
             line-height: 28px;
         }
@@ -837,16 +869,6 @@ export default defineComponent({
         }
     }
 
-    @media (orientation: landscape) {
-        .square-content {
-            max-width: 69.85vh;
-        }
-    }
-    @media (orientation: portrait) {
-        .square-content {
-            max-width: 80.333vw;
-        }
-    }
 }
 
 #tomato7 {

@@ -65,7 +65,7 @@ export default defineComponent({
             repeat: 777,
             typeIndex: 0,
             // interval: 0 as number,
-            types: [ "tomaat", "pen"],
+            types: [ "pen", "tomaat"],
             gTimeline: null as null | gsap.core.Timeline,
         }
     },
