@@ -88,7 +88,7 @@ export default defineComponent({
                 },
                 {
                     content: "Don't believe everything you think",
-                    author: ""
+                    author: "Various"
                 },
                 {
                     content: "Life is like butter ‐ when things cool down it can be reshaped",
