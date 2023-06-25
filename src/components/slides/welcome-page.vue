@@ -247,7 +247,6 @@ export default defineComponent({
         translate: 0 -256px;
         margin-bottom: 32px;
         margin-top: 0;
-        margin-left: 24px;
         display: none;
         width: 100%;
         text-align: left;
@@ -330,8 +329,8 @@ export default defineComponent({
     }
 
     .welcome-page-content {
-        width: calc(100% - 240px - 48px);
-        margin-left: 48px;
+        width: calc(100% - 240px - 64px);
+        margin-left: 64px;
 
         h1 {
             display: inline-block;
