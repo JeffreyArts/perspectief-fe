@@ -284,7 +284,9 @@ export default defineComponent({
         })
         this.getMessages()
         this.carouselInitialisation()
-        this.setupAnimations()
+        setTimeout(() => {
+            this.setupAnimations()
+        })
     },
     methods: {
         getMessages() {
@@ -1532,4 +1534,14 @@ export default defineComponent({
 }
 
 
+@media all and (min-width: 1440px) {
+    .slot-stuk-content {
+        aspect-ratio: unset;
+        max-width: 1280px;
+        padding: 64px 48px;
+        font-size: 18px;
+        line-height: 32px;
+        // padding-bottom: 128px;
+    }
+}
 </style>

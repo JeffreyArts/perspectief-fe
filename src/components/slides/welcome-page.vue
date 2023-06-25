@@ -22,7 +22,11 @@
                 <h1>Welkom</h1>
                 <div class="welcome-page-content-bg">
                     <h1>Welkom</h1>
-                    <p>In dit project wil ik je meenemen op een reis over de waarde van perceptie. Waarom vinden we het een waardevoller dan het ander? Hierbij wil ik het niet hebben over de monetaire waarde van goederen en diensten, maar over de waarde van kennis en informatie. Zeker met de opkomst van AI tools als Chat-GPT is dit een voor mij groeiende vraag. Niet alle informatie is immers even waardevol? En hoe verhoudt zich dat dan tot kennis? Via deze website wil ik graag mijn perceptie hier met je over delen.</p>
+                    <p>In dit project wil ik je meenemen op een reis over de waarde van perceptie. Waarom vinden we het een waardevoller dan het ander? 
+                        Niet alle informatie is immers even waardevol, en hoe verhoudt zich dat dan tot kennis? 
+                        Hierbij zal ik het niet hebben over de monetaire waarde van goederen en diensten, maar ga ik het hebben over de waarde van kennis, informatie, data. 
+                        Middels deze website wil ik je graag mijn perceptie laten zien over hoe ik hier naar kijk, en naderhand zou ik graag jouw perspectief willen horen.
+                    </p>
                 </div>
 
                 <div class="welcome-page-button" @click="nextPage()">
@@ -239,6 +243,7 @@ export default defineComponent({
     justify-content: space-between;
     display: flex;
     flex-flow: column;
+    max-width: 1280px;
     
     h1 {
         font-size: 64px;
@@ -390,6 +395,15 @@ export default defineComponent({
     @media all and (max-height: 640px) {
         .about-block-container {
             display: none;
+        }
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .welcome-page {
+        p {
+            font-size: 18px;
+            line-height: 32px;
         }
     }
 }

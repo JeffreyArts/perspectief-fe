@@ -317,4 +317,13 @@ export default defineComponent({
         }
     }
 }
+
+@media (min-width: 1440px) {
+    .intro-block {
+        font-size: 18px;
+        line-height: 32px;
+        margin-bottom: 220px;
+        margin-top: 220px;
+    }
+}
 </style>

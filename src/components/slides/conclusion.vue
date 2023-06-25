@@ -1,10 +1,11 @@
 <template>
     <div class="conclusion-container" ref="container">
-
         <div class="page-title-container">
-            <h1 class="page-title">
-                {{ pageTitle }}
-            </h1>
+            <div class="container">
+                <h1 class="page-title">
+                    {{ pageTitle }}
+                </h1>
+            </div>
         </div>
 
         <div class="box-container" v-if="step == 1">
@@ -47,112 +48,115 @@
                 </p>
             </div>
         </div>
+
         <div class="bubbels-container" :class="[step != 2 ? '__isHidden' : '']">
-            <div class="perspective-container">
-                <figure class="cuboid-container" ref="cuboid"></figure>
-                <section class="text-container" ref="textcontainer" :class="!pageSelected ? '__isHidden' : ''">
-                    <div v-if="page == 0">
-                        <p>
-                            Sociale-media bubbels ontstaan door de algoritmes welk sociale media hebben ontwikkeld om een zo breed mogelijk scala aan gebruikers, 
-                            met een minstens zo'n breed scala aan interesses, zo lang mogelijk op hun platform te houden. 
-                            Sociale media websites kosten ontzettend veel geld om te ontwikkelen en te onderhouden, maar zijn vaak gratis te gebruiken. 
-                            Daar hebben deze platformen iets op gevonden: advertenties. 
-                            Om de effectiviteit (conversie) van advertenties te verhogen hebben de platformen er baat bij om een zo groot mogelijk aantal doelgroepen te kunnen definiëren. 
-                            Hoe groter het aantal doelgroepen, hoe gerichter de adverteerders namelijk kunnen adverteren. Om deze doelgroepen te kunnen creëren, 
-                            moet je labels bedenken waartoe je deze doelgroepen kunt definiëren. Hoe specifieker de definitie van een doelgroep, hoe waardevoller deze wordt. 
-                            Een doelgroep “mensen die van eten houden” is voor een producent van frikandellen/bitterballen/kroketten minder waardevol dan de doelgroep 
-                            “mensen die graag frituren”. Dat betekend niet dat de eerste doelgroep helemaal geen waarde, de tweede doelgroep is gewoon van meer waarde. 
-                            Sociale media hebben er dus baat bij om hun gebruikers in doelgroepen onder te verdelen. 
-                            De algoritmes die zij op hun websites hebben draaien, dragen daarbij een fundamentele rol in de definitie ervan. 
-                            Niet alleen omdat ze deze doelgroepen kunnen definiëren, maar ook actief in stand houden.
-                        </p>
+            <div class="container">
+                <div class="perspective-container">
+                    <figure class="cuboid-container" ref="cuboid"></figure>
+                    <section class="text-container" ref="textcontainer" :class="!pageSelected ? '__isHidden' : ''">
+                        <div v-if="page == 0">
+                            <p>
+                                Sociale-media bubbels ontstaan door de algoritmes welk sociale media hebben ontwikkeld om een zo breed mogelijk scala aan gebruikers, 
+                                met een minstens zo'n breed scala aan interesses, zo lang mogelijk op hun platform te houden. 
+                                Sociale media websites kosten ontzettend veel geld om te ontwikkelen en te onderhouden, maar zijn vaak gratis te gebruiken. 
+                                Daar hebben deze platformen iets op gevonden: advertenties. 
+                                Om de effectiviteit (conversie) van advertenties te verhogen hebben de platformen er baat bij om een zo groot mogelijk aantal doelgroepen te kunnen definiëren. 
+                                Hoe groter het aantal doelgroepen, hoe gerichter de adverteerders namelijk kunnen adverteren. Om deze doelgroepen te kunnen creëren, 
+                                moet je labels bedenken waartoe je deze doelgroepen kunt definiëren. Hoe specifieker de definitie van een doelgroep, hoe waardevoller deze wordt. 
+                                Een doelgroep “mensen die van eten houden” is voor een producent van frikandellen/bitterballen/kroketten minder waardevol dan de doelgroep 
+                                “mensen die graag frituren”. Dat betekend niet dat de eerste doelgroep helemaal geen waarde, de tweede doelgroep is gewoon van meer waarde. 
+                                Sociale media hebben er dus baat bij om hun gebruikers in doelgroepen onder te verdelen. 
+                                De algoritmes die zij op hun websites hebben draaien, dragen daarbij een fundamentele rol in de definitie ervan. 
+                                Niet alleen omdat ze deze doelgroepen kunnen definiëren, maar ook actief in stand houden.
+                            </p>
 
-                        <p>
-                            In dit standpunt heb ik de sociale-media bubbels beschreven vanuit een commercieel standpunt. 
-                            Hierbij stel ik dat de commerciële belangen een invloed hebben op de creatie van sociale-media bubbels, 
-                            omdat dit direct leidt tot omzetverhoging van het platform. 
-                            Omdat de kwantiteit van bubbels leidt specifieke advertentieprofielen die waardevoller zijn dan generieke, algemenere onderwerpen.
-                        </p>
-                        <footer>
-                            Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
-                        </footer>
+                            <p>
+                                In dit standpunt heb ik de sociale-media bubbels beschreven vanuit een commercieel standpunt. 
+                                Hierbij stel ik dat de commerciële belangen een invloed hebben op de creatie van sociale-media bubbels, 
+                                omdat dit direct leidt tot omzetverhoging van het platform. 
+                                Omdat de kwantiteit van bubbels leidt specifieke advertentieprofielen die waardevoller zijn dan generieke, algemenere onderwerpen.
+                            </p>
+                            <footer>
+                                Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
+                            </footer>
+                        </div>
+
+                        
+                        <div v-if="page == 1">
+                            <p>
+                                Een sociale-media bubbel is een door algoritme-gecureerd standpunt ten behoeven van een specifiek onderwerp.
+                                Dit biedt de gebruiker de mogelijkheid om het sociale media platform dit algoritme zo in te richten dat hij of zij de informatie te zien krijgt 
+                                waar hij of zij in geïnteresseerd is. Wanneer de gebruiker het platform wilt gebruiken door het bekijken van schattige dieren filmpjes. 
+                                Dan zal het algoritme meer-en-meer video's aanraden van otters die elkaars handen vasthouden, of hupsende, fluffy konijntjes. 
+                                Wilt de gebruiker zichzelf liever educeren op wetenschappelijke thema's, dan zal het video's laten zien van Fritz Haber of fluorescerende schorpioenen. 
+                                De social-media bubbel heeft echter wel een keerzijde. Het heeft geen moreel kompas. Met hetzelfde gemak als dat het eerder genoemde bubbels creëert, 
+                                creëert het met hetzelfde gemak bubbels met video's van kleine meisjes die turnen, 
+                                video's met tips om af te vallen of video's met informatie over hoe je gemakkelijk geld kunt verdienen. 
+                                Op zichzelf niet problematisch. Het is immers geen enkel probleem wanneer de gebruiker een klein meisje is, 
+                                kampt met overgewicht of geïnteresseerd is in financiën. Het wordt echter wel een probleem wanneer de gebruiker een man van boven de 40 is, 
+                                iemand die onzeker is over zijn of haar uiterlijk, of zeer slecht risico's kan inschatten.
+                            </p>
+
+                            <p>
+                                Nu zou je het standpunt kunnen innemen dat het platform niet het probleem is, maar de persoon die het algoritme heeft ingericht. 
+                                En dat is precies waar dit standpunt over gaat. 
+                                Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan 
+                                de hand van de invloed de ze hebben op de gebruiker.
+                            </p>
+                            <footer>
+                                Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
+                            </footer>
+                        </div>
+
+
+
+                        <div v-if="page == 2">
+                            <p>
+                                Sociale-media bubbels zorgen voor een diversiteit aan standpunten waarop je de wereld kunt waarnemen.
+                                Dit leidt tot een breed scala aan verschillende waargenomen realiteiten. 
+                                Neem als voorbeeld bijvoorbeeld de bubbel omtrent de flat-earth theorie. 
+                                Binnen deze bubbel wordt er informatie uitgewisseld met argumenten over waarom de aarde niet bolvorming, maar plat is. 
+                                De mensen die deel uitmaken van deze bubbel zijn per definitie mensen die op enige wijze interesse hebben in dit onderwerp. 
+                                Ongeacht of zij er voor open staan om hun eigen waargenomen realiteit daadwerkelijk in twijfel te trekken of niet, 
+                                zonder interesse in het onderwerp zullen zij geen deel uitmaken van deze bubbel. 
+                                Dat gezegd hebbende, de groep mensen die geloven dat de aarde plat is binnen deze bubbel, 
+                                zal disproportioneel groter zijn dan de groep mensen die dat niet geloven. 
+                                Hierdoor ontstaat de situatie waarin de klassieke manier van waarheidsbepaling (dat wat de meerderheid van de groep voor waar aanneemt) 
+                                voor een ander resultaat zal zorgen binnen deze bubbel dan daarbuiten. Nu is de flat-earth theorie relatief gemakkelijk te weerleggen, 
+                                we hebben immers eeuwen aan wetenschappelijke kennis opgedaan als mensheid waarmee we goed kunnen onderbouwen waarom de aarde niet plat is. 
+                                Wanneer het onderwerp nieuw is echter, en er nog geen eeuwen aan wetenschappelijk onderzoek aan vooraf is gegaan. 
+                                Dan is er veel minder ruimte voor een absolute waarheid. De dynamiek binnen zo'n bubbel blijft echter hetzelfde. 
+                                Zo vindt er in politiek georiënteerde bubbels zelden een tegen geluid van iemand die tot de politieke “tegenpartij” hoort. 
+                                Maar deze eigenschap van van sociale-media bubbels is niet alleen maar negatief. 
+                                Door het ontstaan van deze bubbels ontstaat er ook de mogelijkheid om een verdieping te zoeken (en vinden) 
+                                in standpunten die op geen enkele andere wijze mogelijk zouden zijn, omdat dit simpelweg teveel zou afwijken van de algemene perceptie. 
+                                Kennisontwikkeling ontstaat door het laag voor laag opbouwen van informatie, 
+                                wanneer deze lagen voor iedereen hetzelfde zou zijn dan heeft niemand een afwijkend standpunt meer, en zal de snelheid van informatie groei stagneren.
+                            </p>
+
+                            <p>
+                                In dit standpunt tracht ik duidelijk te maken dat de sociale-media bubbels de mogelijkheid bieden om een verdieping te realiseren, 
+                                welk via de traditionele massa media niet mogelijk is. 
+                                Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan de hand van de intenties van de gebruiker.
+                            </p>
+                            <footer>
+                                Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
+                            </footer>
+                        </div>
+                    </section>
+                </div>
+                <div class="perspective-buttons-container">
+                    <div class="perspective-buttons">
+                        <button class="perspective-button" id="button-1" @click="setPage(0)" :class="[readPages[0] ? '__isDone' : '', page == 0 ? '__isActive' : '']">
+                            <icon-checkmark v-if="readPages[0]"/>
+                        </button>
+                        <button class="perspective-button" id="button-2" @click="setPage(1)" :class="[readPages[1] ? '__isDone' : '', page == 1 ? '__isActive' : '']">
+                            <icon-checkmark v-if="readPages[1]"/>
+                        </button>
+                        <button class="perspective-button" id="button-3" @click="setPage(2)" :class="[readPages[2] ? '__isDone' : '', page == 2 ? '__isActive' : '']">
+                            <icon-checkmark v-if="readPages[2]"/>
+                        </button>
                     </div>
-
-                    
-                    <div v-if="page == 1">
-                        <p>
-                            Een sociale-media bubbel is een door algoritme-gecureerd standpunt ten behoeven van een specifiek onderwerp.
-                            Dit biedt de gebruiker de mogelijkheid om het sociale media platform dit algoritme zo in te richten dat hij of zij de informatie te zien krijgt 
-                            waar hij of zij in geïnteresseerd is. Wanneer de gebruiker het platform wilt gebruiken door het bekijken van schattige dieren filmpjes. 
-                            Dan zal het algoritme meer-en-meer video's aanraden van otters die elkaars handen vasthouden, of hupsende, fluffy konijntjes. 
-                            Wilt de gebruiker zichzelf liever educeren op wetenschappelijke thema's, dan zal het video's laten zien van Fritz Haber of fluorescerende schorpioenen. 
-                            De social-media bubbel heeft echter wel een keerzijde. Het heeft geen moreel kompas. Met hetzelfde gemak als dat het eerder genoemde bubbels creëert, 
-                            creëert het met hetzelfde gemak bubbels met video's van kleine meisjes die turnen, 
-                            video's met tips om af te vallen of video's met informatie over hoe je gemakkelijk geld kunt verdienen. 
-                            Op zichzelf niet problematisch. Het is immers geen enkel probleem wanneer de gebruiker een klein meisje is, 
-                            kampt met overgewicht of geïnteresseerd is in financiën. Het wordt echter wel een probleem wanneer de gebruiker een man van boven de 40 is, 
-                            iemand die onzeker is over zijn of haar uiterlijk, of zeer slecht risico's kan inschatten.
-                        </p>
-
-                        <p>
-                            Nu zou je het standpunt kunnen innemen dat het platform niet het probleem is, maar de persoon die het algoritme heeft ingericht. 
-                            En dat is precies waar dit standpunt over gaat. 
-                            Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan 
-                            de hand van de invloed de ze hebben op de gebruiker.
-                        </p>
-                        <footer>
-                            Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
-                        </footer>
-                    </div>
-
-
-
-                    <div v-if="page == 2">
-                        <p>
-                            Sociale-media bubbels zorgen voor een diversiteit aan standpunten waarop je de wereld kunt waarnemen.
-                            Dit leidt tot een breed scala aan verschillende waargenomen realiteiten. 
-                            Neem als voorbeeld bijvoorbeeld de bubbel omtrent de flat-earth theorie. 
-                            Binnen deze bubbel wordt er informatie uitgewisseld met argumenten over waarom de aarde niet bolvorming, maar plat is. 
-                            De mensen die deel uitmaken van deze bubbel zijn per definitie mensen die op enige wijze interesse hebben in dit onderwerp. 
-                            Ongeacht of zij er voor open staan om hun eigen waargenomen realiteit daadwerkelijk in twijfel te trekken of niet, 
-                            zonder interesse in het onderwerp zullen zij geen deel uitmaken van deze bubbel. 
-                            Dat gezegd hebbende, de groep mensen die geloven dat de aarde plat is binnen deze bubbel, 
-                            zal disproportioneel groter zijn dan de groep mensen die dat niet geloven. 
-                            Hierdoor ontstaat de situatie waarin de klassieke manier van waarheidsbepaling (dat wat de meerderheid van de groep voor waar aanneemt) 
-                            voor een ander resultaat zal zorgen binnen deze bubbel dan daarbuiten. Nu is de flat-earth theorie relatief gemakkelijk te weerleggen, 
-                            we hebben immers eeuwen aan wetenschappelijke kennis opgedaan als mensheid waarmee we goed kunnen onderbouwen waarom de aarde niet plat is. 
-                            Wanneer het onderwerp nieuw is echter, en er nog geen eeuwen aan wetenschappelijk onderzoek aan vooraf is gegaan. 
-                            Dan is er veel minder ruimte voor een absolute waarheid. De dynamiek binnen zo'n bubbel blijft echter hetzelfde. 
-                            Zo vindt er in politiek georiënteerde bubbels zelden een tegen geluid van iemand die tot de politieke “tegenpartij” hoort. 
-                            Maar deze eigenschap van van sociale-media bubbels is niet alleen maar negatief. 
-                            Door het ontstaan van deze bubbels ontstaat er ook de mogelijkheid om een verdieping te zoeken (en vinden) 
-                            in standpunten die op geen enkele andere wijze mogelijk zouden zijn, omdat dit simpelweg teveel zou afwijken van de algemene perceptie. 
-                            Kennisontwikkeling ontstaat door het laag voor laag opbouwen van informatie, 
-                            wanneer deze lagen voor iedereen hetzelfde zou zijn dan heeft niemand een afwijkend standpunt meer, en zal de snelheid van informatie groei stagneren.
-                        </p>
-
-                        <p>
-                            In dit standpunt tracht ik duidelijk te maken dat de sociale-media bubbels de mogelijkheid bieden om een verdieping te realiseren, 
-                            welk via de traditionele massa media niet mogelijk is. 
-                            Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan de hand van de intenties van de gebruiker.
-                        </p>
-                        <footer>
-                            Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
-                        </footer>
-                    </div>
-                </section>
-            </div>
-            <div class="perspective-buttons-container">
-                <div class="perspective-buttons">
-                    <button class="perspective-button" id="button-1" @click="setPage(0)" :class="[readPages[0] ? '__isDone' : '', page == 0 ? '__isActive' : '']">
-                        <icon-checkmark v-if="readPages[0]"/>
-                    </button>
-                    <button class="perspective-button" id="button-2" @click="setPage(1)" :class="[readPages[1] ? '__isDone' : '', page == 1 ? '__isActive' : '']">
-                        <icon-checkmark v-if="readPages[1]"/>
-                    </button>
-                    <button class="perspective-button" id="button-3" @click="setPage(2)" :class="[readPages[2] ? '__isDone' : '', page == 2 ? '__isActive' : '']">
-                        <icon-checkmark v-if="readPages[2]"/>
-                    </button>
                 </div>
             </div>
         </div>
@@ -170,8 +174,8 @@
                         maar hopelijk heeft het je een nieuwe blik gegeven op de manier waarop jij je eigen realiteit kunt vormgeven. 
                     </p>
                     <p>
-                        Ik ben in ieder geval blij om te zien dat je dit alles je voldoende geboeid heeft om tot dit einde te komen, 
-                        en zou dan ook graag jouw perceptie over dit onderwerp willen horen.
+                        Ik ben in ieder geval blij om te zien dat je dit alles je voldoende geboeid heeft om tot dit einde te komen
+                        en ben benieuwd hoe jij naar dit alles kijkt.
                     </p>
                     <p class="welcome-back-greetings">
                         <glitch 
@@ -180,7 +184,7 @@
                             :repeat="99999" 
                             :opacity-duration="128" 
                             :position-jumps="7" 
-                            :inputs="['Veel liefs',' Muchos gracias','  Merci beaucoup',' Bedankt & tot ziens']"
+                            :inputs="greetings"
                             :glitch-jumps="6" 
                             :glitch-offset="8" />
                             <span class="welcome-back-writing">
@@ -190,13 +194,13 @@
 
 
                     <div class="button-container">
-                        <button class="button small" @click="finishPage">Deel jouw perspectief</button>
+                        <a class="button small" href="mailto:contact@jeffreyarts.nl?subject=Mijn%20perspectief">Deel jouw perspectief</a>
                     </div>
                 </div>
             </div>
         </div>
 
-            
+
         <div class="continue-button" @click="nextStep">
             Ga verder &gt;
         </div>
@@ -230,6 +234,7 @@ export default defineComponent({
             box3Open: false,
             stepTransition: false,
             step: 1,
+            greetings: ["Veel liefs,"," Muchos gracias,", "Thank you for your time,", "Merci beaucoup,"," Bedankt & tot ziens,", "Dikke kus,"],
             page: null as 0 | 1 | 2 | null,
             readPages: [false, false, false],
             pageTitle: "Samenvatting",
@@ -268,6 +273,7 @@ export default defineComponent({
     },
     mounted() {
         gsap.registerPlugin(ScrollToPlugin)
+        this.greetings = _.shuffle(this.greetings)
 
         // Only initialize after animation of first block has finished
         setTimeout(() => {
@@ -298,6 +304,13 @@ export default defineComponent({
             blur: 24,
             opacity: 0,
         })
+        let offset = 32
+        if (document.body.clientWidth > 768) {
+            offset = 48
+        }
+        if (document.body.clientWidth > 1024) {
+            offset = 64
+        }
 
         gsap.timeline().to(".page-title", {
             x: 0,
@@ -307,15 +320,16 @@ export default defineComponent({
             duration: 1.024,
             onComplete: () => {
                 gsap.timeline().to("#box-2",{
-                    x:32,
+                    x:offset,
                     delay: this.pulseDelay,
                     duration: 2.4,
                     ease: "power2.inOut",
                     onComplete: () => {
                         gsap.fromTo("#box-2",{
-                            x:32,
-                            
+                            x:offset,
                         }, {
+                            // onRepeat: () => {
+                            // },
                             x:16,
                             duration: 1,
                             repeat: -1,
@@ -1082,7 +1096,7 @@ export default defineComponent({
         height: calc(100vh - 128px);
         @media (min-width: 768px) {
             margin: 64px 0 0;
-            height: calc(100vh - 150px);
+            height: calc(100vh - 200px);
         }
     }
 
@@ -1192,6 +1206,10 @@ export default defineComponent({
 
         @media all and (min-width: 768px) {
             margin-right: 64px;
+
+            > div {
+                padding: 24px;
+            }
         }
     }
 
@@ -1312,6 +1330,12 @@ export default defineComponent({
             }
         }
 
+
+        .button {
+            text-decoration: none;
+            line-height: 30px;
+            height: 32px;
+        }
 
         button {
             display: inline-block;
