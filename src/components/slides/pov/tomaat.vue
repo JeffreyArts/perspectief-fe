@@ -230,7 +230,7 @@ export default defineComponent({
 
         
             
-            this.autoScroll()
+            // this.autoScroll()
             this.tomato1Animation()
             this.tomato2Animation()
             this.tomato3Animation()
@@ -241,36 +241,36 @@ export default defineComponent({
             // this.animations.push(animation1, animation2, animation3)
 
         },
-        autoScroll() {
-            const animation = gsap.to(".tomato-intro-container", {
-                scrollTrigger:{
-                    trigger: ".tomato-intro-container", // start the animation when ".box" enters the viewport (once)
-                    // markers: true,
-                    id:"auto-scroll",
-                    start: this.isMobile.v ? "top 80%" : "top 66%",
-                },
-                onStart: () => {
-                    const container = document.querySelector(".pov-page") as HTMLElement
-                    const target = document.querySelector(".pov-content.tomato-container") as HTMLElement
-                    container.classList.add("__disableScroll")
-                    if (!container || !target) {
-                        return
-                    }
-                    const computedStyle = window.getComputedStyle(target)
-                    const marginTop = parseInt(computedStyle.getPropertyValue("padding-top").replace("px", ""), 10)
-                    gsap.to(container, {
-                        scrollTo: target.offsetTop + marginTop,
-                        duration: .8,
-                        ease: "linear",
-                        onComplete: () => {
-                            container.classList.remove("__disableScroll")
-                        }
-                    })
-                },
-            })
+        // autoScroll() {
+        //     const animation = gsap.to(".tomato-intro-container", {
+        //         scrollTrigger:{
+        //             trigger: ".tomato-intro-container", // start the animation when ".box" enters the viewport (once)
+        //             // markers: true,
+        //             id:"auto-scroll",
+        //             start: this.isMobile.v ? "top 80%" : "top 66%",
+        //         },
+        //         onStart: () => {
+        //             const container = document.querySelector(".pov-page") as HTMLElement
+        //             const target = document.querySelector(".pov-content.tomato-container") as HTMLElement
+        //             container.classList.add("__disableScroll")
+        //             if (!container || !target) {
+        //                 return
+        //             }
+        //             const computedStyle = window.getComputedStyle(target)
+        //             const marginTop = parseInt(computedStyle.getPropertyValue("padding-top").replace("px", ""), 10)
+        //             gsap.to(container, {
+        //                 scrollTo: target.offsetTop + marginTop,
+        //                 duration: .8,
+        //                 ease: "linear",
+        //                 onComplete: () => {
+        //                     container.classList.remove("__disableScroll")
+        //                 }
+        //             })
+        //         },
+        //     })
 
-            this.animations.push(animation)
-        },
+        //     this.animations.push(animation)
+        // },
         tomato1Animation() {
             const animation1 = gsap.to("#crown",{
                 scrollTrigger:{

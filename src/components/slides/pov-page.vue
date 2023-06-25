@@ -5,10 +5,10 @@
                 <p>Wanneer kennis de verzameling van informatie is welk betrekking heeft tot een onderwerp. 
                     Dan bepaalt jouw standpunt het perspectief waar vanuit je deze informatie tot je neemt. 
                     Dat klinkt een beetje vaag misschien. 
-                    Dus laten we als voorbeeld een  <glitch 
+                    Dus laten we als voorbeeld een  <glitch
                         @glitchChange="glitchUpdate" 
-                        :duration="480" 
-                        :delay="3200" 
+                        :duration="glitchDuration" 
+                        :delay="glitchDelay" 
                         :repeat="repeat" 
                         :opacity-duration="144" 
                         :position-jumps="4" 
@@ -19,21 +19,21 @@
                         oftewel jouw vorming van kennis.</p>
             </div>
             <h1 class="pov-title">
-                <glitch 
-                        @glitchChange="glitchUpdate" 
-                        :duration="480" 
-                        :delay="3200" 
-                        :repeat="repeat" 
-                        :opacity-duration="144" 
-                        :position-jumps="4" 
-                        :inputs="displayTypes"
-                        :glitch-jumps="6" 
-                        :glitch-offset="8" />
+                <glitch
+                :duration="glitchDuration" 
+                :delay="glitchDelay" 
+                :repeat="repeat" 
+                :opacity-duration="144" 
+                :position-jumps="4" 
+                :inputs="displayTypes"
+                :glitch-jumps="6" 
+                :glitch-offset="8" />
             </h1>
 
+
             <div ref="content">
-                <tomaat v-if="typeIndex == 0" @completed="nextPage" />
-                <pen v-if="typeIndex == 1" @completed="nextPage" />
+                <tomaat v-if="selected == 0" @completed="nextPage" />
+                <pen v-if="selected == 1" @completed="nextPage" />
             </div>
         </div>
     </div>
@@ -57,12 +57,15 @@ export default defineComponent({
     data: () => {
         return {
             completed: false,
+            selected: 0,
             scrollIndex: 0,
+            glitchDuration:480,
+            glitchDelay:3200,
             selectedType: null as null | string,
             repeat: 777,
             typeIndex: 0,
-            interval: 0 as number,
-            types: ["pen", "tomaat"],
+            // interval: 0 as number,
+            types: [ "tomaat", "pen"],
             gTimeline: null as null | gsap.core.Timeline,
         }
     },
@@ -81,86 +84,69 @@ export default defineComponent({
     },
     mounted() {
         // Start at the top of the page
-        if (this.$refs["scrollContainer"] instanceof Element) {
-            this.$refs["scrollContainer"].scrollTop = 0
+        const scrollContainer = this.$refs.scrollContainer
+        if (scrollContainer instanceof Element) {
+            scrollContainer.scrollTop = 0
+            scrollContainer.addEventListener("scroll", this.handleScroll)
         }
 
-        console.log(this.$router.currentRoute)
-
-        if (!this.$router.currentRoute.value.fullPath.includes("gedeelde-perceptie")) {
-            this.interval = setInterval(() => {
-                if (this.selectedType) {
-                    clearInterval(this.interval)
-                    this.typeIndex = 0
-                    return
-                }
-
-                if (this.typeIndex) {
-                    this.typeIndex = 0
-                } else {
-                    this.typeIndex = 1
-                }
-            }, 3200 + 480) // Same as glitch
-        }
-
+        // if (!this.$router.currentRoute.value.fullPath.includes("gedeelde-perceptie")) {
+            
+        // }
         // this.allowScrollBack()
-        
-
-        if (this.$refs["scrollContainer"] instanceof Element) {
-            this.$refs["scrollContainer"].addEventListener("scroll", this.handleScroll)
-        }
     },
     unmounted() {
-        if (this.$refs["scrollContainer"] instanceof Element) {
-            this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
+        const scrollContainer = this.$refs.scrollContainer
+        if (scrollContainer instanceof Element) {
+            scrollContainer.removeEventListener("scroll", this.handleScroll)
         }
     },
     methods: {
-
-        allowScrollBack() {                 
-            gsap.to(".pov-page", {
-                scrollTrigger: {
-                    trigger:".pov-page",
-                    start: "16px 0",
-                    end: "16px 0",
-                    id:"tv",
-                    markers: true,
-                    onEnterBack: () => {
-                        console.log("enter back")
-                        // Add code here to make it possible to scroll back up to the introduction page
-                    },
-                },
-            })
-        },
-        glitchUpdate(string:string) {
-            var match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
+        // allowScrollBack() {                 
+        //     gsap.to(".pov-page", {
+        //         scrollTrigger: {
+        //             trigger:".pov-page",
+        //             start: "16px 0",
+        //             end: "16px 0",
+        //             id:"tv",
+        //             markers: true,
+        //             onEnterBack: () => {
+        //                 console.log("enter back")
+        //                 // Add code here to make it possible to scroll back up to the introduction page
+        //             },
+        //         },
+        //     })
+        // },
+        glitchUpdate(string: string)  {
+            let match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
             if (match && match[1]) {
-                // this.typeIndex = this.types.indexOf(match[1])
+                this.selected = match[1].toLocaleLowerCase().includes("tomaat") ? 0 : 1
             }
         },
         handleScroll(event: Event) {
             if (!event.target) {
                 return
             }
-            const targetElement = event.target as HTMLElement
+            const targetElement = event.target
+            const contentElement = this.$refs.content
             
-            if (this.$refs["content"] instanceof HTMLElement) {
-                if (targetElement.scrollTop > (this.$refs.content as HTMLElement).offsetTop - window.innerHeight) {
+            if (contentElement instanceof HTMLElement && targetElement instanceof HTMLElement) {
+                if (targetElement.scrollTop > contentElement.offsetTop - window.innerHeight) {
                     this.repeat = 0
-                    clearInterval(this.interval)
-                    this.selectedType = this.types[this.typeIndex]
-                    // this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
+                    // this.selected = true
+                    // clearInterval(this.interval)
                 }
             }
             
-            if (!(this.$refs["scrollContainer"] instanceof HTMLElement)) {                
+            const scrollContainer = this.$refs.scrollContainer
+            if (!(scrollContainer instanceof HTMLElement) || !(targetElement instanceof HTMLElement)) {
                 return
-            } 
+            }
             
-            if (targetElement.scrollTop > targetElement.scrollHeight/4) {
+            if (targetElement.scrollTop > targetElement.scrollHeight / 4) {
                 this.$emit("next", "pov-page-half")
-                this.$refs["scrollContainer"].removeEventListener("scroll", this.handleScroll)
-            } 
+                scrollContainer.removeEventListener("scroll", this.handleScroll)
+            }
         },
         nextPage() {
             this.$emit("next", "pov-page")
