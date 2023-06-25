@@ -1130,6 +1130,7 @@ export default defineComponent({
         canvas {
             max-width:100%;
             aspect-ratio: 1/1;
+            height: auto !important;
         }
         @media (min-width: 768px) {
             width: calc(50% - 64px);
@@ -1147,7 +1148,6 @@ export default defineComponent({
         
         @media all and (min-width: 768px) {
             flex-flow: row;
-            padding-right: 64px;
             height: calc(100vh - 240px);
             padding-top: 32px;
         }
@@ -1169,6 +1169,7 @@ export default defineComponent({
             padding: 0;
             height: 0;
             border: 0 none transparent;
+            display: none;
         }
         
         > div {
@@ -1187,6 +1188,10 @@ export default defineComponent({
             margin-top: 48px;
             font-size: .8em;
             color: #777;
+        }
+
+        @media all and (min-width: 768px) {
+            margin-right: 64px;
         }
     }
 
@@ -1215,6 +1220,10 @@ export default defineComponent({
         padding: 0;
         margin: 0;
         transition: $transitionDefault;
+
+        svg {
+            scale: .8;
+        }
 
         &:nth-child(2) {
             margin-top: 24px;
@@ -1278,6 +1287,7 @@ export default defineComponent({
 
         h1 {
             font-size: 30px;
+            margin-bottom: 36px;
         }
         p {
             font-size: 14px;
@@ -1287,6 +1297,7 @@ export default defineComponent({
         .button-container {
             margin-top: 24px;
             margin-bottom: 16px;
+            margin-top: -64px;
             width: 100%;
             text-align: center;
             .small {
