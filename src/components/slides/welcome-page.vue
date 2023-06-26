@@ -178,9 +178,9 @@ export default defineComponent({
 }
 
 .welcome-page-sidebar {
-    padding: 32px;
+    padding: 0;
     width: 100%;
-    margin-top: 80px;
+    margin-top: 84px;
     display: flex;
     flex-flow: column;
     justify-content: space-between;
@@ -323,6 +323,12 @@ export default defineComponent({
         }
     }
 }
+@media screen and (min-width: 640px) {
+    .welcome-page-sidebar {
+        padding: 32px;
+        
+    }
+}
 @media screen and (min-width: 768px) {
     .welcome-page {
         flex-flow: row nowrap;
@@ -330,6 +336,7 @@ export default defineComponent({
     }
     .welcome-page-sidebar {
         max-width: 240px;
+        margin-top: 80px;
         padding: 0;
     }
 

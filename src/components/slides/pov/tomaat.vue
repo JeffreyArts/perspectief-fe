@@ -829,10 +829,10 @@ export default defineComponent({
     }
     
     p {
-        margin: 0;
-        font-size: 11px;
+        margin: 0 0 0 -8px;
+        font-size: 10px;
         line-height: 18px;
-        padding: 0 16px;
+        padding: 0 8px;
     }
     
     .square-content-row {
@@ -840,6 +840,14 @@ export default defineComponent({
         height: 100%;
     }
     
+    @media all and (min-width: 360px) {
+        p {
+            margin: 0;
+            font-size: 11px;
+            line-height: 18px;
+            padding: 0 16px;
+        }
+    }
     @media all and (min-width: 440px) {
         p {
             line-height: 20px;

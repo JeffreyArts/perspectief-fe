@@ -1085,7 +1085,7 @@ export default defineComponent({
         display: inline-block;
         width: 100%;
         text-align: right;
-        padding: 0 32px;
+        padding: 0;
         overflow: hidden;
         line-height: 1.6em;
     }
@@ -1093,7 +1093,7 @@ export default defineComponent({
     .box-container {
         position: relative;
         margin: 32px 0 0;
-        height: calc(100vh - 128px);
+        height: calc(100vh - 180px);
         @media (min-width: 768px) {
             margin: 64px 0 0;
             height: calc(100vh - 200px);
@@ -1159,7 +1159,9 @@ export default defineComponent({
         align-items: center;
         height: calc(100vh - 200px);
         padding-bottom: 32px;
-        
+        @media (orientation: portrait) {
+            height: calc(100vh - 300px);
+        }
         @media all and (min-width: 768px) {
             flex-flow: row;
             height: calc(100vh - 240px);
@@ -1172,13 +1174,12 @@ export default defineComponent({
         border:1px solid $black;
         width: calc(100% - 64px);
         padding: 0;
-        margin-left: 32px;
         max-height: 100%;
         overflow-x: none;
         overflow-y: auto;
-
-        font-size: 14px;
-        line-height: 24px;
+        font-size: 12px;
+        line-height: 20px;
+        
         &.__isHidden {
             padding: 0;
             height: 0;
@@ -1204,8 +1205,14 @@ export default defineComponent({
             color: #777;
         }
 
+        @media all and (min-width: 480px) {
+            font-size: 14px;
+            line-height: 24px;
+        }
+
         @media all and (min-width: 768px) {
             margin-right: 64px;
+            margin-left: 32px;
 
             > div {
                 padding: 24px;
@@ -1315,7 +1322,6 @@ export default defineComponent({
         .button-container {
             margin-top: 24px;
             margin-bottom: 16px;
-            margin-top: -64px;
             width: 100%;
             text-align: center;
             .small {
@@ -1327,6 +1333,9 @@ export default defineComponent({
                     background-color: $black;
                     color: #fff;
                 }
+            }
+            @media all and (min-width: 720px) {
+                margin-top: -64px;
             }
         }
 
