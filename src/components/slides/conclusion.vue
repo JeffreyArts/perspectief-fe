@@ -170,7 +170,7 @@
                         Niet alleen door je te vertellen over hoe ik naar de vorming van kennis kijk, 
                         maar ook door je te laten zien hoe perceptie je opinie kan beïnvloeden, 
                         en daarmee het spectrum waarop je voor- of tegenstander bent over een bepaald onderwerp bepaalt. 
-                        Misschien vond je mijn hele verhaal een huis met enkelt open deuren, 
+                        Misschien vond je mijn hele verhaal een huis met uitsluitend open deuren, 
                         maar hopelijk heeft het je een nieuwe blik gegeven op de manier waarop jij je eigen realiteit kunt vormgeven. 
                     </p>
                     <p>
