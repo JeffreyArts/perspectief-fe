@@ -1,5 +1,5 @@
 <template>
-    <div class="pov-page-container" ref="container">
+    <div class="pov-page-container" :class="[page.step === 7 ? '__noScroll' : '']" ref="container">
         <div class="pov-page" ref="scrollContainer">
             <div class="pov-intro-block" ref="intro-block">
                 <p>Wanneer kennis de verzameling van informatie is welk betrekking heeft tot een onderwerp. 
@@ -31,7 +31,7 @@
             </h1>
 
 
-            <div ref="content">
+            <div ref="content" v-if="page.step < 7">
                 <tomaat v-if="selected == 0" @completed="nextPage" />
                 <pen v-if="selected == 1" @completed="nextPage" />
             </div>
@@ -43,6 +43,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import gsap from "gsap"
+import Page from "@/stores/page"
 import Pen from "@/components/slides/pov/pen.vue"
 import Tomaat from "@/components/slides/pov/tomaat.vue"
 import Glitch from "@/components/glitch.vue"
@@ -53,6 +54,12 @@ export default defineComponent({
     name: "pov-page",
     components: {
         Glitch, Pen, Tomaat
+    },
+
+    setup() {
+        const page = Page()
+
+        return { page }
     },
     data: () => {
         return {
@@ -84,10 +91,12 @@ export default defineComponent({
     },
     mounted() {
         // Start at the top of the page
-        const scrollContainer = this.$refs.scrollContainer
-        if (scrollContainer instanceof Element) {
-            scrollContainer.scrollTop = 0
-            scrollContainer.addEventListener("scroll", this.handleScroll)
+        if (this.page.step < 7) {
+            const scrollContainer = this.$refs.scrollContainer
+            if (scrollContainer instanceof Element) {
+                scrollContainer.scrollTop = 0
+                scrollContainer.addEventListener("scroll", this.handleScroll)
+            }
         }
 
         // if (!this.$router.currentRoute.value.fullPath.includes("gedeelde-perceptie")) {
@@ -165,6 +174,14 @@ export default defineComponent({
 
     &.__isHidden {
         opacity: 0;
+    }
+    &.__noScroll {
+        overflow: hidden;
+        pointer-events: none;
+        .pov-page {
+            overflow: hidden;
+            pointer-events: none;
+        }
     }
 }
 .pov-page {

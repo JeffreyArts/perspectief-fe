@@ -1,19 +1,20 @@
 <template>
     <div class="home">
         <bg />
-        <stripes @next="nextStep" v-if="step < 2 "/>
-        <big-quote @next="nextStep" v-if="step == 2"/>
-        <welcome-page @next="nextStep" v-if="step == 3"/>
-        <introduction-page @next="nextStep" v-if="step == 4 || step==5"/>
-        <pov-page @next="nextStep" v-if="step == 5 || step == 6 || step == 7"/>
-        <shared-perception @next="nextStep" v-if="step == 7"/>
-        <conclusion @next="nextStep" v-if="step == 8"/>
+        <stripes @next="nextStep" v-if="page.step< 2 "/>
+        <big-quote @next="nextStep" v-if="page.step== 2"/>
+        <welcome-page @next="nextStep" v-if="page.step== 3"/>
+        <introduction-page @next="nextStep" v-if="page.step== 4 || page.step== 5"/>
+        <pov-page @next="nextStep" v-if="page.step== 5 || page.step== 6 || page.step== 7"/>
+        <shared-perception @next="nextStep" v-if="page.step== 7"/>
+        <conclusion @next="nextStep" v-if="page.step== 8"/>
     </div>
 </template>
 
 
 <script lang="ts">
 import {defineComponent} from "vue"
+import Page from "@/stores/page"
 import LocalDB from "@/stores/localdb"
 import bigQuote from "@/components/slides/big-quote.vue"
 import welcomePage from "@/components/slides/welcome-page.vue"
@@ -31,38 +32,39 @@ export default defineComponent ({
     props: [],
     setup() {
         const localDB = LocalDB()
+        const page = Page()
 
-        return { localDB }
+        return { localDB, page }
     },
     data() {
         return {
             consoleEvents: [] as Array<string>,
-            step: 1,
+            step: 0,
             bgFadeOut: false,
         }
     },
     mounted() {
+        // this.page.step = 1
         this.updateStep()
     },
     methods: {
         nextStep(msg: string) {
-            this.step++
+            this.page.step++
             this.updateRoute()
         },
         updateStep() {
             switch (this.$router.currentRoute.value.fullPath) {
-            case "/pagina/intro":               this.step = 1;       break
-            case "/pagina/quote":               this.step = 2;       break
-            case "/pagina/welkom":              this.step = 3;       break
-            case "/pagina/introductie":         this.step = 4;       break
-            case "/pagina/perceptie":           this.step = 5;       break
-            case "/pagina/gedeelde-perceptie":  this.step = 7;       break
-            case "/pagina/conclusie":           this.step = 8;       break
+            case "/pagina/intro":               this.page.step = 1;       break
+            case "/pagina/quote":               this.page.step = 2;       break
+            case "/pagina/welkom":              this.page.step = 3;       break
+            case "/pagina/introductie":         this.page.step = 4;       break
+            case "/pagina/perceptie":           this.page.step = 5;       break
+            case "/pagina/gedeelde-perceptie":  this.page.step = 7;       break
+            case "/pagina/conclusie":           this.page.step = 8;       break
             }
         },
         updateRoute() {
-
-            switch (this.step) {
+            switch (this.page.step) {
             case 1: this.$router.push("/pagina/intro");                 break
             case 2: this.$router.push("/pagina/quote");                 break
             case 3: this.$router.push("/pagina/welkom");                break

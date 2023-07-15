@@ -119,6 +119,7 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import isMobiel from "@/stores/is-mobile"
+import Page from "@/stores/page"
 import gsap from "gsap"
 import Glitch from "@/components/glitch.vue"
 import FadeText from "@/components/fade-text.vue"
@@ -135,7 +136,8 @@ export default defineComponent({
     components: { Glitch, TomatoSlider,FadeText },
     setup() {
         const isMobile = isMobiel()
-        return { isMobile }
+        const page = Page()
+        return { isMobile, page }
     },
     data: () => {
         return {
@@ -151,24 +153,26 @@ export default defineComponent({
        
     },
     mounted() {
+        if (this.page.step <= 6) {
+            // SET DEFAULTS
+            gsap.set("#crown", {svgOrigin: "301px 379px", rotate: 180})
+            gsap.set("#tomato2 .tomato-sliders-container", {x: "-100%"})
+            ScrollTrigger.defaults({
+                scroller: ".pov-page",
+            })
+        
+            ScrollTrigger.getAll().forEach(instance => {
+                instance.kill() // destroy the ScrollTrigger instance
+            })
 
-        // SET DEFAULTS
-        gsap.set("#crown", {svgOrigin: "301px 379px", rotate: 180})
-        gsap.set("#tomato2 .tomato-sliders-container", {x: "-100%"})
-        ScrollTrigger.defaults({
-            scroller: ".pov-page",
-        })
-
-        ScrollTrigger.getAll().forEach(instance => {
-            instance.kill() // destroy the ScrollTrigger instance
-        })
+            setTimeout(() => {
+                this.initialiseAnimation()
+                window.dispatchEvent(new Event("resize"))
+            })
+        }
 
         window.addEventListener("resize",this.resizeEvent)
         
-        setTimeout(() => {
-            this.initialiseAnimation()
-            window.dispatchEvent(new Event("resize"))
-        })
     },
     beforeUnmount() {
         for (const animation of this.animations) {
