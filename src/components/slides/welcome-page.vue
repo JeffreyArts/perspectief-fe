@@ -285,7 +285,13 @@ export default defineComponent({
 
     h1 {
         margin-left: 0;
+        font-size: 36px;
         display: inline-block;
+    }
+    @media screen and (min-width: 400px) {
+        h1 {
+            font-size: 64px;
+        }
     }
 }
 

@@ -238,14 +238,18 @@ export default defineComponent({
 .intro-block-bg {
     background-color: #fff;
     border: 1px solid $black;
-    padding: 48px;
-    font-size: 16px;
+    padding: 48px 24px;
+    font-size: 14px;
     line-height: 32px;
     margin: 160px 0;
     width: 100%;
     
     &:last-child {
         margin-bottom: calc(100vh + 16px);
+    }
+    @media all and (min-width: 320px) {
+        padding: 48px;
+        font-size: 16px;
     }
 }
 
