@@ -56,7 +56,7 @@
         <div class="slide" id="slide-1">
             <p class="card">
                 Deze waarnemingen vormen onze waargenomen realiteit. 
-                In ons bewuste brein zijn we echter niet in staat om onderscheid te maken tussen onze waargenomen realiteit, en de echte realiteit. 
+                In ons bewuste brein zijn we echter niet in staat om onderscheid te maken tussen onze waargenomen realiteit en de echte realiteit. 
                 De echte realiteit komt via onze <glitch 
                         :duration="480" 
                         :delay="3200" 
@@ -67,7 +67,7 @@
                         :glitch-jumps="6" 
                         :glitch-offset="8" /> binnen, waarop onze hersenen deze datastroom vervolgens verwerken. 
                 Dit is veelal een passief proces. 
-                We kunnen weliswaar onze waarnemingen betwisten, maar met de overvloed aan informatie waar we iedere dag mee geconfronteerd worden, 
+                We kunnen weliswaar onze waarnemingen betwisten, maar met de overvloed aan informatie waar we iedere dag mee geconfronteerd worden 
                 is het onleefbaar om iedere individuele waarneming actief te betwisten. 
             </p>
         </div>
@@ -131,19 +131,19 @@
                                     om deel te kunnen nemen aan dit netwerk van informatie. 
                                     Waar je in de begindagen van het internet, PHP & HTML moest leren om niet als consument van informatie, 
                                     maar als publicist van informatie deel te kunnen nemen aan dit netwerk van informatie. 
-                                    Zijn er tegenwoordig talloze platformen welk deze complexiteit hebben weg genomen.
+                                    Zijn er tegenwoordig talloze platformen die deze complexiteit hebben weg genomen.
                                 </p>
                                 <p>
-                                    Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk ontzettend toegenomen. 
+                                    Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit informatie netwerk ontzettend toegenomen. 
                                     Dit leidt tot een groei van diversiteit in collectieve standpunten. 
                                     Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
-                                    Waarbij de informatie die het verspreid, vanuit een nog kleiner aantal standpunten wordt gedeeld.
-                                     Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media. 
-                                    Maar met het internet heeft nu iedere collectieve waarheid de mogelijkheid om vanuit het standpunt hun perceptie op de wereld te delen.
+                                    Waarbij de informatie die het verspreid, afkomstig is van een nog kleiner aantal verschillende standpunten.
+                                    Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media. 
+                                    Maar met het internet kan iedereen hun eigen perceptie delen met een vergelijkbaar bereik waardoor er een wildgroei aan collectieve waarheden ontstaat.
                                 </p>
 
                                 <p>
-                                    De websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
+                                    Websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
                                     Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
                                     Bieden ze nog altijd de ruimte voor een diverser spectrum aan standpunten dan dat de eerdere media dit (konden) aanbieden.
                                 </p>

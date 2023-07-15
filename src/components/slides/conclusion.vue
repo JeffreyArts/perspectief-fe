@@ -168,14 +168,14 @@
                     <p>
                         Ik hoop dat ik je met dit verhaal heb kunnen meenemen in mijn persoonlijke standpunt over perceptie en de wijze waarop ik mijn waargenomen realiteit cureer. 
                         Niet alleen door je te vertellen over hoe ik naar de vorming van kennis kijk, 
-                        maar ook door je te laten zien hoe perceptie je opinie kan beïnvloeden, 
-                        en daarmee het spectrum waarop je voor- of tegenstander bent over een bepaald onderwerp bepaalt. 
+                        maar ook door je te laten zien hoe perceptie je opinie kan beïnvloeden 
+                        en daarmee het spectrum bepaalt waarbinnen je, jezelf als je voor- of tegenstander kunt plaatsen tegenover een bepaald onderwerp.
                         Misschien vond je mijn hele verhaal een huis met uitsluitend open deuren, 
-                        maar hopelijk heeft het je een nieuwe blik gegeven op de manier waarop jij je eigen realiteit kunt vormgeven. 
+                        maar hopelijk heeft het je een nieuwe blik gegeven op de manier waarop jij jouw eigen realiteit kunt vormgeven. 
                     </p>
                     <p>
                         Ik ben in ieder geval blij om te zien dat je dit alles je voldoende geboeid heeft om tot dit einde te komen
-                        en ben benieuwd hoe jij naar dit alles kijkt.
+                        en ben benieuwd naar jouw perspectief op dit onderwerp.
                     </p>
                     <p class="welcome-back-greetings">
                         <glitch 

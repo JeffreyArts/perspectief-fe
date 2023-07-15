@@ -30,12 +30,12 @@
                     <div class="pen-text-container">
                         <p>
                             Jouw standpunt is daarom relevant bij de kennisvorming over een pen. 
-                            Misschien vind jij de kleur zeer belangrijk, of vind je het idee van een pen met emotionele waarde onnozele onzin.
-                            Het standpunt in relatie tot de pen is dan ook voor de ene persoon anders dan de ander.
+                            Misschien vind jij de kleur zeer belangrijk, of vind je het idee van een pen met emotionele waarde volledig onnozel.
+                            Het standpunt van een persoon in relatie tot de pen is dan ook voor iedere persoon anders.
                         </p>
                         <p>
-                            Zo ontstaat bij mij tijdens het schrijven van deze tekst over een pen, de correlatie met de film: the Wolf of Wallstreet.
-                            Deze film wordt afgesloten met een presentatie van de hoofdrolspeler waarin hij de vraag: “kun je mij deze pen verkopen?” stelt aan een publiek.
+                            Zo ontstaat tijdens het schrijven van deze tekst over een pen, bij mij de correlatie met de film: the Wolf of Wallstreet.
+                            Deze film wordt afgesloten met een presentatie van de hoofdrolspeler, waarbij hij de vraag aan het publiek stelt: "Kun je deze pen aan mij verkopen?".
                         </p>
                         <p>
                             In de film komt er geen antwoord op deze vraag, 
@@ -47,9 +47,9 @@
 
                     <div class="pen-text-footer">
                         <p>
-                            Je standpunt wordt dus gevormd door allerlei verschillende (meta-)informatie, 
-                            dus het is belangrijk om even uit te zoomen en je te realiseren dat wat een pen voor jou waard is, 
-                            niets te maken heeft met de waarde van de pen zelf.
+                            Je standpunt wordt dus gevormd door allerlei verschillende (meta-)informatie.
+                            Dus het is belangrijk om even uit te zoomen, en je te realiseren dat wat een pen voor jou waard is, 
+                            niet persé iets te maken heeft met de waarde van de pen zelf.
                         </p>
                     </div>
             </div>
