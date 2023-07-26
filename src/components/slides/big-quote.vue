@@ -95,6 +95,10 @@ export default defineComponent({
                     author: "Alan Sheinwald"
                 },
                 {
+                    content: "Don't believe everything you read on the internet",
+                    author: "Elvis Presley"
+                },
+                {
                     content: "We see people and things not as they are, but as we are",
                     author: "Anaïs Nin"
                 },
