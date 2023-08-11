@@ -442,14 +442,12 @@ export default defineComponent({
                     id:"square",
                     scrub: true,
                     onEnter: () => {
-                        console.log("tomatoColor",this.tomatoColor, this.$data.tomatoColor)
                         gsap.to(this.$data, { duration: 2, tomatoColor: "#f00" })
                     },
                     onUpdate: ({progress, direction, isActive}) => {
                         if (this.$el.querySelector(".square-content")?.getBoundingClientRect().top <= 0) {
                             return
                         }
-                        console.log("progress", progress)
                         if(progress > 0 && elRed.classList.contains("__isActive") == false){
                             elRed.classList.add("__isActive")
                         }

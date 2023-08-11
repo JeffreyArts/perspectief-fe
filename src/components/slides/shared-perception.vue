@@ -952,7 +952,6 @@ export default defineComponent({
                 instance.kill() // destroy the ScrollTrigger instance
             })
             
-            console.log("KILL")
             this.animations.length = 0
         },
         setupAnimations() {
@@ -960,7 +959,6 @@ export default defineComponent({
             this.slide3()
             this.slide4()
             this.tvSlide()
-            console.log("SETUP")
         }
     }
 })

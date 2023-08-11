@@ -79,7 +79,6 @@ export default {
         },
         updateValue() {
             const scale = chroma.scale(this.colorRange)
-            // console.log(scale(this.perc/100).hex())
             this.$emit("update:modelValue", scale(this.perc/100).hex())
         },
         setY(e: MouseEvent | TouchEvent) {

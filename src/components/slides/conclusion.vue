@@ -885,7 +885,6 @@ export default defineComponent({
             } as any
     
             let newCuboid = Cuboid.create(cubeDimensions, {name: `cuboid-${id}`,color: "#000000", maxLines: 320}) as any
-            console.log("newCuboid", newCuboid)
             // newCuboid.material.color = "#000000"
             // newCuboid.material.transparent = true
             // newCuboid.material.opacity = 0
