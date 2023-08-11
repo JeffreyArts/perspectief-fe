@@ -49,7 +49,7 @@ export default defineComponent({
                 en het aanbod vormt de informatie die we via haar websites en andere digitale producten tot ons nemen`
                 ,
                 `Er zijn vele partijen die in deze markt opereren, en er is een nog groter aanbod van individuen die bij deze partijen een rol vervullen.
-                Ieder bericht dat je deelt via een partij, zoals een social media platform, draagt bij aan de databank van dat platform.  
+                Ieder bericht dat je deelt via een partij - zoals een social media platform - draagt bij aan de databank van dat platform.  
                 Hoe groter de hoeveelheid informatie die deze partij bezit, hoe waardevoller deze partij wordt.`
                 ,
                 `De komende 20 minuten wil ik je graag meenemen op een ontdekkingsreis door de waardebepaling van deze informatie. 

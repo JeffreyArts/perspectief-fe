@@ -169,7 +169,7 @@
                         Ik hoop dat ik je met dit verhaal heb kunnen meenemen in mijn persoonlijke standpunt over perceptie en de wijze waarop ik mijn waargenomen realiteit cureer. 
                         Niet alleen door je te vertellen over hoe ik naar de vorming van kennis kijk, 
                         maar ook door je te laten zien hoe perceptie je opinie kan beïnvloeden 
-                        en daarmee het spectrum bepaalt waarbinnen je, jezelf als je voor- of tegenstander kunt plaatsen tegenover een bepaald onderwerp.
+                        en daarmee het spectrum bepaalt waarbinnen je, jezelf als voor- of tegenstander kunt plaatsen tegenover een bepaald onderwerp.
                         Misschien vond je mijn hele verhaal een huis met uitsluitend open deuren, 
                         maar hopelijk heeft het je een nieuwe blik gegeven op de manier waarop jij jouw eigen realiteit kunt vormgeven. 
                     </p>

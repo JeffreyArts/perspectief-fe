@@ -85,9 +85,8 @@
                             In een minstens zo gevarieerd aanbod van smaken en vormen. 
                             Hoe breder jouw kennis over deze verschillende variaties, contexten en andere informatie over tomaten. 
                             Hoe breder jouw perceptie. Maar de totstandkoming van deze informatie beïnvloed tegelijkertijd ook je standpunt. 
-                            Denk hierbij aan de cultuur waar je in opgroeit bijvoorbeeld, maar ook wat je simpelweg lekker eten vind. 
-                            De ervaringen die jij in je leven hebt doorleeft. 
-                            Ze beïnvloeden allemaal jouw standpunt in relatie tot het onderwerp (een tomaat in dit voorbeeld).
+                            Denk hierbij bijvoorbeeld aan de cultuur waar je in opgroeit, maar ook wat je simpelweg lekker eten vind. 
+                            De ervaringen die jij in je leven hebt doorleeft, beïnvloeden allemaal jouw standpunt in relatie tot het onderwerp (een tomaat in dit voorbeeld).
                         </p>
                     </div>
                 </div>

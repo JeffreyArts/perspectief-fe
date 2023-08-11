@@ -23,7 +23,7 @@
                 <div class="welcome-page-content-bg">
                     <h1>Welkom</h1>
                     <p>In dit project wil ik je meenemen op een reis over de waarde van perceptie. Waarom vinden we het een waardevoller dan het ander? 
-                        Niet alle informatie is immers even waardevol, en hoe verhoudt zich dat dan tot kennis? 
+                        Niet alle informatie is immers even waardevol en hoe verhoudt zich dat dan tot kennis? 
                         Hierbij zal ik het niet hebben over de monetaire waarde van goederen en diensten, maar ga ik het hebben over de waarde van kennis, informatie, data. 
                         Middels deze website wil ik je graag mijn perceptie laten zien over hoe ik hier naar kijk, en naderhand zou ik graag jouw perspectief willen horen.
                     </p>

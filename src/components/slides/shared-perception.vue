@@ -56,7 +56,7 @@
         <div class="slide" id="slide-1">
             <p class="card">
                 Deze waarnemingen vormen onze waargenomen realiteit. 
-                In ons bewuste brein zijn we echter niet in staat om onderscheid te maken tussen onze waargenomen realiteit en de echte realiteit. 
+                In ons onderbewuste brein zijn we echter niet in staat om onderscheid te maken tussen onze waargenomen realiteit en de echte realiteit. 
                 De echte realiteit komt via onze <glitch 
                         :duration="480" 
                         :delay="3200" 
@@ -127,18 +127,18 @@
                                 </p>
                                 <p>
                                     Maar naarmate de technologie zich verder ontwikkelde,
-                                    ontstonden er diverse alternatieven om deze technische drempels te verlagen voor de internetgebruikers 
-                                    om deel te kunnen nemen aan dit netwerk van informatie. 
+                                    ontstonden er diverse technieken die deze technische drempels verlaagden voor de internetgebruikers,
+                                    hierdoor kunnen steeds meer gebruikers deelnemen aan dit netwerk van informatie. 
                                     Waar je in de begindagen van het internet, PHP & HTML moest leren om niet als consument van informatie, 
-                                    maar als publicist van informatie deel te kunnen nemen aan dit netwerk van informatie. 
-                                    Zijn er tegenwoordig talloze platformen die deze complexiteit hebben weg genomen.
+                                    maar als publicist van informatie deel te kunnen nemen aan het internet. 
+                                    Zijn er tegenwoordig talloze platformen die deze complexiteit volledig hebben weggenomen.
                                 </p>
                                 <p>
-                                    Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit informatie netwerk ontzettend toegenomen. 
+                                    Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk enorm toegenomen. 
                                     Dit leidt tot een groei van diversiteit in collectieve standpunten. 
                                     Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
-                                    Waarbij de informatie die het verspreid, afkomstig is van een nog kleiner aantal verschillende standpunten.
-                                    Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten buiten deze media. 
+                                    Waarbij de informatie die het via deze zenders verspreid, afkomstig is van een nog kleiner aantal verschillende standpunten.
+                                    Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten die buiten deze media opereerden. 
                                     Maar met het internet kan iedereen hun eigen perceptie delen met een vergelijkbaar bereik waardoor er een wildgroei aan collectieve waarheden ontstaat.
                                 </p>
 
