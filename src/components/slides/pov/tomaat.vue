@@ -108,7 +108,7 @@
             <FadeText @animationComplete="isCompleted">
                 Simpel gezegd, wanneer je in je leven alleen maar rode tomaten hebt gezien, 
                 dan zul je een niet-rode tomaat al snel als iets bijzonders. 
-                Maar dat betekend dus niet dat niet-rode tomaten op zichzelf bijzonder zijn…
+                Maar dat betekent dus niet dat niet-rode tomaten op zichzelf bijzonder zijn…
             </FadeText>
         </div>
     </section>
@@ -175,6 +175,7 @@ export default defineComponent({
     },
     beforeUnmount() {
         for (const animation of this.animations) {
+            animation.pause()
             animation.kill()
         }
     },

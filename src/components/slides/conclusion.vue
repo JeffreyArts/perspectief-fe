@@ -11,7 +11,7 @@
         <div class="box-container" v-if="step == 1">
             <div class="box" id="box-1">
                 <p>
-                    Je standpunt beïnvloed welke selectie van informatie je tot je neemt. 
+                    Je standpunt beïnvloedt welke selectie van informatie je tot je neemt. 
                     Met deze kennis wordt jouw beeld van de werkelijkheid gevormd. 
                     Dit standpunt is dynamisch en kan door externe invloeden als <glitch 
                             :duration="640" 
@@ -43,7 +43,7 @@
             <div class="box" id="box-3" @click="openBox3">
                 <p>
                     Dit wil ik je graag laten zien door middel van eenzelfde onderwerp te belichten vanuit steeds een ander standpunt. 
-                    Neem deze 3 verschillende standpunten even tot je op. 
+                    Neem deze 3 verschillende standpunten even tot je. 
                     Daarna wil ik hem graag met je afsluiten en je uitnodigen om jouw standpunt over de waarde van perceptie te delen.
                 </p>
             </div>

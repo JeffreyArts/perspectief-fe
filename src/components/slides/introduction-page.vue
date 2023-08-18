@@ -37,9 +37,9 @@ export default defineComponent({
             story: [
                 `In een wereld waarin er meer informatie wordt verspreid per minuut dan dat je in een leven tot je kunt nemen.
                 Is het niet verwonderlijk dat niet alle informatie even waardevol is.
-                Ja, ik kan je vertellen dat wombats de enige dieren ter wereld zijn die vierkante drollen poepen.
-                of dat de afstand van onze planeet tot de maan minder dan 10 keer de omtrek van de aarde is.
-                Maar de kans is groot dat geen van deze informatie voor jou van grote waarde is.`
+                Ja, ik kan je vertellen dat het gewicht van een gemiddelde wolk zo'n 500.000 kg is.
+                Of dat de afstand van onze planeet tot de maan minder dan 10 keer de omtrek van de aarde is.
+                Maar de kans is groot dat geen van deze informatie van grote waarde is voor jou.`
                 ,
                 `Als persoon ben ik geïnteresseerd geraakt in wat het is dat iets waardevol maakt. 
                 Daarbij wil ik het hebben over een specifiek onderwerp:  <strong>informatie</strong>.
@@ -54,7 +54,7 @@ export default defineComponent({
                 ,
                 `De komende 20 minuten wil ik je graag meenemen op een ontdekkingsreis door de waardebepaling van deze informatie. 
                 Want het hebben van veel informatie staat niet gelijk aan het hebben van waardevolle informatie. 
-                Wat maakt informatie immers goed of slecht? Waarom vinden “we” het een belangrijker dan het ander? 
+                Wat maakt informatie immers goed of slecht? Waarom vinden “we” het één belangrijker dan het ander? 
                 En hoe wordt deze stroom van kennis <s><span class="__specialM">g</span><span class="__specialI">e</span><span class="__specialS">b</span></s>ruikt?`
             ],
             completed: false,

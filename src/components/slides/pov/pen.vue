@@ -60,7 +60,7 @@
             <FadeText @animationComplete="isCompleted">
                 Simpel gezegd, wanneer je in je leven alleen maar blauwe pennen hebt gezien, 
                 dan zul je een niet blauwe pen al snel als iets bijzonders zien. 
-                Maar dat betekend dus niet dat niet-blauwe pennen op zichzelf bijzonder zijn…
+                Maar dat betekent dus niet dat niet-blauwe pennen op zichzelf bijzonder zijn…
             </FadeText>
         </div>
     </section>
