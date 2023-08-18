@@ -11,8 +11,8 @@
         <div class="box-container" v-if="step == 1">
             <div class="box" id="box-1">
                 <p>
-                    Je standpunt beïnvloedt welke selectie van informatie je tot je neemt. 
-                    Met deze kennis wordt jouw beeld van de werkelijkheid gevormd. 
+                    Je standpunt beïnvloedt welke selectie van informatie je in relatie tot een onderwerp, tot je neemt. 
+                    Met deze kennis wordt vervolgens jouw beeld van de werkelijkheid gevormd. 
                     Dit standpunt is dynamisch en kan door externe invloeden als <glitch 
                             :duration="640" 
                             :delay="2000" 
@@ -56,6 +56,7 @@
                     <section class="text-container" ref="textcontainer" :class="!pageSelected ? '__isHidden' : ''">
                         <div v-if="page == 0">
                             <p>
+                                <strong>Standpunt: Commerciële belangen</strong><br>
                                 Sociale-media bubbels ontstaan door de algoritmes welk sociale media hebben ontwikkeld om een zo breed mogelijk scala aan gebruikers, 
                                 met een minstens zo'n breed scala aan interesses, zo lang mogelijk op hun platform te houden. 
                                 Sociale media websites kosten ontzettend veel geld om te ontwikkelen en te onderhouden, maar zijn vaak gratis te gebruiken. 
@@ -84,6 +85,7 @@
                         
                         <div v-if="page == 1">
                             <p>
+                                <strong>Standpunt: Algoritmische curatie</strong><br>
                                 Een sociale-media bubbel is een door algoritme-gecureerd standpunt ten behoeven van een specifiek onderwerp.
                                 Dit biedt de gebruiker de mogelijkheid om het sociale media platform dit algoritme zo in te richten dat hij of zij de informatie te zien krijgt 
                                 waar hij of zij in geïnteresseerd is. Wanneer de gebruiker het platform wilt gebruiken door het bekijken van schattige dieren filmpjes. 
@@ -112,6 +114,7 @@
 
                         <div v-if="page == 2">
                             <p>
+                                <strong>Standpunt: Verdieping</strong><br>
                                 Sociale-media bubbels zorgen voor een diversiteit aan standpunten waarop je de wereld kunt waarnemen.
                                 Dit leidt tot een breed scala aan verschillende waargenomen realiteiten. 
                                 Neem als voorbeeld bijvoorbeeld de bubbel omtrent de flat-earth theorie. 
@@ -262,8 +265,6 @@ export default defineComponent({
             map: [
                 [1],
             ],
-            transitionDuration: 1280,
-            transitionType: "power2.inOut",
         }
     },
     computed: {
@@ -821,8 +822,8 @@ export default defineComponent({
             
             // Replace perspective camera with orthographic camera
             three.camera = new THREE.OrthographicCamera( -1, 1, -1, 1, 0, 1000 )
-            three.camera.updateProjectionMatrix()
             three.camera.position.set( 8, 16, 8)
+            three.camera.updateProjectionMatrix()
             
             three.scene.add(three.camera)
             
@@ -872,7 +873,7 @@ export default defineComponent({
             three.camera.top = height
             three.camera.left = -width
             three.camera.right = width
-            three.camera.zoom = cuboidElement.offsetWidth/4.8
+            three.camera.zoom = cuboidElement.offsetWidth/3.2
 
             three.camera.updateProjectionMatrix()
         },
@@ -971,11 +972,11 @@ export default defineComponent({
                 this.clickTimeout = setTimeout(() => {
                     if (!this.mouseDown) {
                         const cameraTween = gsap.to(three.camera.position, {
-                            duration: this.transitionDuration / 1000,
+                            duration: 2.4,
                             x: cameraPosition.x,
                             y: cameraPosition.y,
                             z: cameraPosition.z,
-                            ease: "back.out(1.7)",
+                            ease: "power1.inOut",
                             onUpdate: () => {
                                 three.camera.lookAt(centerPoint.x, centerPoint.y, centerPoint.z)
                                 if (this.mouseDown) {
@@ -1148,6 +1149,7 @@ export default defineComponent({
         @media (min-width: 768px) {
             width: calc(50% - 64px);
             padding: 0 0;
+            margin: 0;
         }
     }
 
