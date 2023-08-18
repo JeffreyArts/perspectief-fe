@@ -31,7 +31,7 @@
             </h1>
 
 
-            <div ref="content" v-if="page.step <= 7">
+            <div ref="content" v-if="page.step < 7">
                 <tomaat v-if="selected == 0" @completed="nextPage" />
                 <pen v-if="selected == 1" @completed="nextPage" />
             </div>
