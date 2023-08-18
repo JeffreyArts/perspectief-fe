@@ -31,7 +31,7 @@
             </h1>
 
 
-            <div ref="content" v-if="page.step < 7">
+            <div ref="content" v-if="page.step <= 7">
                 <tomaat v-if="selected == 0" @completed="nextPage" />
                 <pen v-if="selected == 1" @completed="nextPage" />
             </div>
@@ -129,7 +129,9 @@ export default defineComponent({
         glitchUpdate(string: string)  {
             let match = string.match(new RegExp("<span[^>]*>(.*)<\/span>"))
             if (match && match[1]) {
-                this.selected = match[1].toLocaleLowerCase().includes("tomaat") ? 0 : 1
+                if (this.page.step < 7) {
+                    this.selected = match[1].toLocaleLowerCase().includes("tomaat") ? 0 : 1
+                }
             }
         },
         handleScroll(event: Event) {
