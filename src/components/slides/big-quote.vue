@@ -11,6 +11,9 @@
                 <div class="big-quote-author" ref="author" v-if="quote.author">{{ quote.author }}</div>
             </div>
         </div>
+        <div class="continue-button">
+            Ga verder <span class="icon">&gt;</span>
+        </div>
     </div>
 </template>
 
@@ -155,6 +158,11 @@ export default defineComponent({
         if (container) {
             container.addEventListener("scroll", this.moveState)
         }
+        
+        gsap.set(".continue-button", {
+            blur: 24,
+            opacity: 0,
+        })
 
         setTimeout(() => {
             if (!this.$refs.author) {
@@ -187,6 +195,14 @@ export default defineComponent({
                     ease: "power2.inOut",
                     onComplete: () => {
                         this.disableScroll = false
+                        setTimeout(() => {
+                            gsap.to(".continue-button", {
+                                duration: .64,
+                                opacity: 1,
+                                blur: 0,
+                                ease: "power2.out",
+                            })
+                        }, 1024)
                     }
                 })
         })
@@ -338,6 +354,12 @@ export default defineComponent({
     &.__isVisible {
         opacity: 1;
     }
+}
+
+
+.continue-button {
+    opacity: 0;
+    right: 0;
 }
 
 </style>
