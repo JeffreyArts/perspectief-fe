@@ -120,28 +120,16 @@
                             
                             <div class="second-section" :class="[tvSection == 2 ? '__isVisible' : '']">
                                 <p>
-                                    Het wereldwijde web heeft namelijk een eigenschap waardoor het zichzelf fundamenteel onderscheid van de eerder genoemde media. 
-                                    Het biedt namelijk de mogelijkheid voor twee-richting verkeer van informatie. 
-                                    De ontvanger van informatie kan via dit medium ook als zender van de informatie fungeren. 
-                                    In het begin van het web was dit uitsluitend mogelijk via het coderen (en consumeren) van webpagina’s.
+                                    Het wereldwijde web heeft namelijk een eigenschap waarmee het zichzelf fundamenteel onderscheid van de eerder genoemde media. 
+                                    Het biedt namelijk de mogelijkheid voor twee-richting verkeer van informatie.
+                                    De ontvanger van informatie kan via dit medium namelijk met hetzelfde gemak, ook als zender van informatie fungeren. 
                                 </p>
-                                <p>
-                                    Maar naarmate de technologie zich verder ontwikkelde,
-                                    ontstonden er diverse technieken die deze technische drempels verlaagden voor de internetgebruikers,
-                                    hierdoor kunnen steeds meer gebruikers deelnemen aan dit netwerk van informatie. 
-                                    Waar je in de begindagen van het internet, PHP & HTML moest leren om niet als consument van informatie, 
-                                    maar als publicist van informatie deel te kunnen nemen aan het internet. 
-                                    Zijn er tegenwoordig talloze platformen die deze complexiteit volledig hebben weggenomen.
+                                <p> 
+                                    Dit geeft iedereen die aan dit medium deelneemt, de mogelijkheid om hun stem te laten horen. 
+                                    Waar je via radio of televisie bijvoorbeled minder dan 100 verschillende zenders kunt consumeren. 
+                                    Kan op het internet iedereen hun vanuit hun eigen standpunt, hun perceptie delen over ieder onderwerp, wat leidt tot een groei van diversiteit in collectieve standpunten
+                                    Omdat het bereik op het internet even groot kan zijn als op de traditionele media, ontstaat er gemakkelijker een wildgroei aan collectieve waarheden.
                                 </p>
-                                <p>
-                                    Doordat deze drempel zo laag is geworden, is de groei van deelnemers aan dit netwerk enorm toegenomen. 
-                                    Dit leidt tot een groei van diversiteit in collectieve standpunten. 
-                                    Via radio of televisie kun je bijvoorbeeld minder dan 100 verschillende zenders consumeren. 
-                                    Waarbij de informatie die het via deze zenders verspreid, afkomstig is van een nog kleiner aantal verschillende standpunten.
-                                    Natuurlijk zijn er altijd collectieven geweest met hun eigen unieke standpunten die buiten deze media opereerden. 
-                                    Maar met het internet kan iedereen hun eigen perceptie delen met een vergelijkbaar bereik waardoor er een wildgroei aan collectieve waarheden ontstaat.
-                                </p>
-
                                 <p>
                                     Websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
                                     Deze websites faciliteren de communicatie van en naar hun gebruikers, en hoewel er op deze platformen een hoop curatie plaatsvindt. 
@@ -187,12 +175,12 @@
         
 
         <div class="slotstuk" :class="[slotstuk ? '__isActive' : '']" id="slide-5">
-            <div class="slot-stuk-handle" @click="slotstukEnter">
+            <div class="slot-stuk-handle" @click="closeSharedPerception">
                 Ga verder &gt;
             </div>
 
             <div class="slot-stuk-content-container">
-                <div class="slot-stuk-content">
+                <!-- <div class="slot-stuk-content">
                     <div class="slot-stuk-content-center">
                         <p>
                             Het wereldwijde web heeft namelijk een eigenschap waarmee het zichzelf fundamenteel onderscheid van de eerder genoemde media. 
@@ -225,7 +213,7 @@
                             </svg>
                         </button>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -317,8 +305,6 @@ export default defineComponent({
             }
         },
         submitForm() {
-
-            
             if (this.formSubmitted) {
                 return
             }
@@ -382,54 +368,7 @@ export default defineComponent({
             }, 1600)
         },
         closeSharedPerception() {
-            const animation1 = gsap.to("#perception-chevron", {
-                morphSVG: {shape: "#perception-square"}, 
-                duration: .72,
-                opacity: 0,
-                ease: "bounce.out",
-            })
-
-            const animation2 = gsap.to("#slide-3", {
-                duration: .32,
-                opacity: 0,
-                ease: "power4.inOut",
-            })
-
-            const animation3 = gsap.to(".slot-stuk-content-button", {
-                opacity: 0,
-                duration: .8,
-                ease: "rough({ strength: 1, points: 10, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
-            })
-
-            const animation4 = gsap.to(".slot-stuk-content-container", {
-                color: "#fff",
-                duration: 0.8,
-                ease: "rough({ strength: 1, points: 32, template: bounce.inOut, taper: none, randomize: false, clamp: false })",
-                onComplete: () => {
-                    // set overflow hidden on ".slot-stuk-content"
-                    const content = this.$el.querySelector(".slot-stuk-content") as HTMLElement
-                    content.style.padding = "0"
-                    content.style.overflow = "hidden"
-                }
-            })
-
-            const animation5 = gsap.to(".slot-stuk-content-container", {
-                height: 0,
-                delay: 0.96,
-                top: "50%",
-                opacity: 0,
-                duration: 1.28,
-                ease: "power4.inOut",
-                onComplete: () => {
-                    this.$emit("next", "shared-perception")
-                }
-            })
-
-            this.animations.push(animation1, animation2, animation3, animation4, animation5)
-        },
-        slotstukEnter() {
             const content = this.$el.querySelector(".slot-stuk-content-container") as HTMLElement
-            const handle = this.$el.querySelector(".slot-stuk-handle") as HTMLElement
             const ease = "back.inOut(2.56)"
 
             const animation1 = gsap.to(".slot-stuk-handle", {
@@ -452,11 +391,15 @@ export default defineComponent({
             })
 
             const animation4 = gsap.timeline().to(".television-container", {
-                height: window.innerHeight - 256,
+                height: 0,
+                paddingTop: 0,
+                paddingBottom: 0,
                 ease: ease,
                 duration: 1.28,
+                opacity:0,
                 onComplete: () => {
-                    gsap.to(".television-container", {opacity: 0, duration: .32})
+                    
+                    this.$emit("next", "shared-perception")
                 }
             })
 
@@ -1455,45 +1398,6 @@ export default defineComponent({
         position: relative;
     }
 }
-.slot-stuk-content-center {
-    display: flex;
-    justify-content: center;
-    flex-flow: column;
-}
-
-.slot-stuk-content-button-container {
-    width: 100%;
-    display: flex;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    // align-items: center;
-    padding: 0 32px;
-    margin-top: 32px;
-    margin-bottom: 16px;
-    
-    @media all and (min-width: 768px){
-        justify-content: flex-end;
-        bottom: 0;
-        position: absolute;
-    }
-}
-
-.slot-stuk-content-button {
-    border: 0 none transparent;
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: $black;
-    
-    svg {
-        margin-left: 8px;
-        height: 32px;
-    }
-}
-
 
 
 // Desktop version
