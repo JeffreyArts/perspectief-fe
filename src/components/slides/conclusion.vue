@@ -242,6 +242,24 @@ export default defineComponent({
         pageSelected() {
             return !_.isNull(this.page)
         },
+        allRead() {
+            // Check if all readPage values are true
+            return Object.values(this.readPages).every((value) => value)
+        }
+    },
+    watch: {
+        allRead() {
+            if (this.allRead) {
+                this.$el.querySelector(".continue-button").style.pointerEvents = "all"
+                // remove textContainerScroll
+                gsap.to(".continue-button", {
+                    blur: 0,
+                    opacity: 1,
+                    duration: 1.024,
+                    ease: "power2.inOut",
+                })
+            }
+        }
     },
     mounted() {
         gsap.registerPlugin(ScrollToPlugin)
@@ -1015,19 +1033,6 @@ export default defineComponent({
             const textContainerScrollTop = textContainer.scrollTop + textContainerHeight
             if (textContainerScrollTop > textContainerScrollHeight - 64) {
                 this.readPages[this.page] = true
-                // Check if all readPage values are true
-                const allRead = Object.values(this.readPages).every((value) => value)
-
-                if (allRead) {
-                    this.$el.querySelector(".continue-button").style.pointerEvents = "all"
-                    // remove textContainerScroll
-                    gsap.to(".continue-button", {
-                        blur: 0,
-                        opacity: 1,
-                        duration: 1.024,
-                        ease: "power2.inOut",
-                    })
-                }
             }
         },
     }
