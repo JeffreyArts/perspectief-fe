@@ -56,26 +56,18 @@
                     <section class="text-container" ref="textcontainer" :class="!pageSelected ? '__isHidden' : ''">
                         <div v-if="page == 0">
                             <p>
-                                <strong>Standpunt: Commerciële belangen</strong><br>
-                                Sociale-media bubbels ontstaan door de algoritmes welk sociale media hebben ontwikkeld om een zo breed mogelijk scala aan gebruikers, 
-                                met een minstens zo'n breed scala aan interesses, zo lang mogelijk op hun platform te houden. 
-                                Sociale media websites kosten ontzettend veel geld om te ontwikkelen en te onderhouden, maar zijn vaak gratis te gebruiken. 
-                                Daar hebben deze platformen iets op gevonden: advertenties. 
-                                Om de effectiviteit (conversie) van advertenties te verhogen hebben de platformen er baat bij om een zo groot mogelijk aantal doelgroepen te kunnen definiëren. 
-                                Hoe groter het aantal doelgroepen, hoe gerichter de adverteerders namelijk kunnen adverteren. Om deze doelgroepen te kunnen creëren, 
-                                moet je labels bedenken waartoe je deze doelgroepen kunt definiëren. Hoe specifieker de definitie van een doelgroep, hoe waardevoller deze wordt. 
-                                Een doelgroep “mensen die van eten houden” is voor een producent van frikandellen/bitterballen/kroketten minder waardevol dan de doelgroep 
-                                “mensen die graag frituren”. Dat betekend niet dat de eerste doelgroep helemaal geen waarde, de tweede doelgroep is gewoon van meer waarde. 
-                                Sociale media hebben er dus baat bij om hun gebruikers in doelgroepen onder te verdelen. 
-                                De algoritmes die zij op hun websites hebben draaien, dragen daarbij een fundamentele rol in de definitie ervan. 
-                                Niet alleen omdat ze deze doelgroepen kunnen definiëren, maar ook actief in stand houden.
+                                <strong>Standpunt: Verdieping</strong><br>
+                               Door de personalisering van sociale media bubbels wordt de breedte van content/informatie steeds smaller. Hierdoor ontstaat er minder afleiding over onderwerpen die buiten je interesse gebied vallen, waardoor je steeds dieper verzeilt raakt binnen de content die wel binnen je interesseveld valt.
+                            </p>
+                            <p>
+                                Het standpunt van de gebruiker in relatie tot de sociale media bubbel kan daarbij positief of negatief zijn. De bubbel waar je, je als gebruiker in bevindt toont namelijk met hetzelfde gemak vergelijkbare content aan voor mooie, als lelijke dingen.
                             </p>
 
                             <p>
-                                In dit standpunt heb ik de sociale-media bubbels beschreven vanuit een commercieel standpunt. 
-                                Hierbij stel ik dat de commerciële belangen een invloed hebben op de creatie van sociale-media bubbels, 
-                                omdat dit direct leidt tot omzetverhoging van het platform. 
-                                Omdat de kwantiteit van bubbels leidt specifieke advertentieprofielen die waardevoller zijn dan generieke, algemenere onderwerpen.
+                                Het perspectief welk we hier hebben geschetst is dat van de verdieping die sociale media bubbels bieden. Hoe nauwer de bubbel, hoe dieper de gebruiker in de bubbel terecht zal komen. Hoe breder de bubbel, hoe oppervlakkiger de gebruiker zich kan verdiepen. Het spectrum dat we hiermee creëren is op basis van deze verdieping.
+                            </p>
+                            <p>
+                                Wanneer je met dit perspectief naar de sociale media bubbels kijkt, dan wordt de waarde bepaalt op basis van de diepgang van een bubbel in relatie tot de gebruiker van deze bubbel.
                             </p>
                             <footer>
                                 Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
@@ -85,25 +77,18 @@
                         
                         <div v-if="page == 1">
                             <p>
-                                <strong>Standpunt: Algoritmische curatie</strong><br>
-                                Een sociale-media bubbel is een door algoritme-gecureerd standpunt ten behoeven van een specifiek onderwerp.
-                                Dit biedt de gebruiker de mogelijkheid om het sociale media platform dit algoritme zo in te richten dat hij of zij de informatie te zien krijgt 
-                                waar hij of zij in geïnteresseerd is. Wanneer de gebruiker het platform wilt gebruiken door het bekijken van schattige dieren filmpjes. 
-                                Dan zal het algoritme meer-en-meer video's aanraden van otters die elkaars handen vasthouden, of hupsende, fluffy konijntjes. 
-                                Wilt de gebruiker zichzelf liever educeren op wetenschappelijke thema's, dan zal het video's laten zien van Fritz Haber of fluorescerende schorpioenen. 
-                                De social-media bubbel heeft echter wel een keerzijde. Het heeft geen moreel kompas. Met hetzelfde gemak als dat het eerder genoemde bubbels creëert, 
-                                creëert het met hetzelfde gemak bubbels met video's van kleine meisjes die turnen, 
-                                video's met tips om af te vallen of video's met informatie over hoe je gemakkelijk geld kunt verdienen. 
-                                Op zichzelf niet problematisch. Het is immers geen enkel probleem wanneer de gebruiker een klein meisje is, 
-                                kampt met overgewicht of geïnteresseerd is in financiën. Het wordt echter wel een probleem wanneer de gebruiker een man van boven de 40 is, 
-                                iemand die onzeker is over zijn of haar uiterlijk, of zeer slecht risico's kan inschatten.
+                                <strong>Standpunt: Adverteerders</strong><br>
+                                Bedrijven willen graag consumenten informeren over hun producten en diensten. Dit is een zeer kostbare aangelegenheid omdat de bandbreedte van mensen beperkt is, men kan maar een beperkt aantal informatie tot zich nemen. Hierom willen bedrijven hun potentiële consumenten opsplitsen in groepen, zodat ze hun kosten voor communicatie kunnen minimaliseren.
                             </p>
 
                             <p>
-                                Nu zou je het standpunt kunnen innemen dat het platform niet het probleem is, maar de persoon die het algoritme heeft ingericht. 
-                                En dat is precies waar dit standpunt over gaat. 
-                                Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan 
-                                de hand van de invloed de ze hebben op de gebruiker.
+                                Bedrijven hebben er dus baat bij om in te kunnen tappen op sociale media bubbels van consumenten, zodat zij hun kunnen berichten over hun goederen of diensten. In dit voorbeeld nemen we dus het standpunt in van een bedrijf dat consumenten wilt bereiken.
+                            </p>
+                            <p>
+                                Het perspectief welk we hier hebben geschetst is dat van bedrijven, en hoe ze sociale media bubbels gebruiken om hun boodschap te kunnen verkondigen. Het spectrum van waarde dat daarbij ontstaat is gebaseerd op de conversie van hun boodschap. Hoe beter de bubbel converteert, hoe waardevoller de bubbel is. Kwaliteit en kwantiteit van de bubbels spelen ook een rol in deze waardebepaling.
+                            </p>
+                            <p>
+                                Wanneer je met dit perspectief naar de sociale media bubbels kijkt, dan wordt de waarde van de sociale media bubbel bepaalt op basis van de conversie in relatie tot de adverteerder of gebruiker.
                             </p>
                             <footer>
                                 Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
@@ -114,34 +99,20 @@
 
                         <div v-if="page == 2">
                             <p>
-                                <strong>Standpunt: Verdieping</strong><br>
-                                Sociale-media bubbels zorgen voor een diversiteit aan standpunten waarop je de wereld kunt waarnemen.
-                                Dit leidt tot een breed scala aan verschillende waargenomen realiteiten. 
-                                Neem als voorbeeld bijvoorbeeld de bubbel omtrent de flat-earth theorie. 
-                                Binnen deze bubbel wordt er informatie uitgewisseld met argumenten over waarom de aarde niet bolvorming, maar plat is. 
-                                De mensen die deel uitmaken van deze bubbel zijn per definitie mensen die op enige wijze interesse hebben in dit onderwerp. 
-                                Ongeacht of zij er voor open staan om hun eigen waargenomen realiteit daadwerkelijk in twijfel te trekken of niet, 
-                                zonder interesse in het onderwerp zullen zij geen deel uitmaken van deze bubbel. 
-                                Dat gezegd hebbende, de groep mensen die geloven dat de aarde plat is binnen deze bubbel, 
-                                zal disproportioneel groter zijn dan de groep mensen die dat niet geloven. 
-                                Hierdoor ontstaat de situatie waarin de klassieke manier van waarheidsbepaling (dat wat de meerderheid van de groep voor waar aanneemt) 
-                                voor een ander resultaat zal zorgen binnen deze bubbel dan daarbuiten. Nu is de flat-earth theorie relatief gemakkelijk te weerleggen, 
-                                we hebben immers eeuwen aan wetenschappelijke kennis opgedaan als mensheid waarmee we goed kunnen onderbouwen waarom de aarde niet plat is. 
-                                Wanneer het onderwerp nieuw is echter, en er nog geen eeuwen aan wetenschappelijk onderzoek aan vooraf is gegaan. 
-                                Dan is er veel minder ruimte voor een absolute waarheid. De dynamiek binnen zo'n bubbel blijft echter hetzelfde. 
-                                Zo vindt er in politiek georiënteerde bubbels zelden een tegen geluid van iemand die tot de politieke “tegenpartij” hoort. 
-                                Maar deze eigenschap van van sociale-media bubbels is niet alleen maar negatief. 
-                                Door het ontstaan van deze bubbels ontstaat er ook de mogelijkheid om een verdieping te zoeken (en vinden) 
-                                in standpunten die op geen enkele andere wijze mogelijk zouden zijn, omdat dit simpelweg teveel zou afwijken van de algemene perceptie. 
-                                Kennisontwikkeling ontstaat door het laag voor laag opbouwen van informatie, 
-                                wanneer deze lagen voor iedereen hetzelfde zou zijn dan heeft niemand een afwijkend standpunt meer, en zal de snelheid van informatie groei stagneren.
+                                <strong>Standpunt: Moreel kompas</strong><br>
+                                Sociale media bubbels worden gecureerd door vernuftige algoritmes. Deze algoritmes zorgen ervoor dat je informatie voorgeschoteld krijgt waarvan het algoritme vermoedt dat de conversie zo hoog mogelijk is. Hoe hoger de conversie is op een bepaald onderwerp, hoe meer content de gebruiker over dat onderwerp voorgeschoteld krijgt.
                             </p>
 
                             <p>
-                                In dit standpunt tracht ik duidelijk te maken dat de sociale-media bubbels de mogelijkheid bieden om een verdieping te realiseren, 
-                                welk via de traditionele massa media niet mogelijk is. 
-                                Vanuit dit standpunt heb ik het spectrum gecreëerd waarin sociale media bubbels goed of slecht zijn te definiëren aan de hand van de intenties van de gebruiker.
+                                Het algoritme zal bij een gebruiker die video’s bekijkt met tips om af te vallen, of video’s waarin (over-)gewicht negatief wordt belicht, vanzelf meer van dit soort video’s voorschotelen, zolang de gebruiker hier een hoge mate van interactie mee heeft (conversie). Het algoritme weet echter niet wat het gewicht is van de gebruiker is. Kampt de persoon met ongezond overgewicht en is deze op zoek naar hulp om af te vallen? Of gaat het om een gebruiker met ondergewicht welk worstelt met anorexia?
                             </p>
+                            <p>
+                                Het spectrum welk we hier hebben gecreëerd is dat van het in hogere of mindere mate vertonen van vergelijkbare content. Dit spectrum is te benaderen vanuit het standpunt van de gebruiker en dat van het algoritme.
+                            </p>
+                            <p>
+                                Wanneer je met dit perspectief naar de sociale media bubbels kijkt, dan wordt de waarde van de sociale media bubbel bepaalt op basis van de conversie in relatie tot het algoritme, of de gebruiker.
+                            </p>
+                            
                             <footer>
                                 Klik op 1 van de andere knoppen om het onderwerp “sociale-media bubbel” vanuit een ander standpunt te bekijken.
                             </footer>
@@ -763,7 +734,9 @@ export default defineComponent({
                     duration: 1.28,
                     ease:"power2.inOut",
                 })
-            }         
+            } else {
+                this.readPages[this.page] = true
+            }
 
             this.page = index
             if (index === 0) {
