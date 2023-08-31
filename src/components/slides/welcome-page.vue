@@ -23,7 +23,7 @@
                 <div class="welcome-page-content-bg">
                     <h1>Welkom</h1>
                     <p>
-                        Afgelopen jaar heb ik onderzoek gedaan naar beeldvorming, en hoe dit bijdraagt aan de — in mijn optiek —  groeiende polarisatie in Nederland. Hieruit concludeer ik dat jouw standpunt in relatie tot een onderwerp, jouw perceptie over dat onderwerp beïnvloed. Jouw perceptie bepaald het spectrum van jouw waarheid. Vanuit jouw standpunt is jouw waarheid immers altijd correct. Niemand op de wereld denkt immers dat haar/zijn waarheid onwaar is. Je perceptie heeft dus waarde, omdat je alleen vanuit jouw perspectief naar de waarheid kunt kijken. Dat betekent echter niet dat jouw waarheid de enige waarheid is. 
+                        Afgelopen jaar heb ik onderzoek gedaan naar beeldvorming, en hoe dit bijdraagt aan de — in mijn optiek —  groeiende polarisatie in Nederland. Hieruit concludeer ik dat beeldvorming (je perceptie over een onderwerp) beïnvloed wordt door jouw standpunt in relatie tot dat onderwerp. Daarmee bepaalt jouw perspectief, het spectrum van jouw waarheid. Vanuit jouw standpunt is jouw waarheid immers altijd correct. Niemand op de wereld denkt dat haar/zijn waarheid onwaar is. Je perceptie heeft dus waarde, want jou jouw perspectief bepaalt jouw waarheid. Maar wanneer je anders kijk, deel je dan nog wel dezelfde waarheid? 
                     </p>
                     <p>
                         <br>
