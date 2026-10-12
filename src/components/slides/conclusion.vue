@@ -11,7 +11,7 @@
         <div class="box-container" v-if="step == 1">
             <div class="box" id="box-1">
                 <p>
-                    Je standpunt beïnvloedt welke selectie van informatie je in relatie tot een onderwerp, tot je neemt. 
+                    Je standpunt beïnvloedt welke selectie van informatie je in relatie tot een onderwerp tot je neemt. 
                     Met deze kennis wordt vervolgens jouw beeld van de werkelijkheid gevormd. 
                     Dit standpunt is dynamisch en kan door externe invloeden als <glitch 
                             :duration="640" 
@@ -78,11 +78,11 @@
                         <div v-if="page == 1">
                             <p>
                                 <strong>Standpunt: Adverteerders</strong><br>
-                                Bedrijven willen graag consumenten informeren over hun producten en diensten. Dit is een zeer kostbare aangelegenheid omdat de bandbreedte van mensen beperkt is, men kan maar een beperkt aantal informatie tot zich nemen. Hierom willen bedrijven hun potentiële consumenten opsplitsen in groepen, zodat ze hun kosten voor communicatie kunnen minimaliseren.
+                                Bedrijven willen graag consumenten informeren over hun producten en diensten. Dit is een zeer kostbare aangelegenheid omdat de mentale bandbreedte van mensen beperkt is, men kan maar een beperkt aantal informatie tot zich nemen. Hierom willen bedrijven hun potentiële consumenten opsplitsen in groepen, zodat ze hun kosten voor communicatie kunnen minimaliseren.
                             </p>
 
                             <p>
-                                Bedrijven hebben er dus baat bij om in te kunnen tappen op sociale media bubbels van consumenten, zodat zij hun kunnen berichten over hun goederen of diensten. In dit voorbeeld nemen we dus het standpunt in van een bedrijf dat consumenten wilt bereiken.
+                                Bedrijven hebben er dus baat bij om in te kunnen tappen op sociale media bubbels van consumenten, zodat zij hen kunnen berichten over hun goederen of diensten. In dit voorbeeld nemen we dus het standpunt in van een bedrijf dat consumenten wilt bereiken.
                             </p>
                             <p>
                                 Het perspectief welk we hier hebben geschetst is dat van bedrijven, en hoe ze sociale media bubbels gebruiken om hun boodschap te kunnen verkondigen. Het spectrum van waarde dat daarbij ontstaat is gebaseerd op de conversie van hun boodschap. Hoe beter de bubbel converteert, hoe waardevoller de bubbel is. Kwaliteit en kwantiteit van de bubbels spelen ook een rol in deze waardebepaling.
@@ -104,7 +104,7 @@
                             </p>
 
                             <p>
-                                Het algoritme zal bij een gebruiker die video’s bekijkt met tips om af te vallen, of video’s waarin (over-)gewicht negatief wordt belicht, vanzelf meer van dit soort video’s voorschotelen, zolang de gebruiker hier een hoge mate van interactie mee heeft (conversie). Het algoritme weet echter niet wat het gewicht is van de gebruiker is. Kampt de persoon met ongezond overgewicht en is deze op zoek naar hulp om af te vallen? Of gaat het om een gebruiker met ondergewicht welk worstelt met anorexia?
+                                Het algoritme zal bij een gebruiker die video’s bekijkt met tips om af te vallen, of video’s waarin (over-)gewicht negatief wordt belicht, vanzelf meer van dit soort video’s voorschotelen. Zolang de gebruiker hier een hoge mate van interactie mee heeft (conversie). Het algoritme weet echter niet wat het gewicht is van de gebruiker is. Kampt de persoon met ongezond overgewicht en is deze op zoek naar hulp om af te vallen? Of gaat het om een gebruiker met een gezond gewicht maar met een negatief zelfbeeld?
                             </p>
                             <p>
                                 Het spectrum welk we hier hebben gecreëerd is dat van het in hogere of mindere mate vertonen van vergelijkbare content. Dit spectrum is te benaderen vanuit het standpunt van de gebruiker en dat van het algoritme.

@@ -125,10 +125,12 @@
                                     De ontvanger van informatie kan via dit medium namelijk met hetzelfde gemak, ook als zender van informatie fungeren. 
                                 </p>
                                 <p> 
-                                    Dit geeft iedereen die aan dit medium deelneemt, de mogelijkheid om hun stem te laten horen. 
-                                    Waar je via radio of televisie bijvoorbeled minder dan 100 verschillende zenders kunt consumeren. 
-                                    Kan op het internet iedereen hun vanuit hun eigen standpunt, hun perceptie delen over ieder onderwerp, wat leidt tot een groei van diversiteit in collectieve standpunten
-                                    Omdat het bereik op het internet even groot kan zijn als op de traditionele media, ontstaat er gemakkelijker een wildgroei aan collectieve waarheden.
+                                    Dit geeft iedereen die aan dit medium deelneemt de mogelijkheid om hun stem te laten horen. 
+                                    Waar je via radio of televisie bijvoorbeeld minder dan 100 verschillende zenders kunt consumeren. 
+                                    Kan op het internet, praktisch ieder individu of organisatie hun geluid delen. Zo is de keuze praktisch oneindig, wat leidt tot een explosie van diversiteit in collectieve standpunten.
+                                </p>
+                                <p> 
+                                    Omdat het bereik op het internet gemakkelijk minstens zo groot kan zijn als op dat van de traditionele media, ontstaat er hierdoor een wildgroei aan collectieve waarheden.
                                 </p>
                                 <p>
                                     Websites die deze unieke eigenschap van het internet optimaal benutten zijn de sociale media platformen. 
